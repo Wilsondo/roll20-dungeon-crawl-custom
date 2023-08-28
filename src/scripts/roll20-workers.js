@@ -5003,7 +5003,7 @@ const mvlog = (title, text, color = 'green', style='font-size:12px; font-weight:
     console.log(output,titleStyle,textStyle);
 };
 // can use $ placeholder in attribute names. This converts '$_stat' to 'repeating_section_stat'
-const rep = '$'; //placeholder for repeating_section_
+const rep = '$$'; //placeholder for repeating_section_
 const makeRepeatingName = (attribute, section) => attribute.startsWith(rep) ? attribute.replace(rep, `repeating_${section}_`) : attribute;
 const makeRepeatingAttributes = (attributes, section) => attributes.map(a => makeRepeatingName(a, section));
 const makeRepeatingID = (a, section, id) => a.replace(`repeating_${section}_`,`repeating_${section}_${id}_`);
