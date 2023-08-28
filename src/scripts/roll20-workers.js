@@ -4949,3 +4949,165 @@ let clamp = function (value, min, max) {
 let isDefined = function (value) {
 	return value !== null && typeof(value) !== 'undefined';
 };
+
+// 4e Worker
+const multistats = {
+    strength_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['strength', 'level']},
+    constitution_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['constitution', 'level']},
+    dexterity_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['dexterity', 'level']},
+    intelligence_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['intelligence', 'level']},
+    wisdom_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['wisdom', 'level']},
+    charisma_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['charisma', 'level']},
+    acrobatics_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity_mod_level', 'acrobatics-trained', 'acrobatics-pen', 'acrobatics-misc']},
+    arcana_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence_mod_level', 'arcana-trained', 'arcana-pen', 'arcana-misc']},
+    athletics_modifier: {rule: 'dnd_skill_bonus', attributes: ['strength_mod_level', 'athletics-trained', 'athletics-pen', 'athletics-misc']},
+    bluff_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma_mod_level', 'bluff-trained', 'bluff-pen', 'bluff-misc']},
+    diplomacy_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma_mod_level', 'diplomacy-trained', 'diplomacy-pen', 'diplomacy-misc']},
+    dungeoneering_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'dungeoneering-trained', 'dungeoneering-pen', 'dungeoneering-misc']},
+    endurance_modifier: {rule: 'dnd_skill_bonus', attributes: ['constitution_mod_level', 'endurance-trained', 'endurance-pen', 'endurance-misc']},
+    heal_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'heal-trained', 'heal-pen', 'heal-misc']},
+    history_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence_mod_level', 'history-trained', 'history-pen', 'history-misc']},
+    insight_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'insight-trained', 'insight-pen', 'insight-misc']},
+    intimidate_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma_mod_level', 'intimidate-trained', 'intimidate-pen', 'intimidate-misc']},
+    nature_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'nature-trained', 'nature-pen', 'nature-misc']},
+    perception_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'perception-trained', 'perception-pen', 'perception-misc']},
+    religion_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence_mod_level', 'religion-trained', 'religion-pen', 'religion-misc']},
+    stealth_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity_mod_level', 'stealth-trained', 'stealth-pen', 'stealth-misc']},
+    streetwise_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma_mod_level', 'streetwise-trained', 'streetwise-pen', 'streetwise-misc']},
+    thievery_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity_mod_level', 'thievery-trained', 'thievery-pen', 'thievery-misc']},
+};
+const multifunctions = {
+    dnd_stat_half_bonus: function(arr) {
+        var score = arr[0];
+        var half = arr[1];
+        var bonus = (Math.floor(score/2) -5)+Math.floor(half/2);
+        return bonus;
+    },
+    dnd_skill_bonus: function(arr) {
+        var score = arr[0];
+        var trained = arr[1];
+        var penalty = arr[2];
+        var misc = arr[3];
+        var bonus = score + (trained*5) + penalty + misc;
+        return bonus;
+    },
+};
+
+// ======================================================*/
+//           DO NOT EDIT BELOW THIS LINE                 //
+// ======================================================*/
+const mvlog = (title, text, color = 'green', style='font-size:12px; font-weight:normal;', headerstyle = 'font-size:13px; font-weight:bold;') => {
+    let titleStyle = `color:${color}; ${headerstyle} text-decoration:underline;`;
+    let textStyle = `color:${color}; ${style}`;
+    const output = `%c${title}:%c ${text}`;
+    console.log(output,titleStyle,textStyle);
+};
+// can use $ placeholder in attribute names. This converts '$_stat' to 'repeating_section_stat'
+const rep = '$'; //placeholder for repeating_section_
+const makeRepeatingName = (attribute, section) => attribute.startsWith(rep) ? attribute.replace(rep, `repeating_${section}_`) : attribute;
+const makeRepeatingAttributes = (attributes, section) => attributes.map(a => makeRepeatingName(a, section));
+const makeRepeatingID = (a, section, id) => a.replace(`repeating_${section}_`,`repeating_${section}_${id}_`);
+// given array of attributes, find if any have repeating_ and return the section name
+// section name will be 2nd element of name split on "_"
+const findSection = (arr) => {
+    const s = arr.find(a => a.includes('repeating_'));
+    const section = (s ? s.split('_')[1] : null);
+    return section;
+};
+
+// check if attribute is one where a repeating section attribute depends on attributes both inside and outside the repeating section
+const isMixed = (attributes, destination) => {
+    const some = someRepeating(attributes);
+    const all = allRepeating(attributes);
+    const repeatingdestination = destination.startsWith('repeating_');
+    return (some && !all && repeatingdestination);
+};
+const allRepeating = attributes => attributes.every(r => r.startsWith('repeating_'));
+const someRepeating = attributes => attributes.some(r => r.startsWith('repeating_'));
+
+const defaultDataType = 'array'; // might change this to object
+const getData = (values, data = 'a', isnumbers = 0) => {
+    // only a is functional right now, so this function is redundant.
+    switch(data.charAt(0).toLowerCase()) {
+        case 'o': return values;
+        case 'a': return Object.values(values).map(i => 1 === isnumbers ? parseInt(i) ||0 : (0 === isnumbers ? +i || 0 : i));
+        case 'v': return Object.values(values)[0];
+    }
+};
+
+const processMax = (destination, result, max) => {
+    const settings = {};
+    if(max === 'current' || max === 'both') settings[destination] = result;
+    if(max === 'max' || max === 'both') settings[`${destination}_max`] = result;
+    return settings;
+};
+
+const isFunction = value => value && (Object.prototype.toString.call(value) === '[object Function]' || 'function' === typeof value || value instanceof Function);
+
+const processFunction = (destination, values, section) => {
+    const rule = multistats[destination].rule;
+    const func = isFunction(rule) ? rule:  multifunctions[rule]; // need to test if this works for arrow functions
+    const data = multistats[destination].data || defaultDataType;
+    const v = getData(values, data);
+    const modifier = multistats[destination].modifier || null;
+    const result = func(v, modifier);
+    mvlog(`${makeRepeatingName(destination,section).toUpperCase()} MULTIFUNCTION`, `RULE: ${rule}; VALUES: ${JSON.stringify(values)}; RESULT: ${result}`);
+    return result;
+};
+
+Object.keys(multistats).forEach(destination => {
+    // get the section name if it exists. It is needed for mixed workers
+    const attributes_base = multistats[destination].attributes;
+    const section = multistats[destination].section || findSection(attributes_base) || null;
+    const attributes = makeRepeatingAttributes(attributes_base, section);
+    const realdestination = makeRepeatingName(destination, section); // needed in case of $ in destination
+    mvlog(`MULTIVERSAL- ${realdestination}`,`${attributes.join(', ')}`,'green');
+    if (isMixed(attributes, realdestination)) {
+        const changes = attributes.reduce((change, step) => `${change} change:${step.replace('repeating_' + section + '_','repeating_' +section + ':')}`,
+            `remove:repeating_${section} sheet:opened`);
+        on(changes.toLowerCase(), function (event) {
+            const trigger = event.sourceAttribute || '';
+            const triggerRow = (trigger && trigger.includes('_') && trigger.length >2) ? trigger.split('_')[2] : '';
+            // if triggerRow, only update initial row
+            getSectionIDs(`repeating_${section}`, function (ids) {
+                const sectionAtts = attributes.filter(f => f.startsWith(`repeating_${section}`));
+                const fixedAtts = attributes.filter(f => !f.startsWith(`repeating_${section}`));
+                if (triggerRow) ids = [triggerRow];
+                const fieldNames = ids.reduce( (m,id) => [...m, ...(sectionAtts.map(field => makeRepeatingID(field,section,id) ))],[]);
+                getAttrs([...fieldNames,...fixedAtts], function (values) {
+                    let settings = {};
+                    const max = multistats[destination].max || 'current';
+                    const fixedValues = fixedAtts.reduce((obj, a) => {
+                        obj[a] = values[a];
+                        return obj;
+                    }, {});
+                    ids.forEach(id => {
+                        // first get all relevant attributes for this row of the section
+                        const sectionValues = sectionAtts.reduce((obj, a) => {
+                            const att = makeRepeatingID(a, section, id);
+                            obj[att] = values[att]; 
+                            return obj;}, {});
+                        // now apply the formula for this row and add to settings
+                        const combinedValues = {...sectionValues,...fixedValues};
+                        const result = processFunction(destination,combinedValues, section);
+                        const tempDestination = makeRepeatingID(realdestination,section,id); 
+                        const tempSettings = processMax(tempDestination, result, max);
+                        settings = Object.assign({}, settings, tempSettings);
+                    });
+                    setAttrs(settings);
+                });
+            });
+        });
+    } else {
+        const changes = attributes.reduce((change, step) => `${change} change:${step.replace('repeating_' + section + '_','repeating_' +section + ':')}`,
+            `${someRepeating([...attributes,realdestination]) ? '' : 'sheet:opened '}${section ? `remove:repeating_${section}` : ''}`);
+        on(changes.toLowerCase(), function () {
+            getAttrs(attributes, function (values) {
+                const result = processFunction(destination,values, section);
+                const max = multistats[destination].max || 'current';
+                const settings = processMax(realdestination, result, max);
+                setAttrs(settings);
+            });
+        });
+    }
+});
