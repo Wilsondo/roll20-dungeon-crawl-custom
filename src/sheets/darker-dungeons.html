@@ -1498,7 +1498,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="sheet-container-panel sheet-pc-tools">
+								<!-- <div class="sheet-container-panel sheet-pc-tools">
 									<div class="sheet-container-header">Tools & Custom Skills</div>
 									<div class="sheet-container-body">
 										<div class="sheet-container-body-header">
@@ -1645,7 +1645,7 @@
 											</div>
 										</fieldset>
 									</div>
-								</div>
+								</div> -->
 							</div>
 							<div class="sheet-container-well sheet-container-well-trackers">
 								<div class="sheet-container-box sheet-pc-armor">
@@ -3171,6 +3171,155 @@
 										</fieldset>
 									</div>
 								</div>
+								<div class="sheet-container-panel sheet-pc-tools">
+									<div class="sheet-container-header">Tools & Custom Skills</div>
+									<div class="sheet-container-body">
+										<div class="sheet-container-body-header">
+											<span>Mod</span>
+											<span>Tool/Skill</span>
+										</div>
+										<fieldset class="repeating_tool">
+											<div class="sheet-fieldset-item sheet-fieldset-item-tool">
+												<div class="sheet-checkbox-cog">
+													<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
+													<span class="sheet-toggle-icon"></span>
+												</div>
+												<input type="checkbox" name="attr_options-flag" checked="checked" hidden class="sheet-toggle">
+												<div class="sheet-toggle-checked">
+													<div class="sheet-form">
+														<div class="sheet-form-header">Edit Proficiency</div>
+														<div class="sheet-form-body">
+															<div class="sheet-form-group">
+																<label>Name:</label>
+																<input type="text" name="attr_toolname">
+															</div>
+															<div class="sheet-form-group">
+																<label>Proficiency Bonus:</label>
+																<select name="attr_toolbonus_base">
+																	<option value="(@{pb})" selected="selected">PROFICIENT</option>
+																	<option value="(@{pb}*2)">EXPERTISE</option>
+																	<option value="(floor(@{pb}/2))">JACK OF ALL TRADES</option>
+																</select>
+															</div>
+															<div class="sheet-form-group">
+																<label>Attribute:</label>
+																<select name="attr_toolattr_base">
+																	<option value="@{strength_mod}" selected="selected">Str</option>
+																	<option value="@{dexterity_mod}">Dex</option>
+																	<option value="@{constitution_mod}">Con</option>
+																	<option value="@{intelligence_mod}">Int</option>
+																	<option value="@{wisdom_mod}">Wis</option>
+																	<option value="@{charisma_mod}">Cha</option>
+																	<option value="?{Attribute?|Strength,@{strength_mod}|Dexterity,@{dexterity_mod}|Constitution,@{constitution_mod}|Intelligence,@{intelligence_mod}|Wisdom,@{wisdom_mod}|Charisma,@{charisma_mod}}">Query</option>
+																</select>
+																<label>Mods:</label>
+																<input type="text" name="attr_tool_mod" title="@{tool_mod}" value="0">
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="sheet-toggle-unchecked">
+													<div class="sheet-pc-tool">
+														<button type="roll" name="roll_tool" value="@{wtype}&{template:simple} {{rname=@{toolname}}} {{mod=@{toolbonus}}} {{r1=[[@{d20}+@{toolbonus}@{pbd_safe}]]}} @{rtype}+@{toolbonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}">
+															<span></span>
+															<span name="attr_toolbonus_display"></span>
+															<span name="attr_toolname"></span>
+															<input type="hidden" name="attr_toolbonus">
+															<span name="attr_toolattr"></span>
+														</button>
+													</div>
+												</div>
+											</div>
+										</fieldset>
+										<input type="hidden" name="attr_global_skill_mod_flag" class="sheet-field-toggle">
+										<div class="sheet-form sheet-form-inline">
+											<div class="sheet-form-header">Global Tool Modifiers</div>
+											<div class="sheet-form-body">
+												<fieldset class="repeating_skillmod">
+													<div class="sheet-fieldset-item">
+														<div class="sheet-checkbox-cog">
+															<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
+															<span class="sheet-toggle-icon"></span>
+														</div>
+														<input type="checkbox" name="attr_options-flag" checked="checked" class="sheet-toggle" hidden>
+														<div class="sheet-toggle-checked">
+															<div class="sheet-form">
+																<div class="sheet-form-header">Edit Modifier</div>
+																<div class="sheet-form-body">
+																	<div class="sheet-form-group">
+																		<div class="sheet-form-checkbox">
+																			<input type="checkbox" name="attr_global_skill_active_flag" value="1">
+																		</div>
+																		<input type="text" name="attr_global_skill_name">
+																	</div>
+																	<div class="sheet-form-group">
+																		<label>Roll:</label>
+																		<input type="text" name="attr_global_skill_roll">
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="sheet-toggle-unchecked">
+															<div class="sheet-pc-tool-modifier">
+																<div class="sheet-checkbox-image">
+																	<input type="checkbox" name="attr_global_skill_active_flag" value="1">
+																	<span></span>
+																</div>
+																<span name="attr_global_skill_name"></span>
+																<span name="attr_global_skill_roll"></span>
+															</div>
+														</div>
+													</div>
+												</fieldset>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="sheet-container-panel sheet-pc-proficiencies">
+									<div class="sheet-container-header">Proficiencies & Languages</div>
+									<div class="sheet-container-body">
+										<div class="sheet-container-body-header">
+											<span>Type</span>
+											<span>Proficiency</span>
+										</div>
+										<input type="hidden" name="attr_simpleproficencies" value="complex">
+										<textarea name="attr_other_proficiencies_and_languages" hidden></textarea>
+										<fieldset class="repeating_proficiencies">
+											<div class="sheet-fieldset-item sheet-fieldset-item-proficiency">
+												<div class="sheet-checkbox-cog">
+													<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
+													<span class="sheet-toggle-icon"></span>
+												</div>
+												<input type="checkbox" name="attr_options-flag" checked="checked" class="sheet-toggle" hidden>
+												<div class="sheet-toggle-checked">
+													<div class="sheet-form">
+														<div class="sheet-form-header">Edit Proficiency</div>
+														<div class="sheet-form-body">
+															<div class="sheet-form-group">
+																<select name="attr_prof_type">
+																	<option value="LANGUAGE" selected="selected">Language</option>
+																	<option value="WEAPON">Weapon</option>
+																	<option value="ARMOR">Armor</option>
+																	<option value="OTHER">Other</option>
+																</select>
+																<input type="text" name="attr_name">
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="sheet-toggle-unchecked">
+													<div class="sheet-pc-proficiency">
+														<button type="roll" name="roll_output" value="@{wtype}&{template:traits} @{charname_output} {{name=@{prof_type} PROFICIENCY}} {{description=@{name}}}">
+															<span name="attr_prof_type"></span>
+															<span name="attr_name"></span>
+														</button>
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</div>
+								</div>
+
 							</div>
 						</div>
 					</div>
