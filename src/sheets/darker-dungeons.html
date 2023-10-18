@@ -1017,7 +1017,7 @@
 						<span class="sheet-tab-label">Core</span>
 						<div class="sheet-tab-content">
 							<div class="sheet-container-well sheet-container-well-attributes">
-								<div class="sheet-pc-attributes">
+								<!-- <div class="sheet-pc-attributes">
 									<div class="sheet-container-attribute">
 										<div class="sheet-container-header">
 											<button type="roll" name="roll_strength" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength_mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength_mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength_mod}@{jack_attr}[STR]]]}} @{charname_output}">Strength</button>
@@ -1102,8 +1102,8 @@
 											<span name="attr_charisma"></span>
 										</div>
 									</div>
-								</div>
-								<div class="sheet-container-bar sheet-container-bar-left sheet-pc-proficiency-bonus">
+								</div> -->
+								<!--<div class="sheet-container-bar sheet-container-bar-left sheet-pc-proficiency-bonus">
 									<div class="sheet-container-header">
 										<span>Proficiency Bonus</span>
 									</div>
@@ -1204,7 +1204,7 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> -->
 								<div class="sheet-container-panel sheet-pc-skills">
 									<div class="sheet-container-header">Skill</div>
 									<div class="sheet-container-body">
@@ -1714,7 +1714,7 @@
 							</div>
 							<div class="sheet-grouping-pc-health-conditions">
 								<div class="sheet-container-well sheet-container-well-health">
-									<div class="sheet-container-box sheet-pc-hp-max">
+									<!-- <div class="sheet-container-box sheet-pc-hp-max">
 										<div class="sheet-container-header">Hit Points</div>
 										<div class="sheet-container-body">
 											<input type="text" name="attr_hp_max" title="@{hp_max}">
@@ -1731,8 +1731,8 @@
 											<span>Current</span>
 											<span>Temporary</span>
 										</div>
-									</div>
-									<div class="sheet-container-box sheet-pc-hit-dice">
+									</div> -->
+									<!-- <div class="sheet-container-box sheet-pc-hit-dice">
 										<div class="sheet-container-header">
 											<button type="roll" name="roll_hit_dice" value="@{wtype}&{template:simple} {{rname=Hit Dice}} {{mod=D@{hitdie_final}+[[@{constitution_mod}[CON]]]}} {{r1=[[1d@{hitdie_final}+[[@{constitution_mod}]][CON]]]}} {{normal=1}} @{charname_output}">Hit Dice</button>
 										</div>
@@ -1745,8 +1745,8 @@
 											<span>Remaining</span>
 											<span>Maximum</span>
 										</div>
-									</div>
-									<div class="sheet-container-box sheet-pc-death">
+									</div> -->
+									<!-- <div class="sheet-container-box sheet-pc-death">
 										<div class="sheet-container-header">
 											<input type="hidden" name="attr_show_death_failures_flag" value="1" class="sheet-field-toggle">
 											<button type="roll" name="roll_death_save" value="@{wtype}&{template:simple} {{rname=Death Save}} {{mod=@{death_save_bonus}}} {{r1=[[@{d20}+@{death_save_bonus}[MOD]@{globalsavingthrowbonus}]]}} {{normal=1}} {{global=@{global_save_mod}}} @{charname_output}">
@@ -1792,7 +1792,7 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> -->
 									<div class="sheet-container-panel sheet-pc-health">
 										<div class="sheet-container-header">Health</div>
 										<div class="sheet-container-body">
@@ -2075,100 +2075,10 @@
 											</ul>
 										</div>
 									</div>
-									<div class="sheet-container-bar sheet-pc-rations">
-										<div class="sheet-container-header">Rations</div>
-										<div class="sheet-container-body">
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_ration_1" title="@{ration_1}">
-												<span></span>
-											</div>
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_ration_2" title="@{ration_2}">
-												<span></span>
-											</div>
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_ration_3" title="@{ration_3}">
-												<span></span>
-											</div>
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_ration_4" title="@{ration_4}">
-												<span></span>
-											</div>
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_ration_5" title="@{ration_5}">
-												<span></span>
-											</div>
-										</div>
-									</div>
-									<div class="sheet-container-bar sheet-pc-water">
-										<div class="sheet-container-header">Waterskin</div>
-										<div class="sheet-container-body">
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_waterskin_1" title="@{waterskin_1}">
-												<span></span>
-											</div>
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_waterskin_2" title="@{waterskin_2}">
-												<span></span>
-											</div>
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_waterskin_3" title="@{waterskin_3}">
-												<span></span>
-											</div>
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_waterskin_4" title="@{waterskin_4}">
-												<span></span>
-											</div>
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_waterskin_5" title="@{waterskin_5}">
-												<span></span>
-											</div>
-										</div>
-									</div>
-									<div class="sheet-container-bar sheet-pc-water">
-										<div class="sheet-container-header">Waterskin</div>
-										<div class="sheet-container-body">
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_waterskin_1" title="@{waterskin_1}">
-												<span></span>
-											</div>
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_waterskin_2" title="@{waterskin_2}">
-												<span></span>
-											</div>
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_waterskin_3" title="@{waterskin_3}">
-												<span></span>
-											</div>
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_waterskin_4" title="@{waterskin_4}">
-												<span></span>
-											</div>
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_waterskin_5" title="@{waterskin_5}">
-												<span></span>
-											</div>
-										</div>
-									</div>
-									<div class="sheet-container-box sheet-pc-exhaustion">
-										<div class="sheet-container-header">Exhaustion</div>
-										<div class="sheet-container-body">
-											<input type="text" name="attr_exhaustion_base" title="@{exhaustion_base}" value="0">
-											<span name="attr_exhaustion_wounds" title="@{exhaustion_wounds}"></span>
-											<span name="attr_exhaustion_conditions" title="@{exhaustion_conditions}"></span>
-											<span name="attr_exhaustion_total" title="@{exhaustion_total}"></span>
-										</div>
-										<div class="sheet-container-footer">
-											<span>Base</span>
-											<span>Wounds</span>
-											<span>Cond.</span>
-											<span>Total</span>
-										</div>
-									</div>
 								</div>
 							</div>
 							<div class="sheet-container-well sheet-container-well-attacks">
-								<div class="sheet-container-box sheet-pc-spell-ability">
+								<!-- <div class="sheet-container-box sheet-pc-spell-ability">
 									<div class="sheet-container-header">Spellcasting Ability</div>
 									<div class="sheet-container-body">
 										<select name="attr_spellcasting_ability" title="@{spellcasting_ability}">
@@ -2181,33 +2091,33 @@
 											<option value="@{charisma_mod}+">CHA</option>
 										</select>
 									</div>
-								</div>
-								<div class="sheet-container-box sheet-pc-spell-dc">
+								</div> -->
+								<!-- <div class="sheet-container-box sheet-pc-spell-dc">
 									<div class="sheet-container-header">
 										<button type="roll" name="roll_burnout" value="@{wtype}&{template:simple} {{rname=Saving Throw Attack}} {{mod=@{spell_save_dc}}} {{r1=[[@{d20}+[[@{spell_save_dc}]]]]}} {{normal=1}} @{charname_output}">Spell Save DC</button>
 									</div>
 									<div class="sheet-container-body">
 										<span name="attr_spell_save_dc" title="@{spell_save_dc}"></span>
 									</div>
-								</div>
-								<div class="sheet-container-box sheet-pc-spell-attack">
+								</div> -->
+								<!-- <div class="sheet-container-box sheet-pc-spell-attack">
 									<div class="sheet-container-header">Spell Attack Bonus</div>
 									<div class="sheet-container-body">
 										<span name="attr_spell_attack_bonus" title="@{spell_attack_bonus}"></span>
 									</div>
-								</div>
-								<div class="sheet-container-box sheet-pc-resource-class">
+								</div> -->
+								<!-- <div class="sheet-container-box sheet-pc-resource-class">
 									<div class="sheet-container-header">
 										<input type="text" name="attr_class_resource_name" title="@{class_resource_name}" class="sheet-input-overlay">
 										<span name="attr_class_resource_name" title="@{class_resource_name}">Class Resource</span>
 									</div>
-									<div class="sheet-container-body">
+									 <div class="sheet-container-body">
 										<input type="text" name="attr_class_resource" title="@{class_resource}">
 										<span>/</span>
 										<input type="text" name="attr_class_resource_max" title="@{class_resource_max}">
 									</div>
-								</div>
-								<div class="sheet-container-box sheet-pc-resource-other">
+								</div> -->
+								<!-- <div class="sheet-container-box sheet-pc-resource-other">
 									<div class="sheet-container-header">
 										<input type="text" name="attr_other_resource_name" title="@{other_resource_name}" class="sheet-input-overlay">
 										<span name="attr_other_resource_name">Other Resource</span>
@@ -2217,8 +2127,8 @@
 										<span>/</span>
 										<input type="text" name="attr_other_resource_max" title="@{other_resource_max}">
 									</div>
-								</div>
-								<div class="sheet-container-box sheet-pc-burnout">
+								</div> -->
+								<!-- <div class="sheet-container-box sheet-pc-burnout">
 									<div class="sheet-container-header">
 										<button type="roll" name="roll_burnout" value="@{wtype}&{template:simple} {{rname=Spell Burnout}} {{mod=@{spell_burnout}}} {{r1=[[@{spell_burnout}]]}} {{normal=1}} @{charname_output}">Spell Burnout</button>
 									</div>
@@ -2232,8 +2142,8 @@
 											<option value="d4">d4</option>
 										</select>
 									</div>
-								</div>
-								<div class="sheet-container-panel sheet-pc-resources">
+								</div> -->
+								<!-- <div class="sheet-container-panel sheet-pc-resources">
 									<div class="sheet-container-header">Other Resources</div>
 									<div class="sheet-container-body">
 										<fieldset class="repeating_resource">
@@ -2270,8 +2180,8 @@
 											</div>
 										</fieldset>
 									</div>
-								</div>
-								<div class="sheet-container-panel sheet-pc-attacks">
+								</div> -->
+								<!-- <div class="sheet-container-panel sheet-pc-attacks">
 									<div class="sheet-container-header">Attacks & Spellcasting</div>
 									<div class="sheet-container-body">
 										<fieldset class="repeating_attack">
@@ -2583,7 +2493,7 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> -->
 							</div>
 							<div class="sheet-container-effects">
 								<input type="hidden" name="attr_show_stress_flag" value="1" class="sheet-field-toggle">
@@ -2680,7 +2590,7 @@
 									</div>
 								</div>
 								<div class="sheet-container-well sheet-container-well-effects">
-									<input type="hidden" name="attr_show_exhaustion_flag" value="1" class="sheet-field-toggle">
+									<!-- <input type="hidden" name="attr_show_exhaustion_flag" value="1" class="sheet-field-toggle">
 									<div class="sheet-container-panel sheet-pc-exhaustion-details">
 										<div class="sheet-container-header">Exhaustion Effects</div>
 										<div class="sheet-container-body">
@@ -2729,7 +2639,7 @@
 												</li>
 											</ul>
 										</div>
-									</div>
+									</div> -->
 									<div class="sheet-container-panel sheet-pc-effects">
 										<div class="sheet-container-header">Effects & Conditions</div>
 										<div class="sheet-container-body">
