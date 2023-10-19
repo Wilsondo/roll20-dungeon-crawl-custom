@@ -431,36 +431,36 @@
 		}
 	}
 
-		.sheet-pc-notes {
-			grid-area: notes;
+	.sheet-pc-notes {
+		grid-area: notes;
 
-			// .repitem + .repitem {
-			// 	margin-top: 5px;
-			// 	padding-top: 5px;
-			// 	border-top: 1px dotted #dddddd;
-			// }
+		// .repitem + .repitem {
+		// 	margin-top: 5px;
+		// 	padding-top: 5px;
+		// 	border-top: 1px dotted #dddddd;
+		// }
 
-			textarea {
-				flex-grow: 1;
-				min-height: 39px;
-				font-size: 15px;
-				border: 0;
-				padding: 0;
-				resize: none;
-				margin: 0;
-				height: auto;
-				line-height: 13px;
-			}
-			// .sheet-pc-note {
-			// 	font-size: 11px;
-
-			// 	span:first-of-type {
-			// 		font-weight: bold;
-			// 		background: #dddddd;
-			// 		padding: 3px 5px;
-			// 		border-radius: 3px;
-			// 	}
-			// }
+		textarea {
+			flex-grow: 1;
+			min-height: 39px;
+			font-size: 15px;
+			border: 0;
+			padding: 0;
+			resize: none;
+			margin: 0;
+			height: auto;
+			line-height: 13px;
 		}
+		// .sheet-pc-note {
+		// 	font-size: 11px;
+
+		// 	span:first-of-type {
+		// 		font-weight: bold;
+		// 		background: #dddddd;
+		// 		padding: 3px 5px;
+		// 		border-radius: 3px;
+		// 	}
+		// }
 	}
+	
 }
