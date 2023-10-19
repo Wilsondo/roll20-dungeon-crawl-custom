@@ -1017,194 +1017,6 @@
 						<span class="sheet-tab-label">Core</span>
 						<div class="sheet-tab-content">
 							<div class="sheet-container-well sheet-container-well-attributes">
-								<!-- <div class="sheet-pc-attributes">
-									<div class="sheet-container-attribute">
-										<div class="sheet-container-header">
-											<button type="roll" name="roll_strength" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength_mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength_mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength_mod}@{jack_attr}[STR]]]}} @{charname_output}">Strength</button>
-										</div>
-										<div class="sheet-container-body">
-											<span name="attr_strength_mod" title="@{strength_mod}">0</span>
-										</div>
-										<div class="sheet-container-footer">
-											<input type="text" name="attr_strength_base" title="@{strength}" value="10">
-											<input type="hidden" name="attr_strength" value="10">
-											<input type="hidden" name="attr_strength_flag" value="0" class="sheet-field-toggle">
-											<span name="attr_strength"></span>
-										</div>
-									</div>
-									<div class="sheet-container-attribute">
-										<div class="sheet-container-header">
-											<button type="roll" name="roll_dexterity" value="@{wtype}&{template:simple} {{rname=Dexterity}} {{mod=@{dexterity_mod}@{jack_bonus}}} {{r1=[[@{d20}+@{dexterity_mod}@{jack_attr}[DEX]]]}} @{rtype}+@{dexterity_mod}@{jack_attr}[DEX]]]}} @{charname_output}">Dexterity</button>
-										</div>
-										<div class="sheet-container-body">
-											<span name="attr_dexterity_mod" title="@{dexterity_mod}">0</span>
-										</div>
-										<div class="sheet-container-footer">
-											<input type="text" name="attr_dexterity_base" title="@{dexterity}" value="10">
-											<input type="hidden" name="attr_dexterity" value="10">
-											<input type="hidden" name="attr_dexterity_flag" value="0" class="sheet-field-toggle">
-											<span name="attr_dexterity"></span>
-										</div>
-									</div>
-									<div class="sheet-container-attribute">
-										<div class="sheet-container-header">
-											<button type="roll" name="roll_constitution" value="@{wtype}&{template:simple} {{rname=Constitution}} {{mod=@{constitution_mod}@{jack_bonus}}} {{r1=[[@{d20}+@{constitution_mod}@{jack_attr}[CON]]]}} @{rtype}+@{constitution_mod}@{jack_attr}[CON]]]}} @{charname_output}">Constitution</button>
-										</div>
-										<div class="sheet-container-body">
-											<span name="attr_constitution_mod" title="@{constitution_mod}">0</span>
-										</div>
-										<div class="sheet-container-footer">
-											<input type="text" name="attr_constitution_base" title="@{constitution}" value="10">
-											<input type="hidden" name="attr_constitution" value="10">
-											<input type="hidden" name="attr_constitution_flag" value="0" class="sheet-field-toggle">
-											<span name="attr_constitution"></span>
-										</div>
-									</div>
-									<div class="sheet-container-attribute">
-										<div class="sheet-container-header">
-											<button type="roll" name="roll_intelligence" value="@{wtype}&{template:simple} {{rname=Intelligence}} {{mod=@{intelligence_mod}@{jack_bonus}}} {{r1=[[@{d20}+@{intelligence_mod}@{jack_attr}[INT]]]}} @{rtype}+@{intelligence_mod}@{jack_attr}[INT]]]}} @{charname_output}">Intelligence</button>
-										</div>
-										<div class="sheet-container-body">
-											<span name="attr_intelligence_mod" title="@{intelligence_mod}">0</span>
-										</div>
-										<div class="sheet-container-footer">
-											<input type="text" name="attr_intelligence_base" title="@{intelligence}" value="10">
-											<input type="hidden" name="attr_intelligence" value="10">
-											<input type="hidden" name="attr_intelligence_flag" value="0" class="sheet-field-toggle">
-											<span name="attr_intelligence"></span>
-										</div>
-									</div>
-									<div class="sheet-container-attribute">
-										<div class="sheet-container-header">
-											<button type="roll" name="roll_wisdom" value="@{wtype}&{template:simple} {{rname=Wisdom}} {{mod=@{wisdom_mod}@{jack_bonus}}} {{r1=[[@{d20}+@{wisdom_mod}@{jack_attr}[WIS]]]}} @{rtype}+@{wisdom_mod}@{jack_attr}[WIS]]]}} @{charname_output}">Wisdom</button>
-										</div>
-										<div class="sheet-container-body">
-											<span name="attr_wisdom_mod" title="@{wisdom_mod}">0</span>
-										</div>
-										<div class="sheet-container-footer">
-											<input type="text" name="attr_wisdom_base" title="@{wisdom}" value="10">
-											<input type="hidden" name="attr_wisdom" value="10">
-											<input type="hidden" name="attr_wisdom_flag" value="0" class="sheet-field-toggle">
-											<span name="attr_wisdom"></span>
-										</div>
-									</div>
-									<div class="sheet-container-attribute">
-										<div class="sheet-container-header">
-											<button type="roll" name="roll_charisma" value="@{wtype}&{template:simple} {{rname=Charisma}} {{mod=@{charisma_mod}@{jack_bonus}}} {{r1=[[@{d20}+@{charisma_mod}@{jack_attr}[CHA]]]}} @{rtype}+@{charisma_mod}@{jack_attr}[CHA]]]}} @{charname_output}">Charisma</button>
-										</div>
-										<div class="sheet-container-body">
-											<span name="attr_charisma_mod" title="@{charisma_mod}">0</span>
-										</div>
-										<div class="sheet-container-footer">
-											<input type="text" name="attr_charisma_base" title="@{charisma}" value="10">
-											<input type="hidden" name="attr_charisma" value="10">
-											<input type="hidden" name="attr_charisma_flag" value="0" class="sheet-field-toggle">
-											<span name="attr_charisma"></span>
-										</div>
-									</div>
-								</div> -->
-								<!--<div class="sheet-container-bar sheet-container-bar-left sheet-pc-proficiency-bonus">
-									<div class="sheet-container-header">
-										<span>Proficiency Bonus</span>
-									</div>
-									<div class="sheet-container-body">
-										<span name="attr_pb" title="@{pb}"></span>
-									</div>
-								</div>
-								<div class="sheet-container-panel sheet-pc-saves">
-									<div class="sheet-container-header">Saving Throws</div>
-									<div class="sheet-container-body">
-										<div class="sheet-pc-saving-throw">
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_strength_save_prof" title="@{strength_save_prof}" value="(@{pb})">
-												<span></span>
-											</div>
-											<span name="attr_strength_save_bonus" title="@{strength_save_bonus}">0</span>
-											<button type="roll" name="roll_strength_save" value="@{wtype}&{template:simple} {{rname=Strength Save}} {{mod=@{strength_save_bonus}}} {{r1=[[@{d20}+@{strength_save_bonus}@{pbd_safe}]]}} @{rtype}+@{strength_save_bonus}@{pbd_safe}]]}} {{global=@{global_save_mod}}} @{charname_output}">Strength</button>
-										</div>
-										<div class="sheet-pc-saving-throw">
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_dexterity_save_prof" title="@{dexterity_save_prof}" value="(@{pb})">
-												<span></span>
-											</div>
-											<span name="attr_dexterity_save_bonus" title="@{dexterity_save_bonus}">0</span>
-											<button type="roll" name="roll_dexterity_save" value="@{wtype}&{template:simple} {{rname=Dexterity Save}} {{mod=@{dexterity_save_bonus}}} {{r1=[[@{d20}+@{dexterity_save_bonus}@{pbd_safe}]]}} @{rtype}+@{dexterity_save_bonus}@{pbd_safe}]]}} {{global=@{global_save_mod}}} @{charname_output}">Dexterity</button>
-										</div>
-										<div class="sheet-pc-saving-throw">
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_constitution_save_prof" title="@{constitution_save_prof}" value="(@{pb})">
-												<span></span>
-											</div>
-											<span name="attr_constitution_save_bonus" title="@{constitution_save_bonus}">0</span>
-											<button type="roll" name="roll_constitution_save" value="@{wtype}&{template:simple} {{rname=Constitution Save}} {{mod=@{constitution_save_bonus}}} {{r1=[[@{d20}+@{constitution_save_bonus}@{pbd_safe}]]}} @{rtype}+@{constitution_save_bonus}@{pbd_safe}]]}} {{global=@{global_save_mod}}} @{charname_output}">Constitution</button>
-										</div>
-										<div class="sheet-pc-saving-throw">
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_intelligence_save_prof" title="@{intelligence_save_prof}" value="(@{pb})">
-												<span></span>
-											</div>
-											<span name="attr_intelligence_save_bonus" title="@{intelligence_save_bonus}">0</span>
-											<button type="roll" name="roll_intelligence_save" value="@{wtype}&{template:simple} {{rname=Intelligence Save}} {{mod=@{intelligence_save_bonus}}} {{r1=[[@{d20}+@{intelligence_save_bonus}@{pbd_safe}]]}} @{rtype}+@{intelligence_save_bonus}@{pbd_safe}]]}} {{global=@{global_save_mod}}} @{charname_output}">Intelligence</button>
-										</div>
-										<div class="sheet-pc-saving-throw">
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_wisdom_save_prof" title="@{wisdom_save_prof}" value="(@{pb})">
-												<span></span>
-											</div>
-											<span name="attr_wisdom_save_bonus" title="@{wisdom_save_bonus}">0</span>
-											<button type="roll" name="roll_wisdom_save" value="@{wtype}&{template:simple} {{rname=Wisdom Save}} {{mod=@{wisdom_save_bonus}}} {{r1=[[@{d20}+@{wisdom_save_bonus}@{pbd_safe}]]}} @{rtype}+@{wisdom_save_bonus}@{pbd_safe}]]}} {{global=@{global_save_mod}}} @{charname_output}">Wisdom</button>
-										</div>
-										<div class="sheet-pc-saving-throw">
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_charisma_save_prof" title="@{charisma_save_prof}" value="(@{pb})">
-												<span></span>
-											</div>
-											<span name="attr_charisma_save_bonus" title="@{charisma_save_bonus}">0</span>
-											<button type="roll" name="roll_charisma_save" value="@{wtype}&{template:simple} {{rname=Charisma Save}} {{mod=@{charisma_save_bonus}}} {{r1=[[@{d20}+@{charisma_save_bonus}@{pbd_safe}]]}} @{rtype}+@{charisma_save_bonus}@{pbd_safe}]]}} {{global=@{global_save_mod}}} @{charname_output}">Charisma</button>
-										</div>
-										<input type="hidden" name="attr_global_save_mod_flag" class="sheet-field-toggle">
-										<div class="sheet-form sheet-form-inline">
-											<div class="sheet-form-header">Global Save Modifiers</div>
-											<div class="sheet-form-body">
-												<fieldset class="repeating_savemod">
-													<div class="sheet-fieldset-item">
-														<div class="sheet-checkbox-cog">
-															<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
-															<span class="sheet-toggle-icon"></span>
-														</div>
-														<input type="checkbox" name="attr_options-flag" checked="checked" class="sheet-toggle" hidden>
-														<div class="sheet-toggle-checked">
-															<div class="sheet-form">
-																<div class="sheet-form-header">Edit Modifier</div>
-																<div class="sheet-form-body">
-																	<div class="sheet-form-group">
-																		<label class="sheet-form-checkbox">
-																			<input type="checkbox" name="attr_global_save_active_flag" value="1">
-																		</label>
-																		<input type="text" name="attr_global_save_name">
-																	</div>
-																	<div class="sheet-form-group">
-																		<label>Roll:</label>
-																		<input type="text" name="attr_global_save_roll">
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="sheet-toggle-unchecked">
-															<div class="sheet-pc-saving-throw-modifier">
-																<div class="sheet-checkbox-image">
-																	<input type="checkbox" name="attr_global_save_active_flag" value="1">
-																	<span></span>
-																</div>
-																<span name="attr_global_save_name"></span><span name="attr_global_save_roll"></span>
-															</div>
-														</div>
-													</div>
-												</fieldset>
-											</div>
-										</div>
-									</div>
-								</div> -->
 								<div class="sheet-container-panel sheet-pc-skills">
 									<div class="sheet-container-header">Skill</div>
 									<div class="sheet-container-body">
@@ -1215,30 +1027,6 @@
 											</div>
 											<span name="attr_acrobatics_bonus" title="@{acrobatics_bonus}">0</span>
 											<button type="roll" name="roll_acrobatics" value="@{wtype}&{template:simple} {{rname=@{acrobatics_attribute} (Acrobatics)}} {{mod=@{acrobatics_bonus}}} {{r1=[[@{d20}+@{acrobatics_bonus}@{pbd_safe}]]}} @{rtype}+@{acrobatics_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}">Acrobatics</button>
-											<select name="attr_acrobatics_attribute" title="@{acrobatics_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity" selected="selected">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence">Int</option>
-												<option value="Wisdom">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
-										</div>
-										<div class="sheet-pc-skill sheet-pc-skill-animal-handling">
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_animal_handling_prof" title="@{animal_handling_prof}" value="(@{pb}*@{animal_handling_type})">
-												<span></span>
-											</div>
-											<span name='attr_animal_handling_bonus' title='@{animal_handling_bonus}'>0</span>
-											<button type='roll' name='roll_animal_handling' value='@{wtype}&{template:simple} {{rname=@{animal_handling_attribute} (Animal Handling)}} {{mod=@{animal_handling_bonus}}} {{r1=[[@{d20}+@{animal_handling_bonus}@{pbd_safe}]]}} @{rtype}+@{animal_handling_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Animal Handling</button>
-											<select name="attr_animal_handling_attribute" title="@{animal_handling_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence">Int</option>
-												<option value="Wisdom" selected="selected">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1247,14 +1035,6 @@
 											</div>
 											<span name='attr_arcana_bonus' title='@{arcana_bonus}'>0</span>
 											<button type='roll' name='roll_arcana' value='@{wtype}&{template:simple} {{rname=@{arcana_attribute} (Arcana)}} {{mod=@{arcana_bonus}}} {{r1=[[@{d20}+@{arcana_bonus}@{pbd_safe}]]}} @{rtype}+@{arcana_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Arcana</button>
-											<select name="attr_arcana_attribute" title="@{arcana_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence" selected="selected">Int</option>
-												<option value="Wisdom">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1263,14 +1043,6 @@
 											</div>
 											<span name='attr_athletics_bonus' title='@{athletics_bonus}'>0</span>
 											<button type='roll' name='roll_athletics' value='@{wtype}&{template:simple} {{rname=@{athletics_attribute} (Athletics)}} {{mod=@{athletics_bonus}}} {{r1=[[@{d20}+@{athletics_bonus}@{pbd_safe}]]}} @{rtype}+@{athletics_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Athletics</button>
-											<select name="attr_athletics_attribute" title="@{athletics_attribute}">
-												<option value="Strength" selected="selected">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence">Int</option>
-												<option value="Wisdom">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1279,14 +1051,6 @@
 											</div>
 											<span name='attr_deception_bonus' title='@{deception_bonus}'>0</span>
 											<button type='roll' name='roll_deception' value='@{wtype}&{template:simple} {{rname=@{deception_attribute} (Deception)}} {{mod=@{deception_bonus}}} {{r1=[[@{d20}+@{deception_bonus}@{pbd_safe}]]}} @{rtype}+@{deception_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Deception</button>
-											<select name="attr_deception_attribute" title="@{deception_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence">Int</option>
-												<option value="Wisdom">Wis</option>
-												<option value="Charisma" selected="selected">Cha</option>
-											</select>
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1295,14 +1059,6 @@
 											</div>
 											<span name='attr_history_bonus' title='@{history_bonus}'>0</span>
 											<button type='roll' name='roll_history' value='@{wtype}&{template:simple} {{rname=@{history_attribute} (History)}} {{mod=@{history_bonus}}} {{r1=[[@{d20}+@{history_bonus}@{pbd_safe}]]}} @{rtype}+@{history_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>History</button>
-											<select name="attr_history_attribute" title="@{history_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence" selected="selected">Int</option>
-												<option value="Wisdom">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1311,14 +1067,7 @@
 											</div>
 											<span name='attr_insight_bonus' title='@{insight_bonus}'>0</span>
 											<button type='roll' name='roll_insight' value='@{wtype}&{template:simple} {{rname=@{insight_attribute} (Insight)}} {{mod=@{insight_bonus}}} {{r1=[[@{d20}+@{insight_bonus}@{pbd_safe}]]}} @{rtype}+@{insight_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Insight</button>
-											<select name="attr_insight_attribute" title="@{insight_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence">Int</option>
-												<option value="Wisdom" selected="selected">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
+											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1327,14 +1076,7 @@
 											</div>
 											<span name='attr_intimidation_bonus' title='@{intimidation_bonus}'>0</span>
 											<button type='roll' name='roll_intimidation' value='@{wtype}&{template:simple} {{rname=@{intimidation_attribute} (Intimidation)}} {{mod=@{intimidation_bonus}}} {{r1=[[@{d20}+@{intimidation_bonus}@{pbd_safe}]]}} @{rtype}+@{intimidation_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Intimidation</button>
-											<select name="attr_intimidation_attribute" title="@{intimidation_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence">Int</option>
-												<option value="Wisdom">Wis</option>
-												<option value="Charisma" selected="selected">Cha</option>
-											</select>
+											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1343,14 +1085,7 @@
 											</div>
 											<span name='attr_investigation_bonus' title='@{investigation_bonus}'>0</span>
 											<button type='roll' name='roll_investigation' value='@{wtype}&{template:simple} {{rname=@{investigation_attribute} (Investigation)}} {{mod=@{investigation_bonus}}} {{r1=[[@{d20}+@{investigation_bonus}@{pbd_safe}]]}} @{rtype}+@{investigation_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Investigation</button>
-											<select name="attr_investigation_attribute" title="@{investigation_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence" selected="selected">Int</option>
-												<option value="Wisdom">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
+											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1359,14 +1094,7 @@
 											</div>
 											<span name='attr_medicine_bonus' title='@{medicine_bonus}'>0</span>
 											<button type='roll' name='roll_medicine' value='@{wtype}&{template:simple} {{rname=@{medicine_attribute} (Medicine)}} {{mod=@{medicine_bonus}}} {{r1=[[@{d20}+@{medicine_bonus}@{pbd_safe}]]}} @{rtype}+@{medicine_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Medicine</button>
-											<select name="attr_medicine_attribute" title="@{medicine_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence">Int</option>
-												<option value="Wisdom" selected="selected">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
+											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1375,14 +1103,7 @@
 											</div>
 											<span name='attr_nature_bonus' title='@{nature_bonus}'>0</span>
 											<button type='roll' name='roll_nature' value='@{wtype}&{template:simple} {{rname=@{nature_attribute} (Nature)}} {{mod=@{nature_bonus}}} {{r1=[[@{d20}+@{nature_bonus}@{pbd_safe}]]}} @{rtype}+@{nature_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Nature</button>
-											<select name="attr_nature_attribute" title="@{nature_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence" selected="selected">Int</option>
-												<option value="Wisdom">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
+											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1391,14 +1112,7 @@
 											</div>
 											<span name='attr_perception_bonus' title='@{perception_bonus}'>0</span>
 											<button type='roll' name='roll_perception' value='@{wtype}&{template:simple} {{rname=@{perception_attribute} (Perception)}} {{mod=@{perception_bonus}}} {{r1=[[@{d20}+@{perception_bonus}@{pbd_safe}]]}} @{rtype}+@{perception_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Perception</button>
-											<select name="attr_perception_attribute" title="@{perception_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence">Int</option>
-												<option value="Wisdom" selected="selected">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
+											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1407,14 +1121,7 @@
 											</div>
 											<span name='attr_performance_bonus' title='@{performance_bonus}'>0</span>
 											<button type='roll' name='roll_performance' value='@{wtype}&{template:simple} {{rname=@{performance_attribute} (Performance)}} {{mod=@{performance_bonus}}} {{r1=[[@{d20}+@{performance_bonus}@{pbd_safe}]]}} @{rtype}+@{performance_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Performance</button>
-											<select name="attr_performance_attribute" title="@{performance_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence">Int</option>
-												<option value="Wisdom">Wis</option>
-												<option value="Charisma" selected="selected">Cha</option>
-											</select>
+											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1423,14 +1130,7 @@
 											</div>
 											<span name='attr_persuasion_bonus' title='@{persuasion_bonus}'>0</span>
 											<button type='roll' name='roll_persuasion' value='@{wtype}&{template:simple} {{rname=@{persuasion_attribute} (Persuasion)}} {{mod=@{persuasion_bonus}}} {{r1=[[@{d20}+@{persuasion_bonus}@{pbd_safe}]]}} @{rtype}+@{persuasion_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Persuasion</button>
-											<select name="attr_persuasion_attribute" title="@{persuasion_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence">Int</option>
-												<option value="Wisdom">Wis</option>
-												<option value="Charisma" selected="selected">Cha</option>
-											</select>
+											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1439,14 +1139,7 @@
 											</div>
 											<span name='attr_religion_bonus' title='@{religion_bonus}'>0</span>
 											<button type='roll' name='roll_religion' value='@{wtype}&{template:simple} {{rname=@{religion_attribute} (Religion)}} {{mod=@{religion_bonus}}} {{r1=[[@{d20}+@{religion_bonus}@{pbd_safe}]]}} @{rtype}+@{religion_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Religion</button>
-											<select name="attr_religion_attribute" title="@{religion_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence" selected="selected">Int</option>
-												<option value="Wisdom">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
+											
 										</div>
 										<div class="sheet-pc-skill sheet-pc-skill-sleight-of-hand">
 											<div class="sheet-checkbox-image">
@@ -1455,14 +1148,7 @@
 											</div>
 											<span name='attr_sleight_of_hand_bonus' title='@{sleight_of_hand_bonus}'>0</span>
 											<button type='roll' name='roll_sleight_of_hand' value='@{wtype}&{template:simple} {{rname=@{sleight_of_hand_attribute} (Sleight of Hand)}} {{mod=@{sleight_of_hand_bonus}}} {{r1=[[@{d20}+@{sleight_of_hand_bonus}@{pbd_safe}]]}} @{rtype}+@{sleight_of_hand_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Sleight of Hand</button>
-											<select name="attr_sleight_of_hand_attribute" title="@{sleight_of_hand_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity" selected="selected">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence">Int</option>
-												<option value="Wisdom">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
+											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1471,14 +1157,7 @@
 											</div>
 											<span name='attr_stealth_bonus' title='@{stealth_bonus}'>0</span>
 											<button type='roll' name='roll_stealth' value='@{wtype}&{template:simple} {{rname=@{stealth_attribute} (Stealth)}} {{mod=@{stealth_bonus}}} {{r1=[[@{d20}+@{stealth_bonus}@{pbd_safe}]]}} @{rtype}+@{stealth_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Stealth</button>
-											<select name="attr_stealth_attribute" title="@{stealth_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity" selected="selected">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence">Int</option>
-												<option value="Wisdom">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
+											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1487,132 +1166,70 @@
 											</div>
 											<span name='attr_survival_bonus' title='@{survival_bonus}'>0</span>
 											<button type='roll' name='roll_survival' value='@{wtype}&{template:simple} {{rname=@{survival_attribute} (Survival)}} {{mod=@{survival_bonus}}} {{r1=[[@{d20}+@{survival_bonus}@{pbd_safe}]]}} @{rtype}+@{survival_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Survival</button>
-											<select name="attr_survival_attribute" title="@{survival_attribute}">
-												<option value="Strength">Str</option>
-												<option value="Dexterity">Dex</option>
-												<option value="Constitution">Con</option>
-												<option value="Intelligence">Int</option>
-												<option value="Wisdom" selected="selected">Wis</option>
-												<option value="Charisma">Cha</option>
-											</select>
+											
 										</div>
 									</div>
 								</div>
-								<!-- <div class="sheet-container-panel sheet-pc-tools">
-									<div class="sheet-container-header">Tools & Custom Skills</div>
+								<!-- Change template to show perception -->
+								<div class="sheet-container-attribute">
+									<div class="sheet-container-header">
+										<button type="roll" name="roll_passive_perception" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength_mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength_mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength_mod}@{jack_attr}[STR]]]}} @{charname_output}">Passive Perception</button>
+									</div>
 									<div class="sheet-container-body">
-										<div class="sheet-container-body-header">
-											<span>Mod</span>
-											<span>Tool/Skill</span>
-										</div>
-										<fieldset class="repeating_tool">
-											<div class="sheet-fieldset-item sheet-fieldset-item-tool">
-												<div class="sheet-checkbox-cog">
-													<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
-													<span class="sheet-toggle-icon"></span>
-												</div>
-												<input type="checkbox" name="attr_options-flag" checked="checked" hidden class="sheet-toggle">
-												<div class="sheet-toggle-checked">
-													<div class="sheet-form">
-														<div class="sheet-form-header">Edit Proficiency</div>
-														<div class="sheet-form-body">
-															<div class="sheet-form-group">
-																<label>Name:</label>
-																<input type="text" name="attr_toolname">
-															</div>
-															<div class="sheet-form-group">
-																<label>Proficiency Bonus:</label>
-																<select name="attr_toolbonus_base">
-																	<option value="(@{pb})" selected="selected">PROFICIENT</option>
-																	<option value="(@{pb}*2)">EXPERTISE</option>
-																	<option value="(floor(@{pb}/2))">JACK OF ALL TRADES</option>
-																</select>
-															</div>
-															<div class="sheet-form-group">
-																<label>Attribute:</label>
-																<select name="attr_toolattr_base">
-																	<option value="@{strength_mod}" selected="selected">Str</option>
-																	<option value="@{dexterity_mod}">Dex</option>
-																	<option value="@{constitution_mod}">Con</option>
-																	<option value="@{intelligence_mod}">Int</option>
-																	<option value="@{wisdom_mod}">Wis</option>
-																	<option value="@{charisma_mod}">Cha</option>
-																	<option value="?{Attribute?|Strength,@{strength_mod}|Dexterity,@{dexterity_mod}|Constitution,@{constitution_mod}|Intelligence,@{intelligence_mod}|Wisdom,@{wisdom_mod}|Charisma,@{charisma_mod}}">Query</option>
-																</select>
-																<label>Mods:</label>
-																<input type="text" name="attr_tool_mod" title="@{tool_mod}" value="0">
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="sheet-toggle-unchecked">
-													<div class="sheet-pc-tool">
-														<button type="roll" name="roll_tool" value="@{wtype}&{template:simple} {{rname=@{toolname}}} {{mod=@{toolbonus}}} {{r1=[[@{d20}+@{toolbonus}@{pbd_safe}]]}} @{rtype}+@{toolbonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}">
-															<span></span>
-															<span name="attr_toolbonus_display"></span>
-															<span name="attr_toolname"></span>
-															<input type="hidden" name="attr_toolbonus">
-															<span name="attr_toolattr"></span>
-														</button>
-													</div>
-												</div>
-											</div>
-										</fieldset>
-										<input type="hidden" name="attr_global_skill_mod_flag" class="sheet-field-toggle">
-										<div class="sheet-form sheet-form-inline">
-											<div class="sheet-form-header">Global Tool Modifiers</div>
-											<div class="sheet-form-body">
-												<fieldset class="repeating_skillmod">
-													<div class="sheet-fieldset-item">
-														<div class="sheet-checkbox-cog">
-															<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
-															<span class="sheet-toggle-icon"></span>
-														</div>
-														<input type="checkbox" name="attr_options-flag" checked="checked" class="sheet-toggle" hidden>
-														<div class="sheet-toggle-checked">
-															<div class="sheet-form">
-																<div class="sheet-form-header">Edit Modifier</div>
-																<div class="sheet-form-body">
-																	<div class="sheet-form-group">
-																		<div class="sheet-form-checkbox">
-																			<input type="checkbox" name="attr_global_skill_active_flag" value="1">
-																		</div>
-																		<input type="text" name="attr_global_skill_name">
-																	</div>
-																	<div class="sheet-form-group">
-																		<label>Roll:</label>
-																		<input type="text" name="attr_global_skill_roll">
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="sheet-toggle-unchecked">
-															<div class="sheet-pc-tool-modifier">
-																<div class="sheet-checkbox-image">
-																	<input type="checkbox" name="attr_global_skill_active_flag" value="1">
-																	<span></span>
-																</div>
-																<span name="attr_global_skill_name"></span>
-																<span name="attr_global_skill_roll"></span>
-															</div>
-														</div>
-													</div>
-												</fieldset>
-											</div>
-										</div>
+										<span name="attr_strength_mod" title="@{strength_mod}">0</span>
+									</div>
+									<div class="sheet-container-footer">
+										<input type="text" name="attr_strength_base" title="@{strength}" value="10">
+										<input type="hidden" name="attr_strength" value="10">
+										<input type="hidden" name="attr_strength_flag" value="0" class="sheet-field-toggle">
+										<span name="attr_strength"></span>
 									</div>
 								</div>
-								<div class="sheet-container-panel sheet-pc-proficiencies">
-									<div class="sheet-container-header">Proficiencies & Languages</div>
+								<div class="sheet-container-attribute">
+									<div class="sheet-container-header">
+										<button type="roll" name="roll_passive_insight" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength_mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength_mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength_mod}@{jack_attr}[STR]]]}} @{charname_output}">Passive Insight</button>
+									</div>
+									<div class="sheet-container-body">
+										<span name="attr_strength_mod" title="@{strength_mod}">0</span>
+									</div>
+									<div class="sheet-container-footer">
+										<input type="text" name="attr_strength_base" title="@{strength}" value="10">
+										<input type="hidden" name="attr_strength" value="10">
+										<input type="hidden" name="attr_strength_flag" value="0" class="sheet-field-toggle">
+										<span name="attr_strength"></span>
+									</div>
+								</div>
+								<div class="sheet-container-box sheet-pc-resource-class resourceA">
+									<div class="sheet-container-header">
+										<input type="text" name="attr_class_resource_name" title="@{class_resource_name}" class="sheet-input-overlay">
+										<span name="attr_class_resource_name" title="@{class_resource_name}">Class Resource 1</span>
+									</div>
+									 <div class="sheet-container-body">
+										<input type="text" name="attr_class_resource" title="@{class_resource}">
+										<span>/</span>
+										<input type="text" name="attr_class_resource_max" title="@{class_resource_max}">
+									</div>
+								</div>
+								<div class="sheet-container-box sheet-pc-resource-class resourceB">
+									<div class="sheet-container-header">
+										<input type="text" name="attr_class_resource_name" title="@{class_resource_name}" class="sheet-input-overlay">
+										<span name="attr_class_resource_name" title="@{class_resource_name}">Class Resource 2</span>
+									</div>
+									 <div class="sheet-container-body">
+										<input type="text" name="attr_class_resource" title="@{class_resource}">
+										<span>/</span>
+										<input type="text" name="attr_class_resource_max" title="@{class_resource_max}">
+									</div>
+								</div>
+								<div class="sheet-container-panel sheet-pc-movement">
+									<div class="sheet-container-header">Special Movement</div>
 									<div class="sheet-container-body">
 										<div class="sheet-container-body-header">
-											<span>Type</span>
-											<span>Proficiency</span>
+											<span></span>
+											<span>Description</span>
 										</div>
-										<input type="hidden" name="attr_simpleproficencies" value="complex">
-										<textarea name="attr_other_proficiencies_and_languages" hidden></textarea>
-										<fieldset class="repeating_proficiencies">
-											<div class="sheet-fieldset-item sheet-fieldset-item-proficiency">
+										<fieldset class="repeating_effects-conditions">
+											<div class="sheet-fieldset-item">
 												<div class="sheet-checkbox-cog">
 													<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
 													<span class="sheet-toggle-icon"></span>
@@ -1620,32 +1237,76 @@
 												<input type="checkbox" name="attr_options-flag" checked="checked" class="sheet-toggle" hidden>
 												<div class="sheet-toggle-checked">
 													<div class="sheet-form">
-														<div class="sheet-form-header">Edit Proficiency</div>
+														<div class="sheet-form-header">Edit Movement</div>
 														<div class="sheet-form-body">
 															<div class="sheet-form-group">
-																<select name="attr_prof_type">
-																	<option value="LANGUAGE" selected="selected">Language</option>
-																	<option value="WEAPON">Weapon</option>
-																	<option value="ARMOR">Armor</option>
-																	<option value="OTHER">Other</option>
-																</select>
-																<input type="text" name="attr_name">
+																<input type="text" name="attr_description">
+															</div>
+															<div class="sheet-form-group">
+																<label class="sheet-form-checkbox">
+																	<input type="checkbox" name="attr_active" value="1" checked="checked">
+																	<span>Active</span>
+																</label>
 															</div>
 														</div>
 													</div>
 												</div>
 												<div class="sheet-toggle-unchecked">
-													<div class="sheet-pc-proficiency">
-														<button type="roll" name="roll_output" value="@{wtype}&{template:traits} @{charname_output} {{name=@{prof_type} PROFICIENCY}} {{description=@{name}}}">
-															<span name="attr_prof_type"></span>
-															<span name="attr_name"></span>
-														</button>
+													<div class="sheet-pc-effect">
+														<div class="sheet-checkbox-image">
+															<input type="checkbox" name="attr_active" value="1" checked="checked">
+															<span></span>
+														</div>
+														<span name="attr_description"></span>
 													</div>
 												</div>
 											</div>
 										</fieldset>
 									</div>
-								</div> -->
+								</div>
+								<div class="sheet-container-panel sheet-pc-senses">
+									<div class="sheet-container-header">Senses</div>
+									<div class="sheet-container-body">
+										<div class="sheet-container-body-header">
+											<span></span>
+											<span>Description</span>
+										</div>
+										<fieldset class="repeating_effects-conditions">
+											<div class="sheet-fieldset-item">
+												<div class="sheet-checkbox-cog">
+													<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
+													<span class="sheet-toggle-icon"></span>
+												</div>
+												<input type="checkbox" name="attr_options-flag" checked="checked" class="sheet-toggle" hidden>
+												<div class="sheet-toggle-checked">
+													<div class="sheet-form">
+														<div class="sheet-form-header">Edit Senses</div>
+														<div class="sheet-form-body">
+															<div class="sheet-form-group">
+																<input type="text" name="attr_description">
+															</div>
+															<div class="sheet-form-group">
+																<label class="sheet-form-checkbox">
+																	<input type="checkbox" name="attr_active" value="1" checked="checked">
+																	<span>Active</span>
+																</label>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="sheet-toggle-unchecked">
+													<div class="sheet-pc-effect">
+														<div class="sheet-checkbox-image">
+															<input type="checkbox" name="attr_active" value="1" checked="checked">
+															<span></span>
+														</div>
+														<span name="attr_description"></span>
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</div>
+								</div>
 							</div>
 							<div class="sheet-container-well sheet-container-well-trackers">
 								<div class="sheet-container-box sheet-pc-armor">
@@ -2640,7 +2301,7 @@
 											</ul>
 										</div>
 									</div> -->
-									<div class="sheet-container-panel sheet-pc-effects">
+									<!-- <div class="sheet-container-panel sheet-pc-effects">
 										<div class="sheet-container-header">Effects & Conditions</div>
 										<div class="sheet-container-body">
 											<div class="sheet-container-body-header">
@@ -2683,7 +2344,7 @@
 											</fieldset>
 										</div>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
