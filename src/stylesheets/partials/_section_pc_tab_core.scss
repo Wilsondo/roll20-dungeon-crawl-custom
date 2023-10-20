@@ -10,8 +10,8 @@
 				"attributes trackers trackers"
 				"attributes health health"
 				"attributes attacks effects";
-			grid-template-columns: 265px 1fr 1fr;
-			grid-template-rows: 85px auto 1fr;
+			grid-template-columns: 200px 1fr 1fr;
+			grid-template-rows: 100px auto 1fr;
 		}
 
 		.sheet-container-well-attributes {
@@ -392,28 +392,39 @@
 		.sheet-container-well-trackers {
 			grid-area: trackers;
 			display: grid;
-			grid-template-columns: repeat(6, 1fr);
+			grid-template-columns: repeat(7, 1fr);
 			grid-template-rows: 30px 30px;
 			grid-column-gap: 5px;
 			grid-row-gap: 5px;
 			grid-template-areas:
-			"armor initiative perception speed fate fate"
-			"armor initiative perception speed inspiration inspiration";
+			"armor fortitude reflex will initiative fate fate"
+			"armor fortitude reflex will initiative death-saves death-saves";
+
+			.sheet-pc-defenses {
+				grid-area: defenses;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+			}
 
 			.sheet-pc-armor {
 				grid-area: armor;
 			}
 
-			.sheet-pc-initiative {
+			.sheet-pc-fortitude {
+				grid-area: fortitude;
+			}
+
+			.sheet-pc-reflex {
+				grid-area: reflex;
+			}
+
+			.sheet-pc-will {
+				grid-area: will;
+			}
+
+			.sheet-pc-initiative{
 				grid-area: initiative;
-			}
-
-			.sheet-pc-perception {
-				grid-area: perception;
-			}
-
-			.sheet-pc-speed {
-				grid-area: speed;
 			}
 
 			.sheet-pc-xp {
@@ -434,8 +445,8 @@
 				grid-area: fate;
 			}
 
-			.sheet-pc-inspiration {
-				grid-area: inspiration;
+			.sheet-pc-death-saves-bar {
+				grid-area: death-saves;
 			}
 		}
 
@@ -445,40 +456,10 @@
 			grid-column-gap: 5px;
 			grid-row-gap: 5px;
 			grid-template-areas:
-			"hp-max hp hp health wounds wounds"
-			"hit-dice hit-dice death health wounds wounds";
+			"hit-dice hit-dice speed pc-stress levels levels";
 			grid-template-columns: repeat(6, 1fr);
-			grid-template-rows: 65px auto;
+			grid-template-rows: auto;
 
-			.sheet-pc-hp-max {
-				grid-area: hp-max;
-
-				.sheet-container-body {
-					padding-top: 0;
-				}
-			}
-
-			.sheet-pc-hp-current {
-				grid-area: hp;
-
-				.sheet-container-body {
-					display: flex;
-					flex-direction: row;
-					padding-top: 0;
-				}
-
-				.sheet-container-footer {
-					display: flex;
-					padding-left: 10px;
-					padding-right: 10px;
-
-					span {
-						flex-grow: 1;
-						text-align: center;
-						width: 100%;
-					}
-				}
-			}
 
 			.sheet-pc-hit-dice {
 				grid-area: hit-dice;
@@ -510,33 +491,126 @@
 					}
 				}
 			}
+		
+			.sheet-pc-stress {
+				grid-area: pc-stress;
+			}
 
-			.sheet-pc-death {
-				grid-area: death;
-				max-height: 65px;
+			.sheet-pc-stress-levels {
+				grid-area: levels;
 
 				.sheet-container-body {
-					align-items: center;
-					display: flex;
-					flex-direction: column;
 					justify-content: center;
 				}
 
-				.sheet-death-save-success,
-				.sheet-death-save-fail {
-					display: flex;
+				[type=checkbox] {
+					display: none;
+				}
 
-					> span {
-						color: #c9c8bf;
-						font-size: 14px !important;
-						font-weight: bold;
-						line-height: 14px;
-						margin-right: 3px;
-						width: 14px;
+				ul {
+					list-style: none;
+					padding: 0;
+					margin: 0;
+					column-count: 2;
+					column-gap: 5px;
+					column-rule: 1px solid gainsboro;
+
+					li:nth-of-type(2),
+					li:nth-of-type(4) {
+						margin-top: 2px;
 					}
 
-					+ * {
-						margin-top: 3px;
+					label {
+						font-size: 11px;
+						cursor: pointer;
+					}
+
+					span {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						border-radius: 3px;
+
+						strong {
+							margin-right: 2px;
+						}
+
+						&:hover {
+							background: $hover-bg;
+						}
+					}
+				}
+
+				li:nth-of-type(1) input[type=checkbox]:checked + span {
+					background: #cfb401;
+					color: white;
+				}
+
+				li:nth-of-type(3) input[type=checkbox]:checked + span {
+					background: #cf7d01;
+					color: white;
+				}
+
+				li:nth-of-type(2) input[type=checkbox]:checked + span {
+					background: #cf4601;
+					color: white;
+				}
+
+				li:nth-of-type(4) input[type=checkbox]:checked + span {
+					background: #cf0101;
+					color: white;
+				}
+
+				li:nth-of-type(4) span {
+					letter-spacing: -0.75px;
+				}
+			}
+
+
+
+			
+		}
+
+
+		.sheet-container-well-conditions {
+			display: grid;
+			grid-area: conditions;
+			grid-column-gap: 5px;
+			grid-row-gap: 5px;
+			grid-template-areas:
+				"conditions conditions conditions conditions health wounds"
+				"conditions conditions conditions conditions health wounds"
+				"conditions conditions conditions conditions health wounds";
+			grid-template-columns: repeat(6, 1fr);
+			grid-template-rows: 30px 30px 65px;
+			margin-top: 5px;
+
+			.sheet-pc-conditions {
+				grid-area: conditions;
+
+				.sheet-container-header {
+					display: grid;
+					grid-column-gap: 5px;
+					grid-template-columns: repeat(4, 1fr);
+					margin: 0;
+					padding-left: 10px;
+					padding-right: 10px;
+
+					span {
+						text-align: center;
+						width: 100%;
+					}
+				}
+
+				.sheet-container-body {
+					display: grid;
+					grid-column-gap: 5px;
+					grid-template-columns: repeat(4, 1fr);
+					height: 100%;
+
+					.sheet-list-conditions {
+						display: flex;
+						justify-content: space-between;
 					}
 				}
 			}
@@ -583,107 +657,14 @@
 			}
 		}
 
-
-		.sheet-container-well-conditions {
-			display: grid;
-			grid-area: conditions;
-			grid-column-gap: 5px;
-			grid-row-gap: 5px;
-			grid-template-areas:
-				"conditions conditions conditions conditions rations rations"
-				"conditions conditions conditions conditions water water"
-				"conditions conditions conditions conditions exhaustion exhaustion";
-			grid-template-columns: repeat(6, 1fr);
-			grid-template-rows: 30px 30px 65px;
-			margin-top: 5px;
-
-			.sheet-pc-conditions {
-				grid-area: conditions;
-
-				.sheet-container-header {
-					display: grid;
-					grid-column-gap: 5px;
-					grid-template-columns: repeat(4, 1fr);
-					margin: 0;
-					padding-left: 10px;
-					padding-right: 10px;
-
-					span {
-						text-align: center;
-						width: 100%;
-					}
-				}
-
-				.sheet-container-body {
-					display: grid;
-					grid-column-gap: 5px;
-					grid-template-columns: repeat(4, 1fr);
-					height: 100%;
-
-					.sheet-list-conditions {
-						display: flex;
-						justify-content: space-between;
-					}
-				}
-			}
-
-			.sheet-pc-rations {
-				grid-area: rations;
-			}
-
-			.sheet-pc-water {
-				grid-area: water;
-			}
-
-			.sheet-pc-exhaustion {
-				grid-area: exhaustion;
-
-				.sheet-container-body {
-					display: flex;
-					flex-direction: row;
-					padding-top: 0;
-
-					span {
-						align-items: center;
-						display: flex;
-						justify-content: center;
-						width: 100%;
-
-						&:nth-of-type(1),
-						&:nth-of-type(2) {
-							font-size: 18px;
-						}
-
-						&:nth-of-type(3) {
-							border-radius: 100%;
-							background: #eeeeee;
-						}
-					}
-				}
-
-				.sheet-container-footer {
-					display: flex;
-					padding-left: 10px;
-					padding-right: 10px;
-
-					span {
-						flex-grow: 1;
-						text-align: center;
-						width: 100%;
-					}
-				}
-			}
-		}
-
 		.sheet-container-well-stress {
 			grid-area: stress;
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
-			grid-template-rows: 65px 1fr;
+			grid-template-rows: 1fr;
 			grid-column-gap: 5px;
 			grid-row-gap: 5px;
 			grid-template-areas:
-				"pc-stress levels levels"
 				"afflictions afflictions afflictions";
 			min-height: 85px;
 			margin-bottom: 5px;
