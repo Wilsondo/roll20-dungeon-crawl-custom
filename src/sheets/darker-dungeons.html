@@ -1441,10 +1441,13 @@
 										<div class="sheet-container-body">
 											<input type="text" name="attr_hit_dice" title="@{hit_dice}">
 											<span>/</span>
+											<input type="text" name="attr_hit_dice_lost" title="@{hit_dice}">
+											<span>/</span>
 											<input type="text" name="attr_hit_dice_max" title="@{hit_dice_max}">
 										</div>
 										<div class="sheet-container-footer">
 											<span>Remaining</span>
+											<span>Lost</span>
 											<span>Maximum</span>
 										</div>
 									</div>
@@ -1917,6 +1920,92 @@
 								</div>
 							</div>
 							<div class="sheet-container-well sheet-container-well-attacks">
+								<div class="sheet-container-panel sheet-pc-encounter">
+									<div class="sheet-container-header">Encounter Powers</div>
+									<div class="sheet-container-body">
+										<div class="sheet-container-body-header">
+											<span></span>
+											<span>Description</span>
+										</div>
+										<fieldset class="repeating_effects-conditions">
+											<div class="sheet-fieldset-item">
+												<div class="sheet-checkbox-cog">
+													<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
+													<span class="sheet-toggle-icon"></span>
+												</div>
+												<input type="checkbox" name="attr_options-flag" checked="checked" class="sheet-toggle" hidden>
+												<div class="sheet-toggle-checked">
+													<div class="sheet-form">
+														<div class="sheet-form-header">Edit Encounter Powers</div>
+														<div class="sheet-form-body">
+															<div class="sheet-form-group">
+																<input type="text" name="attr_description">
+															</div>
+															<div class="sheet-form-group">
+																<label class="sheet-form-checkbox">
+																	<input type="checkbox" name="attr_active" value="1" checked="checked">
+																	<span>Active</span>
+																</label>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="sheet-toggle-unchecked">
+													<div class="sheet-pc-effect">
+														<div class="sheet-checkbox-image">
+															<input type="checkbox" name="attr_active" value="1" checked="checked">
+															<span></span>
+														</div>
+														<span name="attr_description"></span>
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</div>
+								</div>
+								<div class="sheet-container-panel sheet-pc-daily">
+									<div class="sheet-container-header">Daily Powers</div>
+									<div class="sheet-container-body">
+										<div class="sheet-container-body-header">
+											<span></span>
+											<span>Description</span>
+										</div>
+										<fieldset class="repeating_effects-conditions">
+											<div class="sheet-fieldset-item">
+												<div class="sheet-checkbox-cog">
+													<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
+													<span class="sheet-toggle-icon"></span>
+												</div>
+												<input type="checkbox" name="attr_options-flag" checked="checked" class="sheet-toggle" hidden>
+												<div class="sheet-toggle-checked">
+													<div class="sheet-form">
+														<div class="sheet-form-header">Edit Daily Powers</div>
+														<div class="sheet-form-body">
+															<div class="sheet-form-group">
+																<input type="text" name="attr_description">
+															</div>
+															<div class="sheet-form-group">
+																<label class="sheet-form-checkbox">
+																	<input type="checkbox" name="attr_active" value="1" checked="checked">
+																	<span>Active</span>
+																</label>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="sheet-toggle-unchecked">
+													<div class="sheet-pc-effect">
+														<div class="sheet-checkbox-image">
+															<input type="checkbox" name="attr_active" value="1" checked="checked">
+															<span></span>
+														</div>
+														<span name="attr_description"></span>
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</div>
+								</div>
 								<!-- <div class="sheet-container-box sheet-pc-spell-ability">
 									<div class="sheet-container-header">Spellcasting Ability</div>
 									<div class="sheet-container-body">

@@ -218,6 +218,8 @@
 
 		.sheet-pc-movement,
 		.sheet-pc-senses,
+		.sheet-pc-encounter,
+		.sheet-pc-daily,
 		.sheet-pc-effects {
 			flex-grow: 1;
 			font-size: 11px;
@@ -767,42 +769,23 @@
 			grid-area: exhaustion;
 		}
 
+		
 		.sheet-container-well-attacks {
 			display: grid;
 			grid-area: attacks;
 			grid-column-gap: 5px;
 			grid-row-gap: 5px;
 			grid-template-areas:
-				"spell-ability spell-dc spell-attack"
-				"resource-class resource-other spell-burnout"
-				"resources resources resources"
-				"attacks attacks attacks";
-			grid-template-columns: repeat(3, 1fr);
-			grid-template-rows: 65px 65px auto 1fr;
+				"encounter"
+				"daily";
+			grid-template-columns: 1fr;
+			grid-template-rows: auto auto;
 
-			.sheet-pc-spell-ability {
-				grid-area: spell-ability;
+			.sheet-pc-encounter{
+				grid-area: encounter;
 			}
-
-			.sheet-pc-spell-dc {
-				grid-area: spell-dc;
-
-				.sheet-container-header {
-					padding-left: 10px;
-					padding-right: 10px;
-				}
-			}
-
-			.sheet-pc-spell-attack {
-				grid-area: spell-attack;
-			}
-
-			.sheet-pc-resource-class {
-				grid-area: resource-class;
-			}
-
-			.sheet-pc-resource-other {
-				grid-area: resource-other;
+			.sheet-pc-daily{
+				grid-area: daily;
 			}
 
 			.sheet-pc-resources {
@@ -833,57 +816,6 @@
 				}
 			}
 
-			.sheet-pc-spell-burnout {
-				grid-area: spell-burnout;
-			}
-
-			.sheet-pc-attacks {
-				grid-area: attacks;
-
-				.sheet-pc-attack button {
-					background: none;
-					border: none;
-					box-shadow: none;
-					display: flex;
-					font-size: 11px;
-					padding-right: 18px;
-					padding: 0;
-					width: 100%;
-
-					&:hover {
-						background: $hover-bg;
-					}
-
-					span {
-						overflow: hidden;
-						text-overflow: ellipsis;
-						width: 100%;
-
-						&:first-of-type {
-							text-align: left;
-					    text-shadow: none;
-					    text-align: center;
-					    font-weight: bold;
-					    font-size: 9px;
-					    border-radius: 3px;
-							background: gainsboro;
-						}
-
-						&:nth-of-type(2) {
-							width: 40%;
-							text-align: center;
-							margin-right: 5px;
-							font-weight: bold;
-							border-right: 1px solid gainsboro;
-						}
-
-						&:last-of-type {
-							text-align: center;
-							width: 80%;
-						}
-					}
-				}
-			}
 		}
 
 		.sheet-pc-saving-throw-modifier,
