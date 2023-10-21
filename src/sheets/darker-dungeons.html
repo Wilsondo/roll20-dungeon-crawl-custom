@@ -1205,8 +1205,8 @@
 										<span name="attr_class_resource_name" title="@{class_resource_name}">Class Resource 1</span>
 									</div>
 									 <div class="sheet-container-body">
-										<input type="text" name="attr_class_resource" title="@{class_resource}">
-										<span>/</span>
+										<!-- <input type="text" name="attr_class_resource" title="@{class_resource}">
+										<span>/</span> -->
 										<input type="text" name="attr_class_resource_max" title="@{class_resource_max}">
 									</div>
 								</div>
@@ -1216,8 +1216,8 @@
 										<span name="attr_class_resource_name" title="@{class_resource_name}">Class Resource 2</span>
 									</div>
 									 <div class="sheet-container-body">
-										<input type="text" name="attr_class_resource" title="@{class_resource}">
-										<span>/</span>
+										<!-- <input type="text" name="attr_class_resource" title="@{class_resource}">
+										<span>/</span> -->
 										<input type="text" name="attr_class_resource_max" title="@{class_resource_max}">
 									</div>
 								</div>
@@ -1228,7 +1228,7 @@
 											<span></span>
 											<span>Description</span>
 										</div>
-										<fieldset class="repeating_effects-conditions">
+										<fieldset class="repeating_effects-movement">
 											<div class="sheet-fieldset-item">
 												<div class="sheet-checkbox-cog">
 													<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
@@ -1242,19 +1242,13 @@
 															<div class="sheet-form-group">
 																<input type="text" name="attr_description">
 															</div>
-															<div class="sheet-form-group">
-																<label class="sheet-form-checkbox">
-																	<input type="checkbox" name="attr_active" value="1" checked="checked">
-																	<span>Active</span>
-																</label>
-															</div>
 														</div>
 													</div>
 												</div>
 												<div class="sheet-toggle-unchecked">
 													<div class="sheet-pc-effect">
 														<div class="sheet-checkbox-image">
-															<input type="checkbox" name="attr_active" value="1" checked="checked">
+															<input type="checkbox" name="attr_expended" value="1" checked="checked">
 															<span></span>
 														</div>
 														<span name="attr_description"></span>
@@ -1271,7 +1265,7 @@
 											<span></span>
 											<span>Description</span>
 										</div>
-										<fieldset class="repeating_effects-conditions">
+										<fieldset class="repeating_effects-senses">
 											<div class="sheet-fieldset-item">
 												<div class="sheet-checkbox-cog">
 													<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
@@ -1920,6 +1914,8 @@
 								</div>
 							</div>
 							<div class="sheet-container-well sheet-container-well-attacks">
+								<!-- Powers from repeating sections have a special way to be refrenced via macro, can't use power-1,2,3 etc -->
+								<!-- The button can use javascript for a better experience https://wiki.roll20.net/Button -->
 								<div class="sheet-container-panel sheet-pc-encounter">
 									<div class="sheet-container-header">Encounter Powers</div>
 									<div class="sheet-container-body">
@@ -1927,7 +1923,7 @@
 											<span></span>
 											<span>Description</span>
 										</div>
-										<fieldset class="repeating_effects-conditions">
+										<fieldset class="repeating_encounters">
 											<div class="sheet-fieldset-item">
 												<div class="sheet-checkbox-cog">
 													<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
@@ -1939,24 +1935,23 @@
 														<div class="sheet-form-header">Edit Encounter Powers</div>
 														<div class="sheet-form-body">
 															<div class="sheet-form-group">
-																<input type="text" name="attr_description">
+																<label>Power Name</label>
+																<input type="text" name="attr_encounter_name">												
 															</div>
 															<div class="sheet-form-group">
-																<label class="sheet-form-checkbox">
-																	<input type="checkbox" name="attr_active" value="1" checked="checked">
-																	<span>Active</span>
-																</label>
+																<label>Wiki Link</label>
+																<input type="text" name="attr_encounter_link">	
 															</div>
 														</div>
 													</div>
 												</div>
-												<div class="sheet-toggle-unchecked">
-													<div class="sheet-pc-effect">
-														<div class="sheet-checkbox-image">
-															<input type="checkbox" name="attr_active" value="1" checked="checked">
-															<span></span>
-														</div>
-														<span name="attr_description"></span>
+												<div class="sheet-pc-effect">
+													<button type="roll" name="attr_encounter_link">
+														<span name="attr_encounter_name"></span>
+													</button>
+													<div class="sheet-checkbox-image">
+														<input type="checkbox" name="attr_active" value="1" checked="checked">
+														<span></span>
 													</div>
 												</div>
 											</div>
@@ -1970,7 +1965,7 @@
 											<span></span>
 											<span>Description</span>
 										</div>
-										<fieldset class="repeating_effects-conditions">
+										<fieldset class="repeating_dalies">
 											<div class="sheet-fieldset-item">
 												<div class="sheet-checkbox-cog">
 													<input type="checkbox" name="attr_options-flag" checked="checked"><span></span>
@@ -1982,24 +1977,23 @@
 														<div class="sheet-form-header">Edit Daily Powers</div>
 														<div class="sheet-form-body">
 															<div class="sheet-form-group">
-																<input type="text" name="attr_description">
+																<label>Power Name</label>
+																<input type="text" name="attr_daily_name">												
 															</div>
 															<div class="sheet-form-group">
-																<label class="sheet-form-checkbox">
-																	<input type="checkbox" name="attr_active" value="1" checked="checked">
-																	<span>Active</span>
-																</label>
+																<label>Wiki Link</label>
+																<input type="text" name="attr_daily_link">	
 															</div>
 														</div>
 													</div>
 												</div>
-												<div class="sheet-toggle-unchecked">
-													<div class="sheet-pc-effect">
-														<div class="sheet-checkbox-image">
-															<input type="checkbox" name="attr_active" value="1" checked="checked">
-															<span></span>
-														</div>
-														<span name="attr_description"></span>
+												<div class="sheet-pc-effect">
+													<button type="roll" name="attr_daily_link">
+														<span name="attr_daily_name"></span>
+													</button>
+													<div class="sheet-checkbox-image">
+														<input type="checkbox" name="attr_active" value="1" checked="checked">
+														<span></span>
 													</div>
 												</div>
 											</div>
