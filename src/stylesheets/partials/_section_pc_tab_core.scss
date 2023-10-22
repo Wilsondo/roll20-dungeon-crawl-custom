@@ -10,7 +10,7 @@
 				"attributes trackers trackers"
 				"attributes health health"
 				"attributes attacks effects";
-			grid-template-columns: 200px 1fr 1fr;
+			grid-template-columns: 210px 2.2fr 1fr;
 			grid-template-rows: 100px auto 1fr;
 		}
 
@@ -18,7 +18,7 @@
 			grid-area: attributes;
 			display: grid;
 			grid-template-columns: auto auto;
-			grid-template-rows: auto auto auto auto auto;
+			grid-template-rows: 360px 85px 70px auto auto;
 			grid-template-areas:
 				"skills skills"
 				". ."
@@ -28,13 +28,6 @@
 ;
 			grid-column-gap: 5px;
 			grid-row-gap: 5px;
-
-			.sheet-pc-attributes {
-				grid-area: attributes;
-				display: flex;
-				flex-direction: row;
-				justify-content: space-between;
-			}
 
 			.sheet-pc-proficiency-bonus {
 				grid-area: proficiency-bonus;
@@ -515,7 +508,7 @@
 			grid-row-gap: 5px;
 			grid-template-areas:
 			"hit-dice hit-dice speed pc-stress levels levels";
-			grid-template-columns: repeat(6, 1fr);
+			grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
 			grid-template-rows: auto;
 
 
@@ -636,11 +629,11 @@
 			grid-column-gap: 5px;
 			grid-row-gap: 5px;
 			grid-template-areas:
-				"conditions conditions conditions conditions health wounds"
-				"conditions conditions conditions conditions health wounds"
-				"conditions conditions conditions conditions health wounds";
-			grid-template-columns: repeat(6, 1fr);
-			grid-template-rows: 30px 30px 65px;
+				"conditions conditions conditions health wounds wounds"
+				"conditions conditions conditions health wounds wounds"
+				"conditions conditions conditions health wounds wounds";
+			grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+			grid-template-rows: 30px 30px 60px;
 			margin-top: 5px;
 
 			.sheet-pc-conditions {
