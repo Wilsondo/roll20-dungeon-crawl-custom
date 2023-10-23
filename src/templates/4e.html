@@ -1,0 +1,649 @@
+<!-- Roll Template for D&D4e Character Sheet -->
+<rolltemplate class="sheet-rolltemplate-dnd4epower">
+  <table>
+    <caption class="sheet-emote">{{emote}}</caption>
+        <tr><th class="sheet-power-header{{#atwill}} sheet-atwill{{/atwill}}{{#encounter}} sheet-encounter{{/encounter}}{{#daily}} sheet-daily{{/daily}}{{#item}} sheet-item{{/item}}{{#other}} sheet-other{{/other}}{{#ability}} sheet-ability{{/ability}}{{#skill}} sheet-skill{{/skill}}{{#monster}} sheet-monster{{/monster}}">{{name}}</th></tr>
+        <tr><th class="sheet-subheader-alignright{{#atwill}} sheet-atwill{{/atwill}}{{#encounter}} sheet-encounter{{/encounter}}{{#daily}} sheet-daily{{/daily}}{{#item}} sheet-item{{/item}}{{#other}} sheet-other{{/other}}{{#ability}} sheet-ability{{/ability}}{{#skill}} sheet-skill{{/skill}}{{#monster}} sheet-monster{{/monster}}">{{class}} {{level}}</th></tr>
+	{{#type}}    
+		<tr><td><span class="sheet-template-bold">
+    		{{type}} {{keywords}}
+        </span></td></tr>
+	{{/type}}
+	{{#attacktechnique}}
+    	<tr><td><span class="sheet-template-bold">
+			Attack Technique: </span>{{attacktechnique}}
+        </td></tr>
+	{{/attacktechnique}}
+	{{#action}}
+		<tr><td><span class="sheet-template-bold">
+			{{action}} {{range}}
+		</span></td></tr>
+	{{/action}}
+	{{#requirement}}
+		<tr><td><span class="sheet-template-bold">
+			Requirement: </span>{{requirement}}
+        </td></tr>
+	{{/requirement}}
+	{{#trigger}}
+		<tr><td><span class="sheet-template-bold">
+			Trigger: </span>{{trigger}}
+        </td></tr>
+	{{/trigger}}
+	{{#beforespecial}}
+		<tr><td><span class="sheet-template-bold">
+			Special: </span>{{beforespecial}}
+        </td></tr>
+	{{/beforespecial}}
+	{{#beforeeffect}}
+		<tr><td><span class="sheet-template-bold">
+			Effect: </span>{{beforeeffect}}
+        </td></tr>
+	{{/beforeeffect}}
+	{{#target}}
+		<tr><td><span class="sheet-template-bold">
+			Target: </span>{{target}}
+        </td></tr>
+	{{/target}}
+	{{#primarytarget}}
+		<tr><td><span class="sheet-template-bold sheet-td-red">
+			Primary Attack</span>
+		</td></tr>
+		<tr><td><span class="sheet-template-bold">
+			Target: </span>{{primarytarget}}
+		</td></tr>
+	{{/primarytarget}}
+	{{#attackweaponmod}}
+		<tr><td><span class="sheet-template-bold">
+			Weapon: </span>{{attackweaponmod}}
+		</td></tr>
+	{{/attackweaponmod}}
+	{{#attack}}
+        <tr><td><span class="sheet-template-bold">
+			Attack: </span>{{attack}} 
+		</td></tr>
+	{{/attack}}
+	{{#multiattacktoggle}} <!-- Toggle Formula [[?{Number of Attacks|2}]] -->
+		{{#rollBetween() multiattacktoggle 2 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 2: </span>{{multiattack2}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 2 20}}
+		{{#rollBetween() multiattacktoggle 3 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 3: </span>{{multiattack3}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 3 20}}
+		{{#rollBetween() multiattacktoggle 4 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 4: </span>{{multiattack4}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 4 20}}
+		{{#rollBetween() multiattacktoggle 5 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 5: </span>{{multiattack5}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 5 20}}
+		{{#rollBetween() multiattacktoggle 6 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 6: </span>{{multiattack6}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 6 20}}
+		{{#rollBetween() multiattacktoggle 7 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 7: </span>{{multiattack7}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 7 20}}
+		{{#rollBetween() multiattacktoggle 8 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 8: </span>{{multiattack8}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 8 20}}
+		{{#rollBetween() multiattacktoggle 9 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 9: </span>{{multiattack9}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 9 20}}
+		{{#rollBetween() multiattacktoggle 10 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 10: </span>{{multiattack10}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 10 20}}
+		{{#rollBetween() multiattacktoggle 11 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 11: </span>{{multiattack11}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 11 20}}
+		{{#rollBetween() multiattacktoggle 12 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 12: </span>{{multiattack12}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 12 20}}
+		{{#rollBetween() multiattacktoggle 13 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 13: </span>{{multiattack13}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 13 20}}
+		{{#rollBetween() multiattacktoggle 14 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 14: </span>{{multiattack14}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 14 20}}
+		{{#rollBetween() multiattacktoggle 15 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 15: </span>{{multiattack15}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 15 20}}
+		{{#rollBetween() multiattacktoggle 16 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 16: </span>{{multiattack16}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 16 20}}
+		{{#rollBetween() multiattacktoggle 17 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 17: </span>{{multiattack17}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 17 20}}
+		{{#rollBetween() multiattacktoggle 18 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 18: </span>{{multiattack18}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 18 20}}
+		{{#rollBetween() multiattacktoggle 19 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 19:</span>{{multiattack19}} 
+			</td></tr>
+        {{/rollBetween() multiattacktoggle 19 20}}		
+		{{#rollTotal() multiattacktoggle 20}}
+			<tr><td><span class="sheet-template-bold">
+				Attack 20: </span>{{multiattack20}} 
+			</td></tr>
+        {{/rollTotal() multiattacktoggle 20}}
+	{{/multiattacktoggle}}
+	{{#damage}}
+			<tr><td><span class="sheet-template-bold">
+				Damage: </span>{{damage}}
+			</td></tr>
+	{{/damage}}
+	{{#critical}}
+		{{#rollWasCrit() attack}}
+			<tr><td><span class="sheet-td-critical sheet-template-bold">
+				Critical: </span>{{critical}}
+			</td></tr>    
+		{{/rollWasCrit() attack}}
+	{{/critical}}
+	{{#hitweaponmod}}
+		<tr><td><span class="sheet-template-bold">
+			Weapon: </span>{{hitweaponmod}}
+		</td></tr>
+	{{/hitweaponmod}}
+	{{#hiteffect}}
+		<tr><td><span class="sheet-template-bold">
+			On Hit: </span>{{hiteffect}}
+		</td></tr>
+	{{/hiteffect}}
+	{{#hitaftereffect}}
+		<tr><td><span class="sheet-template-bold">
+			Aftereffect: </span>{{hitaftereffect}}
+		</td></tr>
+	{{/hitaftereffect}}
+	{{#effectweaponmod}}
+		<tr><td><span class="sheet-template-bold">
+			Weapon: </span>{{effectweaponmod}}
+		</td></tr>
+	{{/effectweaponmod}}
+	{{#secondaryattack}}
+		<tr><td><span class="sheet-template-bold sheet-td-red">
+			Secondary Attack</span>
+		</td></tr>
+		{{#secondaryrange}}
+			<tr><td><span class="sheet-template-bold">
+				Range: </span>{{secondaryrange}}
+			</td></tr>
+		{{/secondaryrange}}
+		{{#secondarytarget}}
+			<tr><td><span class="sheet-template-bold">
+				Target: </span>{{secondarytarget}}
+			</td></tr>
+		{{/secondarytarget}}
+        <tr><td><span class="sheet-template-bold">
+			Attack: </span>{{secondaryattack}} 
+		</td></tr>
+		{{#secondarydamage}}
+			<tr><td><span class="sheet-template-bold">
+				Damage: </span>{{secondarydamage}}
+			</td></tr>
+		{{/secondarydamage}}
+		{{#rollWasCrit() secondaryattack}}
+			<tr><td><span class="sheet-template-bold sheet-td-critical">
+				Critical: </span>{{secondarycritical}}
+			</td></tr>
+	    {{/rollWasCrit() secondaryattack}}
+		{{#secondaryhiteffect}}
+			<tr><td><span class="sheet-template-bold">
+				On Hit: </span>{{secondaryhiteffect}}
+			</td></tr>
+		{{/secondaryhiteffect}}
+	{{/secondaryattack}}
+	{{#tertiaryattack}}
+		<tr><td><span class="sheet-template-bold sheet-td-red">
+			Tertiary Attack</span>
+		</td></tr>
+		{{#tertiaryrange}}
+			<tr><td><span class="sheet-template-bold">
+				Range: </span>{{tertiaryrange}}
+			</td></tr>
+		{{/tertiaryrange}}
+		{{#tertiarytarget}}
+			<tr><td><span class="sheet-template-bold">
+				Target: </span>{{tertiarytarget}}
+			</td></tr>
+		{{/tertiarytarget}}
+        <tr><td><span class="sheet-template-bold">
+			Attack: </span>{{tertiaryattack}} 
+		</td></tr>
+		{{#tertiarydamage}}
+			<tr><td><span class="sheet-template-bold">
+				Damage: </span>{{tertiarydamage}}
+			</td></tr>
+		{{/tertiarydamage}}
+		{{#rollWasCrit() tertiaryattack}}
+			<tr><td><span class="sheet-template-bold sheet-td-critical">
+				Critical: </span>{{tertiarycritical}}
+			</td></tr>
+	    {{/rollWasCrit() tertiaryattack}}
+		{{#tertiaryhiteffect}}
+			<tr><td><span class="sheet-template-bold">
+				On Hit: </span>{{tertiaryhiteffect}}
+			</td></tr>
+		{{/tertiaryhiteffect}}
+	{{/tertiaryattack}}
+	{{#augmenttoggle}} <!--Augment Toggle [[?{Augment|0}]] -->
+    	{{#rollTotal() augmenttoggle 1}}
+			<tr><td><span class="sheet-template-bold sheet-td-red">
+				Augment 1</span>
+			</td></tr>
+			{{#augment1range}}
+				<tr><td><span class="sheet-template-bold">
+					Range: </span>{{augment1range}}
+				</td></tr>
+			{{/augment1range}}
+			{{#augment1target}}
+				<tr><td><span class="sheet-template-bold">
+					Target: </span>{{augment1target}}
+				</td></tr>
+			{{/augment1target}}
+			<tr><td><span class="sheet-template-bold">
+				Attack: </span>{{augment1attack}} 
+			</td></tr>
+			{{#augment1multitoggle}} <!-- Toggle Formula [[?{Number of Attacks|2}]] -->
+				{{#rollBetween() augment1multitoggle 2 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 2: </span>{{augment1multiattack2}} 
+					</td></tr>
+				{{/rollBetween() augment1multitoggle 2 9}}
+				{{#rollBetween() augment1multitoggle 3 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 3: </span>{{augment1multiattack3}} 
+					</td></tr>
+				{{/rollBetween() augment1multitoggle 3 9}}
+				{{#rollBetween() augment1multitoggle 4 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 4: </span>{{augment1multiattack4}} 
+					</td></tr>
+				{{/rollBetween() augment1multitoggle 4 9}} 
+				{{#rollBetween() augment1multitoggle 5 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 5: </span>{{augment1multiattack5}} 
+					</td></tr>
+				{{/rollBetween() augment1multitoggle 5 9}}
+				{{#rollBetween() augment1multitoggle 6 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 6: </span>{{augment1multiattack6}} 
+					</td></tr>
+				{{/rollBetween() augment1multitoggle 6 9}}
+				{{#rollBetween() augment1multitoggle 7 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 7: </span>{{augment1multiattack7}} 
+					</td></tr>
+				{{/rollBetween() augment1multitoggle 7 9}}
+				{{#rollBetween() augment1multitoggle 8 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 8: </span>{{augment1multiattack8}} 
+					</td></tr>
+				{{/rollBetween() augment1multitoggle 8 9}}
+				{{#rollTotal() augment1multitoggle 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 9: </span>{{augment1multiattack9}} 
+					</td></tr>
+				{{/rollTotal() augment1multitoggle 9}}
+			{{/augment1multitoggle}}
+			{{#augment1damage}}
+				<tr><td><span class="sheet-template-bold">
+					Damage: </span>{{augment1damage}}
+				</td></tr>
+			{{/augment1damage}}
+			{{#rollWasCrit() augment1attack}}
+				<tr><td><span class="sheet-template-bold sheet-td-critical">
+					Critical: </span>{{augment1critical}}
+				</td></tr>
+			{{/rollWasCrit() augment1attack}}
+			{{#augment1hiteffect}}
+				<tr><td><span class="sheet-template-bold">
+					On Hit: </span>{{augment1hiteffect}}
+				</td></tr>
+			{{/augment1hiteffect}}
+        {{/rollTotal() augmenttoggle 1}}
+		{{#rollTotal() augmenttoggle 2}}
+			<tr><td><span class="sheet-template-bold sheet-td-red">
+				Augment 2</span>
+			</td></tr>
+			{{#augment2range}}
+				<tr><td><span class="sheet-template-bold">
+					Range: </span>{{augment2range}}
+				</td></tr>
+			{{/augment2range}}
+			{{#augment2target}}
+				<tr><td><span class="sheet-template-bold">
+					Target: </span>{{augment2target}}
+				</td></tr>
+			{{/augment2target}}
+			<tr><td><span class="sheet-template-bold">
+				Attack: </span>{{augment2attack}} 
+			</td></tr>
+			{{#augment2multitoggle}} <!-- Toggle Formula [[?{Number of Attacks|2}]] -->
+				{{#rollBetween() augment2multitoggle 2 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 2: </span>{{augment2multiattack2}} 
+					</td></tr>
+				{{/rollBetween() augment2multitoggle 2 9}}
+				{{#rollBetween() augment2multitoggle 3 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 3: </span>{{augment2multiattack3}} 
+					</td></tr>
+				{{/rollBetween() augment2multitoggle 3 9}}
+				{{#rollBetween() augment2multitoggle 4 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 4: </span>{{augment2multiattack4}} 
+					</td></tr>
+				{{/rollBetween() augment2multitoggle 4 9}} 
+				{{#rollBetween() augment2multitoggle 5 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 5: </span>{{augment2multiattack5}} 
+					</td></tr>
+				{{/rollBetween() augment2multitoggle 5 9}}
+				{{#rollBetween() augment2multitoggle 6 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 6: </span>{{augment2multiattack6}} 
+					</td></tr>
+				{{/rollBetween() augment2multitoggle 6 9}}
+				{{#rollBetween() augment2multitoggle 7 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 7: </span>{{augment2multiattack7}} 
+					</td></tr>
+				{{/rollBetween() augment2multitoggle 7 9}}
+				{{#rollBetween() augment2multitoggle 8 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 8: </span>{{augment2multiattack8}} 
+					</td></tr>
+				{{/rollBetween() augment2multitoggle 8 9}}
+				{{#rollTotal() augment2multitoggle 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 9: </span>{{augment2multiattack9}} 
+					</td></tr>
+				{{/rollTotal() augment2multitoggle 9}}
+			{{/augment2multitoggle}}
+			{{#augment2damage}}
+				<tr><td><span class="sheet-template-bold">
+					Damage: </span>{{augment2damage}}
+				</td></tr>
+			{{/augment2damage}}
+			{{#rollWasCrit() augment2attack}}
+				<tr><td><span class="sheet-template-bold sheet-td-critical">
+					Critical: </span>{{augment2critical}}
+				</td></tr>
+			{{/rollWasCrit() augment2attack}}
+			{{#augment2hiteffect}}
+				<tr><td><span class="sheet-template-bold">
+					On Hit: </span>{{augment2hiteffect}}
+				</td></tr>
+			{{/augment2hiteffect}}
+        {{/rollTotal() augmenttoggle 2}}
+		{{#rollTotal() augmenttoggle 4}}
+			<tr><td><span class="sheet-template-bold sheet-td-red">
+				Augment 4</span>
+			</td></tr>
+			{{#augment4range}}
+				<tr><td><span class="sheet-template-bold">
+					Range: </span>{{augment4range}}
+				</td></tr>
+			{{/augment4range}}
+			{{#augment4target}}
+				<tr><td><span class="sheet-template-bold">
+					Target: </span>{{augment4target}}
+				</td></tr>
+			{{/augment4target}}
+			<tr><td><span class="sheet-template-bold">
+				Attack: </span>{{augment4attack}} {{defense}}
+			</td></tr>
+			{{#augment4multitoggle}} <!-- Toggle Formula [[?{Number of Attacks|2}]] -->
+				{{#rollBetween() augment4multitoggle 2 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 2: </span>{{augment4multiattack2}} 
+					</td></tr>
+				{{/rollBetween() augment4multitoggle 2 9}}
+				{{#rollBetween() augment4multitoggle 3 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 3: </span>{{augment4multiattack3}} 
+					</td></tr>
+				{{/rollBetween() augment4multitoggle 3 9}}
+				{{#rollBetween() augment4multitoggle 4 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 4: </span>{{augment4multiattack4}} 
+					</td></tr>
+				{{/rollBetween() augment4multitoggle 4 9}} 
+				{{#rollBetween() augment4multitoggle 5 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 5: </span>{{augment4multiattack5}} 
+					</td></tr>
+				{{/rollBetween() augment4multitoggle 5 9}}
+				{{#rollBetween() augment4multitoggle 6 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 6: </span>{{augment4multiattack6}} 
+					</td></tr>
+				{{/rollBetween() augment4multitoggle 6 9}}
+				{{#rollBetween() augment4multitoggle 7 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 7: </span>{{augment4multiattack7}} 
+					</td></tr>
+				{{/rollBetween() augment4multitoggle 7 9}}
+				{{#rollBetween() augment4multitoggle 8 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 8: </span>{{augment4multiattack8}} 
+					</td></tr>
+				{{/rollBetween() augment4multitoggle 8 9}}
+				{{#rollTotal() augment4multitoggle 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 9: </span>{{augment4multiattack9}} 
+					</td></tr>
+				{{/rollTotal() augment4multitoggle 9}}
+			{{/augment4multitoggle}}
+			{{#augment4damage}}
+				<tr><td><span class="sheet-template-bold">
+					Damage: </span>{{augment4damage}}
+				</td></tr>
+			{{/augment4damage}}
+			{{#rollWasCrit() augment4attack}}
+				<tr><td><span class="sheet-template-bold sheet-td-critical">
+					Critical: </span>{{augment4critical}}
+				</td></tr>
+			{{/rollWasCrit() augment4attack}}
+			{{#augment4hiteffect}}
+				<tr><td><span class="sheet-template-bold">
+					On Hit: </span>{{augment4hiteffect}}
+				</td></tr>
+			{{/augment4hiteffect}}
+        {{/rollTotal() augmenttoggle 4}}
+		{{#rollTotal() augmenttoggle 6}}
+			<tr><td><span class="sheet-template-bold sheet-td-red">
+				Augment 6</span>
+			</td></tr>
+			{{#augment6range}}
+				<tr><td><span class="sheet-template-bold">
+					Range: </span>{{augment6range}}
+				</td></tr>
+			{{/augment6range}}
+			{{#augment6target}}
+				<tr><td><span class="sheet-template-bold">
+					Target: </span>{{augment6target}}
+				</td></tr>
+			{{/augment6target}}
+			<tr><td><span class="sheet-template-bold">
+				Attack: </span>{{augment6attack}} 
+			</td></tr>
+			{{#augment6multitoggle}} <!-- Toggle Formula [[?{Number of Attacks|2}]] -->
+				{{#rollBetween() augment6multitoggle 2 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 2: </span>{{augment6multiattack2}} 
+					</td></tr>
+				{{/rollBetween() augment6multitoggle 2 9}}
+				{{#rollBetween() augment6multitoggle 3 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 3: </span>{{augment6multiattack3}} 
+					</td></tr>
+				{{/rollBetween() augment6multitoggle 3 9}}
+				{{#rollBetween() augment6multitoggle 4 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 4: </span>{{augment6multiattack4}} 
+					</td></tr>
+				{{/rollBetween() augment6multitoggle 4 9}} 
+				{{#rollBetween() augment6multitoggle 5 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 5: </span>{{augment6multiattack5}} 
+					</td></tr>
+				{{/rollBetween() augment6multitoggle 5 9}}
+				{{#rollBetween() augment6multitoggle 6 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 6: </span>{{augment6multiattack6}} 
+					</td></tr>
+				{{/rollBetween() augment6multitoggle 6 9}}
+				{{#rollBetween() augment6multitoggle 7 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 7: </span>{{augment6multiattack7}} 
+					</td></tr>
+				{{/rollBetween() augment6multitoggle 7 9}}
+				{{#rollBetween() augment6multitoggle 8 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 8: </span>{{augment6multiattack8}} 
+					</td></tr>
+				{{/rollBetween() augment6multitoggle 8 9}}
+				{{#rollTotal() augment6multitoggle 9}}
+					<tr><td><span class="sheet-template-bold">
+						Attack 9: </span>{{augment6multiattack9}} 
+					</td></tr>
+				{{/rollTotal() augment6multitoggle 9}}
+			{{/augment6multitoggle}}
+			{{#augment6damage}}
+				<tr><td><span class="sheet-template-bold">
+					Damage: </span>{{augment6damage}}
+				</td></tr>
+			{{/augment6damage}}
+			{{#rollWasCrit() augment6attack}}
+				<tr><td><span class="sheet-template-bold sheet-td-critical">
+					Critical: </span>{{augment6critical}}
+				</td></tr>
+			{{/rollWasCrit() augment6attack}}
+			{{#augment6hiteffect}}
+				<tr><td><span class="template-bold">
+					On Hit: </span>{{augment6hiteffect}}
+				</td></tr>
+			{{/augment6hiteffect}}
+        {{/rollTotal() augmenttoggle 6}}		
+	{{/augmenttoggle}}
+	{{#classmodifier}}
+		<tr><td>
+			{{classmodifier}}
+        </td></tr>
+	{{/classmodifier}}
+	{{#miss}}
+		<tr><td><span class="sheet-template-bold">
+			Miss: </span>{{miss}}
+        </td></tr>
+	{{/miss}}
+	{{#effect}}
+		<tr><td><span class="sheet-template-bold">
+			Effect: </span>{{effect}}
+        </td></tr>
+	{{/effect}}
+	{{#firstfailedsave}}
+		<tr><td><span class="sheet-template-bold">
+			First Failed Save: </span>{{firstfailedsave}}
+        </td></tr>
+	{{/firstfailedsave}}
+	{{#secondfailedsave}}
+		<tr><td><span class="sheet-template-bold">
+			Second Failed Save: </span>{{secondfailedsave}}
+        </td></tr>
+	{{/secondfailedsave}}
+	{{#eachfailedsave}}
+		<tr><td><span class="sheet-template-bold">
+			Each Failed Save: </span>{{eachfailedsave}}
+        </td></tr>
+	{{/eachfailedsave}}
+	{{#aftereffect}}
+		<tr><td><span class="sheet-template-bold">
+			Aftereffect: </span>{{aftereffect}}
+         </td></tr>
+	{{/aftereffect}}
+	{{#sustainminor}}
+		<tr><td><span class="sheet-template-bold">
+			Sustain Minor: </span>{{sustainminor}}
+         </td></tr>
+	{{/sustainminor}}
+	{{#sustainstandard}}
+		<tr><td><span class="sheet-template-bold">
+			Sustain Standard: </span>{{sustainstandard}}
+         </td></tr>
+	{{/sustainstandard}}
+	{{#movetechnique}}
+		<tr><td><span class="sheet-template-bold">
+			Move Technique: </span> {{movetechnique}}
+        </td></tr>
+		<tr><td><span class="sheet-template-bold">
+			{{mttype}} {{mtrange}}</span>
+        </td></tr>
+		{{#mttarget}}
+			<tr><td><span class="sheet-template-bold">
+				Target: </span>{{mttarget}}
+            </td></tr>
+		{{/mttarget}}
+		{{#mteffect}}
+			<tr><td><span class="sheet-template-bold">
+				Effect: </span>{{mteffect}}
+            </td></tr>
+		{{/mteffect}}
+	{{/movetechnique}}
+	{{#special}}
+		<tr><td><span class="sheet-template-bold">
+			Special: </span>{{special}}
+         </td></tr>
+	{{/special}}
+	{{#initiative}}
+		<tr><td><span class="sheet-template-bold">
+			Roll: </span>{{initiative}}
+         </td></tr>
+	{{/initiative}}
+	{{#ability}}
+		<tr><td><span class="sheet-template-bold">
+			Roll: </span>{{ability}}
+         </td></tr>
+	{{/ability}}
+	{{#skill}}
+		<tr><td><span class="sheet-template-bold">
+			Roll: </span>{{skill}}
+         </td></tr>
+	{{/skill}}
+	{{#allprops() atwill encounter daily item other monster emote name class level type keywords attacktechnique action range requirement trigger beforespecial beforeeffect target primarytarget attackweaponmod attack multiattacktoggle multiattack2 multiattack3 multiattack4 multiattack5 multiattack6 multiattack7 multiattack8 multiattack9 multiattack10 multiattack11 multiattack12 multiattack13 multiattack14 multiattack15 multiattack16 multiattack17 multiattack18 multiattack19 multiattack20 damage critical hitweaponmod hiteffect hitaftereffect effectweaponmod secondaryrange secondarytarget secondaryattack secondarydamage secondarycritical secondaryhiteffect tertiaryrange tertiarytarget tertiaryattack tertiarydamage tertiarycritical tertiaryhiteffect augmenttoggle augment1range augment1target augment1attack augment1multitoggle augment1multiattack2 augment1multiattack3 augment1multiattack4 augment1multiattack5 augment1multiattack6 augment1multiattack7 augment1multiattack8 augment1multiattack9 augment1damage augment1critical augment1hiteffect augment2range augment2target augment2attack augment2multitoggle augment2multiattack2 augment2multiattack3 augment2multiattack4 augment2multiattack5 augment2multiattack6 augment2multiattack7 augment2multiattack8 augment2multiattack9 augment2damage augment2critical augment2hiteffect augment4range augment4target augment4attack augment4multitoggle augment4multiattack2 augment4multiattack3 augment4multiattack4 augment4multiattack5 augment4multiattack6 augment4multiattack7 augment4multiattack8 augment4multiattack9 augment4damage augment4critical augment4hiteffect augment6range augment6target augment6attack augment6multitoggle augment6multiattack2 augment6multiattack3 augment6multiattack4 augment6multiattack5 augment6multiattack6 augment6multiattack7 augment6multiattack8 augment6multiattack9 augment6damage augment6critical augment6hiteffect classmodifier miss effect firstfailedsave secondfailedsave eachfailedsave aftereffect sustainminor sustainstandard movetechnique mttype mtrange mttarget mteffect special initiative ability skill}}
+		<tr><td>{{key}} {{value}}</td></tr>
+	{{/allprops() atwill encounter daily item other monster emote name class level type keywords attacktechnique action range requirement trigger beforespecial beforeeffect target primarytarget attackweaponmod attack multiattacktoggle multiattack2 multiattack3 multiattack4 multiattack5 multiattack6 multiattack7 multiattack8 multiattack9 multiattack10 multiattack11 multiattack12 multiattack13 multiattack14 multiattack15 multiattack16 multiattack17 multiattack18 multiattack19 multiattack20 damage critical hitweaponmod hiteffect hitaftereffect effectweaponmod secondaryrange secondarytarget secondaryattack secondarydamage secondarycritical secondaryhiteffect tertiaryrange tertiarytarget tertiaryattack tertiarydamage tertiarycritical tertiaryhiteffect augmenttoggle augment1range augment1target augment1attack augment1multitoggle augment1multiattack2 augment1multiattack3 augment1multiattack4 augment1multiattack5 augment1multiattack6 augment1multiattack7 augment1multiattack8 augment1multiattack9 augment1damage augment1critical augment1hiteffect augment2range augment2target augment2attack augment2multitoggle augment2multiattack2 augment2multiattack3 augment2multiattack4 augment2multiattack5 augment2multiattack6 augment2multiattack7 augment2multiattack8 augment2multiattack9 augment2damage augment2critical augment2hiteffect augment4range augment4target augment4attack augment4multitoggle augment4multiattack2 augment4multiattack3 augment4multiattack4 augment4multiattack5 augment4multiattack6 augment4multiattack7 augment4multiattack8 augment4multiattack9 augment4damage augment4critical augment4hiteffect augment6range augment6target augment6attack augment6multitoggle augment6multiattack2 augment6multiattack3 augment6multiattack4 augment6multiattack5 augment6multiattack6 augment6multiattack7 augment6multiattack8 augment6multiattack9 augment6damage augment6critical augment6hiteffect classmodifier miss effect firstfailedsave secondfailedsave eachfailedsave aftereffect sustainminor sustainstandard movetechnique mttype mtrange mttarget mteffect special initiative ability skill}}
+  </table>
+</rolltemplate>
