@@ -10,24 +10,31 @@
 				"attributes trackers trackers"
 				"attributes health health"
 				"attributes attacks effects";
-			grid-template-columns: 210px 2.2fr 1fr;
+			grid-template-columns: 220px 2.2fr 1fr;
 			grid-template-rows: 100px auto 1fr;
 		}
 
 		.sheet-container-well-attributes {
 			grid-area: attributes;
 			display: grid;
-			grid-template-columns: auto auto;
-			grid-template-rows: 360px 85px 70px auto auto;
+			grid-template-columns:  0.75fr 1fr;
+			grid-template-rows: 525px 85px 70px auto auto;
 			grid-template-areas:
-				"skills skills"
-				". ."
+				"attributes-stats skills"
+				"passive-perception passive-insight"
 				"resourceA resourceB"
 				"movement movement"
 				"senses senses";
 ;
 			grid-column-gap: 5px;
 			grid-row-gap: 5px;
+
+			.sheet-pc-attributes-stats {
+				grid-area: attributes-stats;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+			}
 
 			.sheet-pc-proficiency-bonus {
 				grid-area: proficiency-bonus;
@@ -39,6 +46,14 @@
 
 			.sheet-pc-saves {
 				grid-area: saves;
+			}
+
+			.sheet-pc-passive-perception {
+				grid-area: passive-perception;
+			}
+
+			.sheet-pc-passive-insight{
+				grid-area: passive-insight;
 			}
 
 			.sheet-pc-saving-throw,
