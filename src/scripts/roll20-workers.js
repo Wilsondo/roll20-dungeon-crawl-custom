@@ -84,15 +84,28 @@ on("sheet:compendium-drop", function() {
 	});
 });
 
-['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
+on("change:test", function() {
+	console.log("TEST HAS CHANGED")
+	getAttrs(["test"], function(values) {
+	   setAttrs({
+		   testA: value.test + 1
+	   });
+	});
+ });
+ 
+ ['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
+	console.log("A thing has started")
 	on(`change:${attr}_base change:${attr}_bonus`, function() {
+		console.log("A thing has ended")
 		update_attr(`${attr}`);
 
 	});
 });
 
 ['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
+	console.log("B thing has started")
 	on(`change:${attr}`, function() {
+		console.log("B thing has ended")
 		update_mod(`${attr}`);
 
 		const cap = attr.charAt(0).toUpperCase() + attr.slice(1);
@@ -101,11 +114,19 @@ on("sheet:compendium-drop", function() {
 		(attr === "strength") ? update_weight() : false;
 		(attr === "dexterity") ? update_initiative() : false;
 		(attr === "intelligence") ? update_initiative() : false;
+
+		//  (attr === "strength" || attr == "constitution") ? update_fortitude() : false;
+		// (attr === "dexterity"|| attr === "intelligence") ? update_reflex() : false;
+		// (attr === "wisdom"|| attr === "charisma") ? update_will() : false;
+
+
 	});
 });
 
 ['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
-	on(`change:${attr}_mod`, function() {
+	console.log("C thing has started")
+	on(`change:${attr}-mod`, function() {
+		console.log("C thing has ended")
 		update_save(`${attr}`);
 		update_attacks(`${attr}`);
 		update_tool(`${attr}`);
@@ -137,10 +158,16 @@ on("sheet:compendium-drop", function() {
 });
 
 ['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
+	console.log("D thing has changed")
 	on(`change:${attr}_save_prof change:${attr}_save_mod`, function(eventinfo) {
 		if(eventinfo.sourceType === "sheetworker") {return;};
 		update_save(`${attr}`);
 	});
+});
+
+on("change:initiative_misc", function(eventinfo){
+	if(eventinfo.sourceType === "sheetworker") {return;};
+	update_initiative();
 });
 
 on("change:globalsavemod", function(eventinfo) {
@@ -430,7 +457,7 @@ on("change:class change:custom_class change:cust_classname change:cust_hitdietyp
 	update_class();
 });
 
-on("change:base_level change:multiclass1_flag change:multiclass1 change:multiclass1_lvl change:multiclass2_flag change:multiclass2 change:multiclass2_lvl change:multiclass3_flag change:multiclass3 change:multiclass3_lvl change:arcane_fighter change:arcane_rogue", function(eventinfo) {
+on("change:level change:multiclass1_flag change:multiclass1 change:multiclass1_lvl change:multiclass2_flag change:multiclass2 change:multiclass2_lvl change:multiclass3_flag change:multiclass3 change:multiclass3_lvl change:arcane_fighter change:arcane_rogue", function(eventinfo) {
 	if(eventinfo.sourceType && eventinfo.sourceType === "sheetworker") {
 		return;
 	}
@@ -720,7 +747,7 @@ var update_mod = function (attr) {
 		var attr_abr = attr.substring(0,3);
 		var finalattr = v[attr] && isNaN(v[attr]) === false ? Math.floor((parseInt(v[attr], 10) - 10) / 2) : 0;
 		var update = {};
-		update[attr + "_mod"] = finalattr;
+		update[attr + "-mod"] = finalattr;
 		update["npc_" + attr_abr + "_negative"] = v[attr] && !isNaN(v[attr]) && parseInt(v[attr], 10) < 10 ? 1 : 0;
 		setAttrs(update);
 	});
@@ -785,7 +812,7 @@ var update_all_ability_checks = function(){
 };
 
 var update_skills = function (skills_array) {
-	var attrs_to_get = ["pb","pb_type","jack_of_all_trades","jack","strength_mod","dexterity_mod","constitution_mod","intelligence_mod","wisdom_mod","charisma_mod"];
+	var attrs_to_get = ["pb","pb_type","jack_of_all_trades","jack","strength-mod","dexterity-mod","constitution-mod","intelligence-mod","wisdom-mod","charisma-mod"];
 	var update = {};
 	var callbacks = [];
 
@@ -897,7 +924,7 @@ var update_tool = function(tool_id) {
 };
 
 var do_update_tool = function(tool_array) {
-	var tool_attribs = ["pb","pb_type","jack","strength_mod","dexterity_mod","constitution_mod","intelligence_mod","wisdom_mod","charisma_mod"];
+	var tool_attribs = ["pb","pb_type","jack","strength-mod","dexterity-mod","constitution-mod","intelligence-mod","wisdom-mod","charisma-mod"];
 	var update = {};
 	_.each(tool_array, function(tool_id) {
 		tool_attribs.push("repeating_tool_" + tool_id + "_toolbonus_base");
@@ -911,7 +938,7 @@ var do_update_tool = function(tool_array) {
 			var query = false;
 			if(v["repeating_tool_" + tool_id + "_toolattr_base"] && v["repeating_tool_" + tool_id + "_toolattr_base"].substring(0,2) === "?{") {
 				update["repeating_tool_" + tool_id + "_toolattr"] = "QUERY";
-				var mod = "?{Attribute?|Strength,@{strength_mod}|Dexterity,@{dexterity_mod}|Constitution,@{constitution_mod}|Intelligence,@{intelligence_mod}|Wisdom,@{wisdom_mod}|Charisma,@{charisma_mod}}";
+				var mod = "?{Attribute?|Strength,@{strength-mod}|Dexterity,@{dexterity-mod}|Constitution,@{constitution-mod}|Intelligence,@{intelligence-mod}|Wisdom,@{wisdom-mod}|Charisma,@{charisma-mod}}";
 				if(v["repeating_tool_" + tool_id + "_tool_mod"]) {
 					mod = mod + "+" + v["repeating_tool_" + tool_id + "_tool_mod"];
 				}
@@ -1042,7 +1069,7 @@ var get_repeating_data = function(callback) {
 
 var handle_drop = function(category, eventinfo) {
 
-	getAttrs(["speed", "drop_name", "drop_data", "drop_content", "character_id", "npc_legendary_actions", "strength_mod", "dexterity_mod", "npc", "base_level", "strength_base", "dexterity_base", "constitution_base", "wisdom_base", "intelligence_base", "charisma_base", "class_resource_name", "other_resource_name", "multiclass1_lvl", "multiclass2_lvl", "multiclass3_lvl"], function(v) {
+	getAttrs(["speed", "drop_name", "drop_data", "drop_content", "character_id", "npc_legendary_actions", "strength-mod", "dexterity-mod", "npc", "level", "strength_base", "dexterity_base", "constitution_base", "wisdom_base", "intelligence_base", "charisma_base", "class_resource_name", "other_resource_name", "multiclass1_lvl", "multiclass2_lvl", "multiclass3_lvl"], function(v) {
 		var pagedata = {};
 		try {
 			pagedata = JSON.parse(v.drop_data);
@@ -1078,29 +1105,29 @@ var processDrop = function(page, currentData, repeating, looped) {
 		var finalAttrib = "";
 		if (modString == "FIN") {
 			if (parseInt(currentData.strength_base) > parseInt(currentData.dexterity_base)) {
-				finalAttrib = "@{strength_mod}";
+				finalAttrib = "@{strength-mod}";
 			} else {
-				finalAttrib = "@{dexterity_mod}";
+				finalAttrib = "@{dexterity-mod}";
 			}
 		} else {
 			switch(modString) {
 				case "STR":
-					finalAttrib = "@{strength_mod}";
+					finalAttrib = "@{strength-mod}";
 					break;
 				case "DEX":
-					finalAttrib = "@{dexterity_mod}";
+					finalAttrib = "@{dexterity-mod}";
 					break;
 				case "CON":
-					finalAttrib = "@{constitution_mod}";
+					finalAttrib = "@{constitution-mod}";
 					break;
 				case "WIS":
-					finalAttrib = "@{wisdom_mod}";
+					finalAttrib = "@{wisdom-mod}";
 					break;
 				case "INT":
-					finalAttrib = "@{intelligence_mod}";
+					finalAttrib = "@{intelligence-mod}";
 					break;
 				case "CHA":
-					finalAttrib = "@{charisma_mod}";
+					finalAttrib = "@{charisma-mod}";
 					break;
 			}
 		}
@@ -1132,7 +1159,7 @@ var processDrop = function(page, currentData, repeating, looped) {
 	var update = {};
 	var id = generateRowID();
 	var blobs = {};
-	var classlevel = currentData.base_level ? parseInt(currentData.base_level) : 1;
+	var classlevel = currentData.level ? parseInt(currentData.level) : 1;
 	repeating.traits = repeating.traits ? repeating.traits : [];
 	update["drop_category"] = "";
 	update["drop_name"] = "";
@@ -1222,8 +1249,8 @@ var processDrop = function(page, currentData, repeating, looped) {
 
 					var isFinesse = page.data["Properties"] && new RegExp('\\bfinesse\\b', 'i').test(page.data["Properties"]);
 					var attack_type = update[`repeating_npcaction_${id}_attack_type`].toLowerCase();
-					var use_dex_mod = attack_type === "ranged" || (isFinesse && currentData.dexterity_mod > currentData.strength_mod);
-					var weapon_attr_mod = use_dex_mod ? currentData.dexterity_mod : currentData.strength_mod;
+					var use_dex_mod = attack_type === "ranged" || (isFinesse && currentData.dexterity-mod > currentData.strength-mod);
+					var weapon_attr_mod = use_dex_mod ? currentData.dexterity-mod : currentData.strength-mod;
 					update["repeating_npcaction_" + rowid + "_attack_tohit"] = weapon_attr_mod;
 
 					if(options && options.versatile === 2) {
@@ -1602,7 +1629,7 @@ var processDrop = function(page, currentData, repeating, looped) {
 					update["spellcasting_ability"] = ability;
 					update["caster_level"] = lvl;
 					update["class"] = "Wizard";
-					update["base_level"] = lvl;
+					update["level"] = lvl;
 					update["level"] = lvl;
 					callbacks.push( function() {update_pb();} );
 					callbacks.push( function() {update_spell_slots();} );
@@ -1865,7 +1892,7 @@ var processDrop = function(page, currentData, repeating, looped) {
 			});
 			if(!existing.toolname) repeating.tool[newrowid] = {toolname: page.name.toLowerCase()}
 			update["repeating_tool_" + newrowid + "_toolname"] = page.name;
-			if(!existing.base) update["repeating_tool_" + newrowid + "_toolattr_base"] = "?{Attribute?|Strength,@{strength_mod}|Dexterity,@{dexterity_mod}|Constitution,@{constitution_mod}|Intelligence,@{intelligence_mod}|Wisdom,@{wisdom_mod}|Charisma,@{charisma_mod}}";
+			if(!existing.base) update["repeating_tool_" + newrowid + "_toolattr_base"] = "?{Attribute?|Strength,@{strength-mod}|Dexterity,@{dexterity-mod}|Constitution,@{constitution-mod}|Intelligence,@{intelligence-mod}|Wisdom,@{wisdom-mod}|Charisma,@{charisma-mod}}";
 			update["repeating_tool_" + newrowid + "_options-flag"] = 0;
 			if(page.data["toolbonus_base"]) update["repeating_tool_" + newrowid + "_toolbonus_base"] = "(@{pb}*2)";
 			repeating.prof_names.push(page.name.toLowerCase());
@@ -1885,9 +1912,9 @@ var processDrop = function(page, currentData, repeating, looped) {
 		} else {
 			if(page.name && page.name !== "") { update["class"] = page.name; }
 			if(page.data["Hit Die"] && page.data["Hit Die"] !== "") {
-				update["base_level"] = currentData.base_level ? currentData.base_level : "1";
-				update["hit_dice_max"] = update["base_level"] + page.data["Hit Die"];
-				update["hit_dice"] = update["base_level"];
+				update["level"] = currentData.level ? currentData.level : "1";
+				update["hit_dice_max"] = update["level"] + page.data["Hit Die"];
+				update["hit_dice"] = update["level"];
 			}
 			if(page.data["Spellcasting Ability"] && page.data["Spellcasting Ability"] !== "") {
 				update["spellcasting_ability"] = "@{" + page.data["Spellcasting Ability"].toLowerCase() + "_mod}+";
@@ -2055,7 +2082,7 @@ var processDrop = function(page, currentData, repeating, looped) {
 						});
 						if(!existing.toolname) repeating.tool[newrowid] = {toolname: prof.toLowerCase()}
 						update["repeating_tool_" + newrowid + "_toolname"] = prof;
-						if(!existing.base) update["repeating_tool_" + newrowid + "_toolattr_base"] = "?{Attribute?|Strength,@{strength_mod}|Dexterity,@{dexterity_mod}|Constitution,@{constitution_mod}|Intelligence,@{intelligence_mod}|Wisdom,@{wisdom_mod}|Charisma,@{charisma_mod}}";
+						if(!existing.base) update["repeating_tool_" + newrowid + "_toolattr_base"] = "?{Attribute?|Strength,@{strength-mod}|Dexterity,@{dexterity-mod}|Constitution,@{constitution-mod}|Intelligence,@{intelligence-mod}|Wisdom,@{wisdom-mod}|Charisma,@{charisma-mod}}";
 						update["repeating_tool_" + newrowid + "_options-flag"] = 0;
 						repeating.prof_names.push(page.name.toLowerCase());
 						callbacks.push( function() {update_tool(newrowid);} );
@@ -2467,12 +2494,12 @@ var update_attack_from_item = function(itemid, attackid, options) {
 		}
 		var finesse = v["repeating_inventory_" + itemid + "_itemproperties"] && /finesse/i.test(v["repeating_inventory_" + itemid + "_itemproperties"]);
 		if( (itemtype && itemtype.indexOf("Ranged") > -1) || (finesse && +v.dexterity > +v.strength)) {
-			update["repeating_attack_" + attackid + "_atkattr_base"] = "@{dexterity_mod}";
-			update["repeating_attack_" + attackid + "_dmgattr"] = "@{dexterity_mod}";
+			update["repeating_attack_" + attackid + "_atkattr_base"] = "@{dexterity-mod}";
+			update["repeating_attack_" + attackid + "_dmgattr"] = "@{dexterity-mod}";
 		}
 		else {
-			update["repeating_attack_" + attackid + "_atkattr_base"] = "@{strength_mod}";
-			update["repeating_attack_" + attackid + "_dmgattr"] = "@{strength_mod}";
+			update["repeating_attack_" + attackid + "_atkattr_base"] = "@{strength-mod}";
+			update["repeating_attack_" + attackid + "_dmgattr"] = "@{strength-mod}";
 		}
 		if(attackmod && damagemod && attackmod == damagemod) {
 			update["repeating_attack_" + attackid + "_atkmagic"] = parseInt(attackmod, 10);
@@ -2815,475 +2842,475 @@ var update_attacks = function(update_id, source) {
 	};
 };
 
-var do_update_attack = function(attack_array, source) {
-	var attack_attribs = ["level","d20","pb","pb_type","pbd_safe","dtype","globalmagicmod","strength_mod","dexterity_mod","constitution_mod","intelligence_mod","wisdom_mod","charisma_mod","spellcasting_ability","spell_save_dc","spell_attack_mod", "spell_dc_mod", "global_damage_mod_roll", "global_damage_mod_crit"];
-	_.each(attack_array, function(attackid) {
-		attack_attribs.push("repeating_attack_" + attackid + "_atkflag");
-		attack_attribs.push("repeating_attack_" + attackid + "_atkname");
-		attack_attribs.push("repeating_attack_" + attackid + "_atkattr_base");
-		attack_attribs.push("repeating_attack_" + attackid + "_atkmod");
-		attack_attribs.push("repeating_attack_" + attackid + "_atkprofflag");
-		attack_attribs.push("repeating_attack_" + attackid + "_atkmagic");
-		attack_attribs.push("repeating_attack_" + attackid + "_dmgflag");
-		attack_attribs.push("repeating_attack_" + attackid + "_dmgbase");
-		attack_attribs.push("repeating_attack_" + attackid + "_dmgattr");
-		attack_attribs.push("repeating_attack_" + attackid + "_dmgmod");
-		attack_attribs.push("repeating_attack_" + attackid + "_dmgtype");
-		attack_attribs.push("repeating_attack_" + attackid + "_dmg2flag");
-		attack_attribs.push("repeating_attack_" + attackid + "_dmg2base");
-		attack_attribs.push("repeating_attack_" + attackid + "_dmg2attr");
-		attack_attribs.push("repeating_attack_" + attackid + "_dmg2mod");
-		attack_attribs.push("repeating_attack_" + attackid + "_dmg2type");
-		attack_attribs.push("repeating_attack_" + attackid + "_dmgcustcrit");
-		attack_attribs.push("repeating_attack_" + attackid + "_dmg2custcrit");
-		attack_attribs.push("repeating_attack_" + attackid + "_saveflag");
-		attack_attribs.push("repeating_attack_" + attackid + "_savedc");
-		attack_attribs.push("repeating_attack_" + attackid + "_saveeffect");
-		attack_attribs.push("repeating_attack_" + attackid + "_saveflat");
-		attack_attribs.push("repeating_attack_" + attackid + "_hldmg");
-		attack_attribs.push("repeating_attack_" + attackid + "_spellid");
-		attack_attribs.push("repeating_attack_" + attackid + "_spelllevel");
-		attack_attribs.push("repeating_attack_" + attackid + "_atkrange");
-		attack_attribs.push("repeating_attack_" + attackid + "_itemid");
-		attack_attribs.push("repeating_attack_" + attackid + "_ammo");
-		attack_attribs.push("repeating_attack_" + attackid + "_global_damage_mod_field");
-	});
+// var do_update_attack = function(attack_array, source) {
+// 	var attack_attribs = ["level","d20","pb","pb_type","pbd_safe","dtype","globalmagicmod","strength-mod","dexterity-mod","constitution-mod","intelligence-mod","wisdom-mod","charisma-mod","spellcasting_ability","spell_save_dc","spell_attack_mod", "spell_dc_mod", "global_damage_mod_roll", "global_damage_mod_crit"];
+// 	_.each(attack_array, function(attackid) {
+// 		attack_attribs.push("repeating_attack_" + attackid + "_atkflag");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_atkname");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_atkattr_base");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_atkmod");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_atkprofflag");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_atkmagic");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_dmgflag");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_dmgbase");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_dmgattr");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_dmgmod");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_dmgtype");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_dmg2flag");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_dmg2base");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_dmg2attr");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_dmg2mod");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_dmg2type");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_dmgcustcrit");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_dmg2custcrit");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_saveflag");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_savedc");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_saveeffect");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_saveflat");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_hldmg");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_spellid");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_spelllevel");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_atkrange");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_itemid");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_ammo");
+// 		attack_attribs.push("repeating_attack_" + attackid + "_global_damage_mod_field");
+// 	});
 
-	getAttrs(attack_attribs, function(v) {
-		_.each(attack_array, function(attackid) {
-			var callbacks = [];
-			var update = {};
-			var hbonus = "";
-			var hdmg1 = "";
-			var hdmg2 = "";
-			var dmg = "";
-			var dmg2 = "";
-			var rollbase = "";
-			var spellattack = false;
-			var magicattackmod = 0;
-			var magicsavemod = 0;
-			var atkattr_abrev = "";
-			var dmgattr_abrev = "";
-			var dmg2attr_abrev = "";
-			var pbd_safe = v["pbd_safe"] ? v["pbd_safe"] : "";
-			var global_crit = v["repeating_attack_" + attackid + "_global_damage_mod_field"] && v["repeating_attack_" + attackid + "_global_damage_mod_field"] != "" ? "@{global_damage_mod_crit}" : "";
-			var hldmgcrit = v["repeating_attack_" + attackid + "_hldmg"] && v["repeating_attack_" + attackid + "_hldmg"] != "" ? v["repeating_attack_" + attackid + "_hldmg"].slice(0, 7) + "crit" + v["repeating_attack_" + attackid + "_hldmg"].slice(7) : "";
-			if(v["repeating_attack_" + attackid + "_spellid"] && v["repeating_attack_" + attackid + "_spellid"] != "") {
-				spellattack = true;
-				magicattackmod = v["spell_attack_mod"] && !isNaN(parseInt(v["spell_attack_mod"],10)) ? parseInt(v["spell_attack_mod"],10) : 0;
-				magicsavemod = v["spell_dc_mod"] && !isNaN(parseInt(v["spell_dc_mod"],10)) ? parseInt(v["spell_dc_mod"],10) : 0;
-			};
+// 	getAttrs(attack_attribs, function(v) {
+// 		_.each(attack_array, function(attackid) {
+// 			var callbacks = [];
+// 			var update = {};
+// 			var hbonus = "";
+// 			var hdmg1 = "";
+// 			var hdmg2 = "";
+// 			var dmg = "";
+// 			var dmg2 = "";
+// 			var rollbase = "";
+// 			var spellattack = false;
+// 			var magicattackmod = 0;
+// 			var magicsavemod = 0;
+// 			var atkattr_abrev = "";
+// 			var dmgattr_abrev = "";
+// 			var dmg2attr_abrev = "";
+// 			var pbd_safe = v["pbd_safe"] ? v["pbd_safe"] : "";
+// 			var global_crit = v["repeating_attack_" + attackid + "_global_damage_mod_field"] && v["repeating_attack_" + attackid + "_global_damage_mod_field"] != "" ? "@{global_damage_mod_crit}" : "";
+// 			var hldmgcrit = v["repeating_attack_" + attackid + "_hldmg"] && v["repeating_attack_" + attackid + "_hldmg"] != "" ? v["repeating_attack_" + attackid + "_hldmg"].slice(0, 7) + "crit" + v["repeating_attack_" + attackid + "_hldmg"].slice(7) : "";
+// 			if(v["repeating_attack_" + attackid + "_spellid"] && v["repeating_attack_" + attackid + "_spellid"] != "") {
+// 				spellattack = true;
+// 				magicattackmod = v["spell_attack_mod"] && !isNaN(parseInt(v["spell_attack_mod"],10)) ? parseInt(v["spell_attack_mod"],10) : 0;
+// 				magicsavemod = v["spell_dc_mod"] && !isNaN(parseInt(v["spell_dc_mod"],10)) ? parseInt(v["spell_dc_mod"],10) : 0;
+// 			};
 
-			if(!v["repeating_attack_" + attackid + "_atkattr_base"] || v["repeating_attack_" + attackid + "_atkattr_base"] === "0") {
-				atkattr_base = 0
-			} else if(v["repeating_attack_" + attackid + "_atkattr_base"] && v["repeating_attack_" + attackid + "_atkattr_base"] === "spell") {
-				atkattr_base = parseInt(v[v["spellcasting_ability"].substring(2, v["spellcasting_ability"].length - 2)], 10);
-				atkattr_abrev = v["spellcasting_ability"].substring(2, 5).toUpperCase();
-			} else {
-				atkattr_base = parseInt(v[v["repeating_attack_" + attackid + "_atkattr_base"].substring(2, v["repeating_attack_" + attackid + "_atkattr_base"].length - 1)], 10);
-				atkattr_abrev = v["repeating_attack_" + attackid + "_atkattr_base"].substring(2, 5).toUpperCase();
-			};
+// 			if(!v["repeating_attack_" + attackid + "_atkattr_base"] || v["repeating_attack_" + attackid + "_atkattr_base"] === "0") {
+// 				atkattr_base = 0
+// 			} else if(v["repeating_attack_" + attackid + "_atkattr_base"] && v["repeating_attack_" + attackid + "_atkattr_base"] === "spell") {
+// 				atkattr_base = parseInt(v[v["spellcasting_ability"].substring(2, v["spellcasting_ability"].length - 2)], 10);
+// 				atkattr_abrev = v["spellcasting_ability"].substring(2, 5).toUpperCase();
+// 			} else {
+// 				atkattr_base = parseInt(v[v["repeating_attack_" + attackid + "_atkattr_base"].substring(2, v["repeating_attack_" + attackid + "_atkattr_base"].length - 1)], 10);
+// 				atkattr_abrev = v["repeating_attack_" + attackid + "_atkattr_base"].substring(2, 5).toUpperCase();
+// 			};
 
-			if(!v["repeating_attack_" + attackid + "_dmgattr"] || v["repeating_attack_" + attackid + "_dmgattr"] === "0") {
-				dmgattr = 0;
-			} else if(v["repeating_attack_" + attackid + "_dmgattr"] && v["repeating_attack_" + attackid + "_dmgattr"] === "spell") {
-				dmgattr = parseInt(v[v["spellcasting_ability"].substring(2, v["spellcasting_ability"].length - 2)], 10);
-				dmgattr_abrev = v["spellcasting_ability"].substring(2, 5).toUpperCase();
-			} else {
-				dmgattr = parseInt(v[v["repeating_attack_" + attackid + "_dmgattr"].substring(2, v["repeating_attack_" + attackid + "_dmgattr"].length - 1)], 10);
-				dmgattr_abrev =v["repeating_attack_" + attackid + "_dmgattr"].substring(2, 5).toUpperCase();
-			};
+// 			if(!v["repeating_attack_" + attackid + "_dmgattr"] || v["repeating_attack_" + attackid + "_dmgattr"] === "0") {
+// 				dmgattr = 0;
+// 			} else if(v["repeating_attack_" + attackid + "_dmgattr"] && v["repeating_attack_" + attackid + "_dmgattr"] === "spell") {
+// 				dmgattr = parseInt(v[v["spellcasting_ability"].substring(2, v["spellcasting_ability"].length - 2)], 10);
+// 				dmgattr_abrev = v["spellcasting_ability"].substring(2, 5).toUpperCase();
+// 			} else {
+// 				dmgattr = parseInt(v[v["repeating_attack_" + attackid + "_dmgattr"].substring(2, v["repeating_attack_" + attackid + "_dmgattr"].length - 1)], 10);
+// 				dmgattr_abrev =v["repeating_attack_" + attackid + "_dmgattr"].substring(2, 5).toUpperCase();
+// 			};
 
-			if(!v["repeating_attack_" + attackid + "_dmg2attr"] || v["repeating_attack_" + attackid + "_dmg2attr"] === "0") {
-				dmg2attr = 0;
-			} else if(v["repeating_attack_" + attackid + "_dmg2attr"] && v["repeating_attack_" + attackid + "_dmg2attr"] === "spell") {
-				dmg2attr = parseInt(v[v["spellcasting_ability"].substring(2, v["spellcasting_ability"].length - 2)], 10);
-				dmg2attr_abrev = v["spellcasting_ability"].substring(2, 5).toUpperCase();
-			} else {
-				dmg2attr = parseInt(v[v["repeating_attack_" + attackid + "_dmg2attr"].substring(2, v["repeating_attack_" + attackid + "_dmg2attr"].length - 1)], 10);
-				dmg2attr_abrev =v["repeating_attack_" + attackid + "_dmg2attr"].substring(2, 5).toUpperCase();
-			};
+// 			if(!v["repeating_attack_" + attackid + "_dmg2attr"] || v["repeating_attack_" + attackid + "_dmg2attr"] === "0") {
+// 				dmg2attr = 0;
+// 			} else if(v["repeating_attack_" + attackid + "_dmg2attr"] && v["repeating_attack_" + attackid + "_dmg2attr"] === "spell") {
+// 				dmg2attr = parseInt(v[v["spellcasting_ability"].substring(2, v["spellcasting_ability"].length - 2)], 10);
+// 				dmg2attr_abrev = v["spellcasting_ability"].substring(2, 5).toUpperCase();
+// 			} else {
+// 				dmg2attr = parseInt(v[v["repeating_attack_" + attackid + "_dmg2attr"].substring(2, v["repeating_attack_" + attackid + "_dmg2attr"].length - 1)], 10);
+// 				dmg2attr_abrev =v["repeating_attack_" + attackid + "_dmg2attr"].substring(2, 5).toUpperCase();
+// 			};
 
-			var dmgbase = v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "" ? v["repeating_attack_" + attackid + "_dmgbase"] : 0;
-			var dmg2base = v["repeating_attack_" + attackid + "_dmg2base"] && v["repeating_attack_" + attackid + "_dmg2base"] != "" ? v["repeating_attack_" + attackid + "_dmg2base"] : 0;
-			var dmgmod = v["repeating_attack_" + attackid + "_dmgmod"] && isNaN(parseInt(v["repeating_attack_" + attackid + "_dmgmod"],10)) === false ? parseInt(v["repeating_attack_" + attackid + "_dmgmod"],10) : 0;
-			var dmg2mod = v["repeating_attack_" + attackid + "_dmg2mod"] && isNaN(parseInt(v["repeating_attack_" + attackid + "_dmg2mod"],10)) === false ? parseInt(v["repeating_attack_" + attackid + "_dmg2mod"],10) : 0;
-			var dmgtype = v["repeating_attack_" + attackid + "_dmgtype"] ? v["repeating_attack_" + attackid + "_dmgtype"] + " " : "";
-			var dmg2type = v["repeating_attack_" + attackid + "_dmg2type"] ? v["repeating_attack_" + attackid + "_dmg2type"] + " " : "";
-			var pb = v["repeating_attack_" + attackid + "_atkprofflag"] && v["repeating_attack_" + attackid + "_atkprofflag"] != 0 && v.pb ? v.pb : 0;
-			var atkmod = v["repeating_attack_" + attackid + "_atkmod"] && v["repeating_attack_" + attackid + "_atkmod"] != "" ? parseInt(v["repeating_attack_" + attackid + "_atkmod"],10) : 0;
-			var atkmag = v["repeating_attack_" + attackid + "_atkmagic"] && v["repeating_attack_" + attackid + "_atkmagic"] != "" ? parseInt(v["repeating_attack_" + attackid + "_atkmagic"],10) : 0;
-			var dmgmag = isNaN(atkmag) === false && atkmag != 0 && ((v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) || (v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0)) ? "+ " + atkmag + " Magic Bonus" : "";
-			if(v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0) {
-				bonus_mod = atkattr_base + atkmod + atkmag + magicattackmod;
-				if(v["pb_type"] && v["pb_type"] === "die") {
-					plus_minus = bonus_mod > -1 ? "+" : "";
-					bonus = bonus_mod + "+" + pb;
-				}
-				else {
-					bonus_mod = bonus_mod + parseInt(pb, 10);
-					plus_minus = bonus_mod > -1 ? "+" : "";
-					bonus = plus_minus + bonus_mod;
-				};
-			}
-			else if(v["repeating_attack_" + attackid + "_saveflag"] && v["repeating_attack_" + attackid + "_saveflag"] != 0) {
-				if(!v["repeating_attack_" + attackid + "_savedc"] || (v["repeating_attack_" + attackid + "_savedc"] && v["repeating_attack_" + attackid + "_savedc"] === "(@{spell_save_dc})")) {
-					var tempdc = v["spell_save_dc"];
-				}
-				else if(v["repeating_attack_" + attackid + "_savedc"] && v["repeating_attack_" + attackid + "_savedc"] === "(@{saveflat})") {
-					var tempdc = isNaN(parseInt(v["repeating_attack_" + attackid + "_saveflat"])) === false ? parseInt(v["repeating_attack_" + attackid + "_saveflat"]) : "0";
-				}
-				else {
-					var savedcattr = v["repeating_attack_" + attackid + "_savedc"].replace(/^[^{]*{/,"").replace(/\_.*$/,"");
-					var safe_pb = v["pb_type"] && v["pb_type"] === "die" ? parseInt(pb.substring(1), 10) / 2 : parseInt(pb,10);
-					var safe_attr = v[savedcattr + "_mod"] ? parseInt(v[savedcattr + "_mod"],10) : 0;
-					var tempdc = 8 + safe_attr + safe_pb + magicsavemod;
-				};
-				bonus = "DC" + tempdc;
-			}
-			else {
-				bonus = "-";
-			}
-			if(v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) {
-				if(spellattack === true && dmgbase.indexOf("[[round((@{level} + 1) / 6 + 0.5)]]") > -1) {
-					// SPECIAL CANTRIP DAMAGE
-					dmgdiestring = Math.round(((parseInt(v["level"], 10) + 1) / 6) + 0.5).toString()
-					dmg = dmgdiestring + dmgbase.substring(dmgbase.lastIndexOf("d"));
-					if(dmgattr + dmgmod != 0) {
-						dmg = dmg + "+" + (dmgattr + dmgmod);
-					}
-					dmg = dmg + " " + dmgtype;
-				}
-				else {
-					if(dmgbase === 0 && (dmgattr + dmgmod === 0)){
-						dmg = 0;
-					}
-					if(dmgbase != 0) {
-						dmg = dmgbase;
-					}
-					if(dmgbase != 0 && (dmgattr + dmgmod != 0)){
-						dmg = dmgattr + dmgmod > 0 ? dmg + "+" : dmg;
-					}
-					if(dmgattr + dmgmod != 0) {
-						dmg = dmg + (dmgattr + dmgmod);
-					}
-					dmg = dmg + " " + dmgtype;
-				}
-			}
-			else {
-				dmg = "";
-			};
-			if(v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0) {
-				if(dmg2base === 0 && (dmg2attr + dmg2mod === 0)){
-					dmg2 = 0;
-				}
-				if(dmg2base != 0) {
-					dmg2 = dmg2base;
-				}
-				if(dmg2base != 0 && (dmg2attr + dmg2mod != 0)){
-					dmg2 = dmg2attr + dmg2mod > 0 ? dmg2 + "+" : dmg2;
-				}
-				if(dmg2attr + dmg2mod != 0) {
-					dmg2 = dmg2 + (dmg2attr + dmg2mod);
-				}
-				dmg2 = dmg2 + " " + dmg2type;
-			}
-			else {
-				dmg2 = "";
-			};
-			dmgspacer = v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0 && v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0 ? "+ " : "";
-			crit1 = v["repeating_attack_" + attackid + "_dmgcustcrit"] && v["repeating_attack_" + attackid + "_dmgcustcrit"] != "" ? v["repeating_attack_" + attackid + "_dmgcustcrit"] : dmgbase;
-			crit2 = v["repeating_attack_" + attackid + "_dmg2custcrit"] && v["repeating_attack_" + attackid + "_dmg2custcrit"] != "" ? v["repeating_attack_" + attackid + "_dmg2custcrit"] : dmg2base;
-			r1 = v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0 ? "@{d20}" : "0d20";
-			r2 = v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0 ? "@{rtype}" : "{{r2=[[0d20";
-			if(v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0) {
-				if(magicattackmod != 0) {hbonus = " + " + magicattackmod + "[SPELLATK]" + hbonus};
-				if(atkmag != 0) {hbonus = " + " + atkmag + "[MAGIC]" + hbonus};
-				if(pb != 0) {hbonus = " + " + pb + pbd_safe + "[PROF]" + hbonus};
-				if(atkmod != 0) {hbonus = " + " + atkmod + "[MOD]" + hbonus};
-				if(atkattr_base != 0) {hbonus = " + " + atkattr_base + "[" + atkattr_abrev + "]" + hbonus};
-			}
-			else {
-				hbonus = "";
-			}
-			if(v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) {
-				if(atkmag != 0) {hdmg1 = " + " + atkmag + "[MAGIC]" + hdmg1};
-				if(dmgmod != 0) {hdmg1 = " + " + dmgmod + "[MOD]" + hdmg1};
-				if(dmgattr != 0) {hdmg1 = " + " + dmgattr + "[" + dmgattr_abrev + "]" + hdmg1};
-				hdmg1 = dmgbase + hdmg1;
-			}
-			else {
-				hdmg1 = "0";
-			}
-			if(v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0) {
-				if(dmg2mod != 0) {hdmg2 = " + " + dmg2mod + "[MOD]" + hdmg2};
-				if(dmg2attr != 0) {hdmg2 = " + " + dmg2attr + "[" + dmg2attr_abrev + "]" + hdmg2};
-				hdmg2 = dmg2base + hdmg2;
-			}
-			else {
-				hdmg2 = "0";
-			}
-			var globaldamage = `[[${v.global_damage_mod_roll && v.global_damage_mod_roll !== "" ? v.global_damage_mod_roll : "0"}]]`;
-			var globaldamagecrit = `[[${v.global_damage_mod_crit && v.global_damage_mod_crit !== "" ? v.global_damage_mod_crit : "0"}]]`;
-			if(v.dtype === "full") {
-				pickbase = "full";
-				rollbase = "@{wtype}&{template:atkdmg} {{mod=@{atkbonus}}} {{rname=@{atkname}}} {{r1=[[" + r1 + "cs>@{atkcritrange}" + hbonus + "]]}} " + r2 + "cs>@{atkcritrange}" + hbonus + "]]}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} {{crit1=[[" + crit1 + "[CRIT]]]}} {{crit2=[[" + crit2 + "[CRIT]]]}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} " + hldmgcrit + " {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globalattack=@{global_attack_mod}}} {{globaldamage=" + globaldamage + "}} {{globaldamagecrit=" + globaldamagecrit + "}} {{globaldamagetype=@{global_damage_mod_type}}} ammo=@{ammo} @{charname_output}";
-			}
-			else if(v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0) {
-				pickbase = "pick";
-				rollbase = "@{wtype}&{template:atk} {{mod=@{atkbonus}}} {{rname=[@{atkname}](~repeating_attack_attack_dmg)}} {{rnamec=[@{atkname}](~repeating_attack_attack_crit)}} {{r1=[[" + r1 + "cs>@{atkcritrange}" + hbonus + "]]}} " + r2 + "cs>@{atkcritrange}" + hbonus + "]]}} {{range=@{atkrange}}} {{desc=@{atk_desc}}} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globalattack=@{global_attack_mod}}} ammo=@{ammo} @{charname_output}";
-			}
-			else if(v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) {
-				pickbase = "dmg";
-				rollbase = "@{wtype}&{template:dmg} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globaldamage=" + globaldamage + "}} {{globaldamagetype=@{global_damage_mod_type}}} ammo=@{ammo} @{charname_output}"
-			}
-			else {
-				pickbase = "empty";
-				rollbase = "@{wtype}&{template:dmg} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{saveflag} {{desc=@{atk_desc}}} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} ammo=@{ammo} @{charname_output}"
-			}
-			update["repeating_attack_" + attackid + "_rollbase_dmg"] = "@{wtype}&{template:dmg} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globaldamage=" + globaldamage + "}} {{globaldamagetype=@{global_damage_mod_type}}} @{charname_output}";
-			update["repeating_attack_" + attackid + "_rollbase_crit"] = "@{wtype}&{template:dmg} {{crit=1}} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} {{crit1=[[" + crit1 + "]]}} {{crit2=[[" + crit2 + "]]}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} " + hldmgcrit + " {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globaldamage=" + globaldamage + "}} {{globaldamagecrit=" + globaldamagecrit + "}} {{globaldamagetype=@{global_damage_mod_type}}} @{charname_output}"
-			update["repeating_attack_" + attackid + "_atkbonus"] = bonus;
-			update["repeating_attack_" + attackid + "_atkdmgtype"] = dmg + dmgspacer + dmg2 + dmgmag + " ";
-			update["repeating_attack_" + attackid + "_rollbase"] = rollbase;
-			if(v["repeating_attack_" + attackid + "_spellid"] && v["repeating_attack_" + attackid + "_spellid"] != "" && (!source || source && source != "spell") && v["repeating_attack_" + attackid + "_spellid"].length == 20) {
-				var spellid = v["repeating_attack_" + attackid + "_spellid"];
-				var lvl = v["repeating_attack_" + attackid + "_spelllevel"];
-				callbacks.push( function() {update_spell_from_attack(lvl, spellid, attackid);} );
-			}
-			if(v["repeating_attack_" + attackid + "_itemid"] && v["repeating_attack_" + attackid + "_itemid"] != "" && (!source || source && source != "item")) {
-				var itemid = v["repeating_attack_" + attackid + "_itemid"];
-				callbacks.push( function() {update_item_from_attack(itemid, attackid);} );
-			}
-			setAttrs(update, {silent: true}, function() {callbacks.forEach(function(callback) {callback(); })} );
-		});
-	});
-};
+// 			var dmgbase = v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "" ? v["repeating_attack_" + attackid + "_dmgbase"] : 0;
+// 			var dmg2base = v["repeating_attack_" + attackid + "_dmg2base"] && v["repeating_attack_" + attackid + "_dmg2base"] != "" ? v["repeating_attack_" + attackid + "_dmg2base"] : 0;
+// 			var dmgmod = v["repeating_attack_" + attackid + "_dmgmod"] && isNaN(parseInt(v["repeating_attack_" + attackid + "_dmgmod"],10)) === false ? parseInt(v["repeating_attack_" + attackid + "_dmgmod"],10) : 0;
+// 			var dmg2mod = v["repeating_attack_" + attackid + "_dmg2mod"] && isNaN(parseInt(v["repeating_attack_" + attackid + "_dmg2mod"],10)) === false ? parseInt(v["repeating_attack_" + attackid + "_dmg2mod"],10) : 0;
+// 			var dmgtype = v["repeating_attack_" + attackid + "_dmgtype"] ? v["repeating_attack_" + attackid + "_dmgtype"] + " " : "";
+// 			var dmg2type = v["repeating_attack_" + attackid + "_dmg2type"] ? v["repeating_attack_" + attackid + "_dmg2type"] + " " : "";
+// 			var pb = v["repeating_attack_" + attackid + "_atkprofflag"] && v["repeating_attack_" + attackid + "_atkprofflag"] != 0 && v.pb ? v.pb : 0;
+// 			var atkmod = v["repeating_attack_" + attackid + "_atkmod"] && v["repeating_attack_" + attackid + "_atkmod"] != "" ? parseInt(v["repeating_attack_" + attackid + "_atkmod"],10) : 0;
+// 			var atkmag = v["repeating_attack_" + attackid + "_atkmagic"] && v["repeating_attack_" + attackid + "_atkmagic"] != "" ? parseInt(v["repeating_attack_" + attackid + "_atkmagic"],10) : 0;
+// 			var dmgmag = isNaN(atkmag) === false && atkmag != 0 && ((v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) || (v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0)) ? "+ " + atkmag + " Magic Bonus" : "";
+// 			if(v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0) {
+// 				bonus_mod = atkattr_base + atkmod + atkmag + magicattackmod;
+// 				if(v["pb_type"] && v["pb_type"] === "die") {
+// 					plus_minus = bonus_mod > -1 ? "+" : "";
+// 					bonus = bonus_mod + "+" + pb;
+// 				}
+// 				else {
+// 					bonus_mod = bonus_mod + parseInt(pb, 10);
+// 					plus_minus = bonus_mod > -1 ? "+" : "";
+// 					bonus = plus_minus + bonus_mod;
+// 				};
+// 			}
+// 			else if(v["repeating_attack_" + attackid + "_saveflag"] && v["repeating_attack_" + attackid + "_saveflag"] != 0) {
+// 				if(!v["repeating_attack_" + attackid + "_savedc"] || (v["repeating_attack_" + attackid + "_savedc"] && v["repeating_attack_" + attackid + "_savedc"] === "(@{spell_save_dc})")) {
+// 					var tempdc = v["spell_save_dc"];
+// 				}
+// 				else if(v["repeating_attack_" + attackid + "_savedc"] && v["repeating_attack_" + attackid + "_savedc"] === "(@{saveflat})") {
+// 					var tempdc = isNaN(parseInt(v["repeating_attack_" + attackid + "_saveflat"])) === false ? parseInt(v["repeating_attack_" + attackid + "_saveflat"]) : "0";
+// 				}
+// 				else {
+// 					var savedcattr = v["repeating_attack_" + attackid + "_savedc"].replace(/^[^{]*{/,"").replace(/\_.*$/,"");
+// 					var safe_pb = v["pb_type"] && v["pb_type"] === "die" ? parseInt(pb.substring(1), 10) / 2 : parseInt(pb,10);
+// 					var safe_attr = v[savedcattr + "_mod"] ? parseInt(v[savedcattr + "_mod"],10) : 0;
+// 					var tempdc = 8 + safe_attr + safe_pb + magicsavemod;
+// 				};
+// 				bonus = "DC" + tempdc;
+// 			}
+// 			else {
+// 				bonus = "-";
+// 			}
+// 			if(v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) {
+// 				if(spellattack === true && dmgbase.indexOf("[[round((@{level} + 1) / 6 + 0.5)]]") > -1) {
+// 					// SPECIAL CANTRIP DAMAGE
+// 					dmgdiestring = Math.round(((parseInt(v["level"], 10) + 1) / 6) + 0.5).toString()
+// 					dmg = dmgdiestring + dmgbase.substring(dmgbase.lastIndexOf("d"));
+// 					if(dmgattr + dmgmod != 0) {
+// 						dmg = dmg + "+" + (dmgattr + dmgmod);
+// 					}
+// 					dmg = dmg + " " + dmgtype;
+// 				}
+// 				else {
+// 					if(dmgbase === 0 && (dmgattr + dmgmod === 0)){
+// 						dmg = 0;
+// 					}
+// 					if(dmgbase != 0) {
+// 						dmg = dmgbase;
+// 					}
+// 					if(dmgbase != 0 && (dmgattr + dmgmod != 0)){
+// 						dmg = dmgattr + dmgmod > 0 ? dmg + "+" : dmg;
+// 					}
+// 					if(dmgattr + dmgmod != 0) {
+// 						dmg = dmg + (dmgattr + dmgmod);
+// 					}
+// 					dmg = dmg + " " + dmgtype;
+// 				}
+// 			}
+// 			else {
+// 				dmg = "";
+// 			};
+// 			if(v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0) {
+// 				if(dmg2base === 0 && (dmg2attr + dmg2mod === 0)){
+// 					dmg2 = 0;
+// 				}
+// 				if(dmg2base != 0) {
+// 					dmg2 = dmg2base;
+// 				}
+// 				if(dmg2base != 0 && (dmg2attr + dmg2mod != 0)){
+// 					dmg2 = dmg2attr + dmg2mod > 0 ? dmg2 + "+" : dmg2;
+// 				}
+// 				if(dmg2attr + dmg2mod != 0) {
+// 					dmg2 = dmg2 + (dmg2attr + dmg2mod);
+// 				}
+// 				dmg2 = dmg2 + " " + dmg2type;
+// 			}
+// 			else {
+// 				dmg2 = "";
+// 			};
+// 			dmgspacer = v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0 && v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0 ? "+ " : "";
+// 			crit1 = v["repeating_attack_" + attackid + "_dmgcustcrit"] && v["repeating_attack_" + attackid + "_dmgcustcrit"] != "" ? v["repeating_attack_" + attackid + "_dmgcustcrit"] : dmgbase;
+// 			crit2 = v["repeating_attack_" + attackid + "_dmg2custcrit"] && v["repeating_attack_" + attackid + "_dmg2custcrit"] != "" ? v["repeating_attack_" + attackid + "_dmg2custcrit"] : dmg2base;
+// 			r1 = v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0 ? "@{d20}" : "0d20";
+// 			r2 = v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0 ? "@{rtype}" : "{{r2=[[0d20";
+// 			if(v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0) {
+// 				if(magicattackmod != 0) {hbonus = " + " + magicattackmod + "[SPELLATK]" + hbonus};
+// 				if(atkmag != 0) {hbonus = " + " + atkmag + "[MAGIC]" + hbonus};
+// 				if(pb != 0) {hbonus = " + " + pb + pbd_safe + "[PROF]" + hbonus};
+// 				if(atkmod != 0) {hbonus = " + " + atkmod + "[MOD]" + hbonus};
+// 				if(atkattr_base != 0) {hbonus = " + " + atkattr_base + "[" + atkattr_abrev + "]" + hbonus};
+// 			}
+// 			else {
+// 				hbonus = "";
+// 			}
+// 			if(v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) {
+// 				if(atkmag != 0) {hdmg1 = " + " + atkmag + "[MAGIC]" + hdmg1};
+// 				if(dmgmod != 0) {hdmg1 = " + " + dmgmod + "[MOD]" + hdmg1};
+// 				if(dmgattr != 0) {hdmg1 = " + " + dmgattr + "[" + dmgattr_abrev + "]" + hdmg1};
+// 				hdmg1 = dmgbase + hdmg1;
+// 			}
+// 			else {
+// 				hdmg1 = "0";
+// 			}
+// 			if(v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0) {
+// 				if(dmg2mod != 0) {hdmg2 = " + " + dmg2mod + "[MOD]" + hdmg2};
+// 				if(dmg2attr != 0) {hdmg2 = " + " + dmg2attr + "[" + dmg2attr_abrev + "]" + hdmg2};
+// 				hdmg2 = dmg2base + hdmg2;
+// 			}
+// 			else {
+// 				hdmg2 = "0";
+// 			}
+// 			var globaldamage = `[[${v.global_damage_mod_roll && v.global_damage_mod_roll !== "" ? v.global_damage_mod_roll : "0"}]]`;
+// 			var globaldamagecrit = `[[${v.global_damage_mod_crit && v.global_damage_mod_crit !== "" ? v.global_damage_mod_crit : "0"}]]`;
+// 			if(v.dtype === "full") {
+// 				pickbase = "full";
+// 				rollbase = "@{wtype}&{template:atkdmg} {{mod=@{atkbonus}}} {{rname=@{atkname}}} {{r1=[[" + r1 + "cs>@{atkcritrange}" + hbonus + "]]}} " + r2 + "cs>@{atkcritrange}" + hbonus + "]]}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} {{crit1=[[" + crit1 + "[CRIT]]]}} {{crit2=[[" + crit2 + "[CRIT]]]}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} " + hldmgcrit + " {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globalattack=@{global_attack_mod}}} {{globaldamage=" + globaldamage + "}} {{globaldamagecrit=" + globaldamagecrit + "}} {{globaldamagetype=@{global_damage_mod_type}}} ammo=@{ammo} @{charname_output}";
+// 			}
+// 			else if(v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0) {
+// 				pickbase = "pick";
+// 				rollbase = "@{wtype}&{template:atk} {{mod=@{atkbonus}}} {{rname=[@{atkname}](~repeating_attack_attack_dmg)}} {{rnamec=[@{atkname}](~repeating_attack_attack_crit)}} {{r1=[[" + r1 + "cs>@{atkcritrange}" + hbonus + "]]}} " + r2 + "cs>@{atkcritrange}" + hbonus + "]]}} {{range=@{atkrange}}} {{desc=@{atk_desc}}} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globalattack=@{global_attack_mod}}} ammo=@{ammo} @{charname_output}";
+// 			}
+// 			else if(v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) {
+// 				pickbase = "dmg";
+// 				rollbase = "@{wtype}&{template:dmg} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globaldamage=" + globaldamage + "}} {{globaldamagetype=@{global_damage_mod_type}}} ammo=@{ammo} @{charname_output}"
+// 			}
+// 			else {
+// 				pickbase = "empty";
+// 				rollbase = "@{wtype}&{template:dmg} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{saveflag} {{desc=@{atk_desc}}} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} ammo=@{ammo} @{charname_output}"
+// 			}
+// 			update["repeating_attack_" + attackid + "_rollbase_dmg"] = "@{wtype}&{template:dmg} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globaldamage=" + globaldamage + "}} {{globaldamagetype=@{global_damage_mod_type}}} @{charname_output}";
+// 			update["repeating_attack_" + attackid + "_rollbase_crit"] = "@{wtype}&{template:dmg} {{crit=1}} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} {{crit1=[[" + crit1 + "]]}} {{crit2=[[" + crit2 + "]]}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} " + hldmgcrit + " {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globaldamage=" + globaldamage + "}} {{globaldamagecrit=" + globaldamagecrit + "}} {{globaldamagetype=@{global_damage_mod_type}}} @{charname_output}"
+// 			update["repeating_attack_" + attackid + "_atkbonus"] = bonus;
+// 			update["repeating_attack_" + attackid + "_atkdmgtype"] = dmg + dmgspacer + dmg2 + dmgmag + " ";
+// 			update["repeating_attack_" + attackid + "_rollbase"] = rollbase;
+// 			if(v["repeating_attack_" + attackid + "_spellid"] && v["repeating_attack_" + attackid + "_spellid"] != "" && (!source || source && source != "spell") && v["repeating_attack_" + attackid + "_spellid"].length == 20) {
+// 				var spellid = v["repeating_attack_" + attackid + "_spellid"];
+// 				var lvl = v["repeating_attack_" + attackid + "_spelllevel"];
+// 				callbacks.push( function() {update_spell_from_attack(lvl, spellid, attackid);} );
+// 			}
+// 			if(v["repeating_attack_" + attackid + "_itemid"] && v["repeating_attack_" + attackid + "_itemid"] != "" && (!source || source && source != "item")) {
+// 				var itemid = v["repeating_attack_" + attackid + "_itemid"];
+// 				callbacks.push( function() {update_item_from_attack(itemid, attackid);} );
+// 			}
+// 			setAttrs(update, {silent: true}, function() {callbacks.forEach(function(callback) {callback(); })} );
+// 		});
+// 	});
+// };
 
-var update_spell_from_attack = function(lvl, spellid, attackid) {
-	var update = {};
-	getAttrs(["repeating_attack_" + attackid + "_atkname", "repeating_attack_" + attackid + "_atkrange", "repeating_attack_" + attackid + "_atkflag", "repeating_attack_" + attackid + "_atkattr_base", "repeating_attack_" + attackid + "_dmgbase", "repeating_attack_" + attackid + "_dmgtype", "repeating_attack_" + attackid + "_dmg2base", "repeating_attack_" + attackid + "_dmg2type", "repeating_attack_" + attackid + "_saveflag", "repeating_attack_" + attackid + "_saveattr", "repeating_attack_" + attackid + "_saveeffect"], function(v) {
-		update["repeating_spell-" + lvl + "_" + spellid + "_spellname"] = v["repeating_attack_" + attackid + "_atkname"];
-		if(v["repeating_attack_" + attackid + "_atkrange"] && v["repeating_attack_" + attackid + "_atkrange"] != "") {
-			update["repeating_spell-" + lvl + "_" + spellid + "_spellrange"] = v["repeating_attack_" + attackid + "_atkrange"];
-		}
-		else {
-			update["repeating_spell-" + lvl + "_" + spellid + "_spellrange"] = "";
-		};
+// var update_spell_from_attack = function(lvl, spellid, attackid) {
+// 	var update = {};
+// 	getAttrs(["repeating_attack_" + attackid + "_atkname", "repeating_attack_" + attackid + "_atkrange", "repeating_attack_" + attackid + "_atkflag", "repeating_attack_" + attackid + "_atkattr_base", "repeating_attack_" + attackid + "_dmgbase", "repeating_attack_" + attackid + "_dmgtype", "repeating_attack_" + attackid + "_dmg2base", "repeating_attack_" + attackid + "_dmg2type", "repeating_attack_" + attackid + "_saveflag", "repeating_attack_" + attackid + "_saveattr", "repeating_attack_" + attackid + "_saveeffect"], function(v) {
+// 		update["repeating_spell-" + lvl + "_" + spellid + "_spellname"] = v["repeating_attack_" + attackid + "_atkname"];
+// 		if(v["repeating_attack_" + attackid + "_atkrange"] && v["repeating_attack_" + attackid + "_atkrange"] != "") {
+// 			update["repeating_spell-" + lvl + "_" + spellid + "_spellrange"] = v["repeating_attack_" + attackid + "_atkrange"];
+// 		}
+// 		else {
+// 			update["repeating_spell-" + lvl + "_" + spellid + "_spellrange"] = "";
+// 		};
 
-		if(v["repeating_attack_" + attackid + "_dmgtype"] && v["repeating_attack_" + attackid + "_dmgtype"].toLowerCase() == "healing") {
-			if(v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "") {
-				update["repeating_spell-" + lvl + "_" + spellid + "_spellhealing"] = v["repeating_attack_" + attackid + "_dmgbase"];
-			}
-		}
-		else {
-			if(v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "" && v["repeating_attack_" + attackid + "_dmgbase"].indexOf("[[round((@{level} + 1) / 6 + 0.5)]]") === -1) {
-				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage"] = v["repeating_attack_" + attackid + "_dmgbase"];
-			}
-			else if(!v["repeating_attack_" + attackid + "_dmgbase"] || v["repeating_attack_" + attackid + "_dmgbase"] === "") {
-				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage"] = "";
-			}
-			if(v["repeating_attack_" + attackid + "_dmgtype"] && v["repeating_attack_" + attackid + "_dmgtype"] != "") {
-				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype"] = v["repeating_attack_" + attackid + "_dmgtype"];
-			}
-			else {
-				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype"] = "";
-			}
-		};
-		if(v["repeating_attack_" + attackid + "_dmg2type"] && v["repeating_attack_" + attackid + "_dmg2type"].toLowerCase() == "healing") {
-			if(v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "") {
-				update["repeating_spell-" + lvl + "_" + spellid + "_spellhealing"] = v["repeating_attack_" + attackid + "_dmgbase"];
-			}
-		}
-		else {
-			if(v["repeating_attack_" + attackid + "_dmg2base"] && v["repeating_attack_" + attackid + "_dmg2base"] != "") {
-				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage2"] = v["repeating_attack_" + attackid + "_dmg2base"];
-			}
-			else {
-				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage2"] = "";
-			}
-			if(v["repeating_attack_" + attackid + "_dmg2type"] && v["repeating_attack_" + attackid + "_dmg2type"] != "") {
-				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype2"] = v["repeating_attack_" + attackid + "_dmg2type"];
-			}
-			else {
-				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype2"] = "";
-			}
-		};
+// 		if(v["repeating_attack_" + attackid + "_dmgtype"] && v["repeating_attack_" + attackid + "_dmgtype"].toLowerCase() == "healing") {
+// 			if(v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "") {
+// 				update["repeating_spell-" + lvl + "_" + spellid + "_spellhealing"] = v["repeating_attack_" + attackid + "_dmgbase"];
+// 			}
+// 		}
+// 		else {
+// 			if(v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "" && v["repeating_attack_" + attackid + "_dmgbase"].indexOf("[[round((@{level} + 1) / 6 + 0.5)]]") === -1) {
+// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage"] = v["repeating_attack_" + attackid + "_dmgbase"];
+// 			}
+// 			else if(!v["repeating_attack_" + attackid + "_dmgbase"] || v["repeating_attack_" + attackid + "_dmgbase"] === "") {
+// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage"] = "";
+// 			}
+// 			if(v["repeating_attack_" + attackid + "_dmgtype"] && v["repeating_attack_" + attackid + "_dmgtype"] != "") {
+// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype"] = v["repeating_attack_" + attackid + "_dmgtype"];
+// 			}
+// 			else {
+// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype"] = "";
+// 			}
+// 		};
+// 		if(v["repeating_attack_" + attackid + "_dmg2type"] && v["repeating_attack_" + attackid + "_dmg2type"].toLowerCase() == "healing") {
+// 			if(v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "") {
+// 				update["repeating_spell-" + lvl + "_" + spellid + "_spellhealing"] = v["repeating_attack_" + attackid + "_dmgbase"];
+// 			}
+// 		}
+// 		else {
+// 			if(v["repeating_attack_" + attackid + "_dmg2base"] && v["repeating_attack_" + attackid + "_dmg2base"] != "") {
+// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage2"] = v["repeating_attack_" + attackid + "_dmg2base"];
+// 			}
+// 			else {
+// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage2"] = "";
+// 			}
+// 			if(v["repeating_attack_" + attackid + "_dmg2type"] && v["repeating_attack_" + attackid + "_dmg2type"] != "") {
+// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype2"] = v["repeating_attack_" + attackid + "_dmg2type"];
+// 			}
+// 			else {
+// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype2"] = "";
+// 			}
+// 		};
 
-		if(v["repeating_attack_" + attackid + "_saveflag"] && v["repeating_attack_" + attackid + "_saveflag"] != "0") {
-			update["repeating_spell-" + lvl + "_" + spellid + "_spellsave"] = v["repeating_attack_" + attackid + "_saveattr"];
-		}
-		else {
-			update["repeating_spell-" + lvl + "_" + spellid + "_spellsave"] = "";
-		};
-		if(v["repeating_attack_" + attackid + "_saveeffect"] && v["repeating_attack_" + attackid + "_saveeffect"] != "") {
-			update["repeating_spell-" + lvl + "_" + spellid + "_spellsavesuccess"] = v["repeating_attack_" + attackid + "_saveeffect"];
-		}
-		else {
-			update["repeating_spell-" + lvl + "_" + spellid + "_spellsavesuccess"] = "";
-		};
-		setAttrs(update, {silent: true});
-	});
-};
+// 		if(v["repeating_attack_" + attackid + "_saveflag"] && v["repeating_attack_" + attackid + "_saveflag"] != "0") {
+// 			update["repeating_spell-" + lvl + "_" + spellid + "_spellsave"] = v["repeating_attack_" + attackid + "_saveattr"];
+// 		}
+// 		else {
+// 			update["repeating_spell-" + lvl + "_" + spellid + "_spellsave"] = "";
+// 		};
+// 		if(v["repeating_attack_" + attackid + "_saveeffect"] && v["repeating_attack_" + attackid + "_saveeffect"] != "") {
+// 			update["repeating_spell-" + lvl + "_" + spellid + "_spellsavesuccess"] = v["repeating_attack_" + attackid + "_saveeffect"];
+// 		}
+// 		else {
+// 			update["repeating_spell-" + lvl + "_" + spellid + "_spellsavesuccess"] = "";
+// 		};
+// 		setAttrs(update, {silent: true});
+// 	});
+// };
 
-var update_item_from_attack = function(itemid, attackid) {
-	getAttrs(["repeating_attack_" + attackid + "_atkname", "repeating_attack_" + attackid + "_dmgbase", "repeating_attack_" + attackid + "_dmg2base", "repeating_attack_" + attackid + "_dmgtype", "repeating_attack_" + attackid + "_dmg2type", "repeating_attack_" + attackid + "_atkrange", "repeating_attack_" + attackid + "_atkmod", "repeating_attack_" + attackid + "_dmgmod", "repeating_inventory_" + itemid + "_itemmodifiers", "repeating_attack_" + attackid + "_versatile_alt", "repeating_inventory_" + itemid + "_itemproperties", "repeating_attack_" + attackid + "_atkmagic"], function(v) {
-		var update = {};
-		var mods = v["repeating_inventory_" + itemid + "_itemmodifiers"];
-		var damage = v["repeating_attack_" + attackid + "_dmgbase"] ? v["repeating_attack_" + attackid + "_dmgbase"] : 0;
-		var damage2 = v["repeating_attack_" + attackid + "_dmg2base"] ? v["repeating_attack_" + attackid + "_dmg2base"] : 0;
-		var damagetype = v["repeating_attack_" + attackid + "_dmgtype"] ? v["repeating_attack_" + attackid + "_dmgtype"] : 0;
-		var damagetype2 = v["repeating_attack_" + attackid + "_dmg2type"] ? v["repeating_attack_" + attackid + "_dmg2type"] : 0;
-		var range = v["repeating_attack_" + attackid + "_atkrange"] ? v["repeating_attack_" + attackid + "_atkrange"] : 0;
-		var attackmod = v["repeating_attack_" + attackid + "_atkmod"] ? v["repeating_attack_" + attackid + "_atkmod"] : 0;
-		var damagemod = v["repeating_attack_" + attackid + "_dmgmod"] ? v["repeating_attack_" + attackid + "_dmgmod"] : 0;
-		var magicmod = v["repeating_attack_" + attackid + "_atkmagic"] ? v["repeating_attack_" + attackid + "_atkmagic"] : 0;
-		var atktype = "";
-		var altprefix = v["repeating_attack_" + attackid + "_versatile_alt"] === "1" ? "Alternate " : "";
+// var update_item_from_attack = function(itemid, attackid) {
+// 	getAttrs(["repeating_attack_" + attackid + "_atkname", "repeating_attack_" + attackid + "_dmgbase", "repeating_attack_" + attackid + "_dmg2base", "repeating_attack_" + attackid + "_dmgtype", "repeating_attack_" + attackid + "_dmg2type", "repeating_attack_" + attackid + "_atkrange", "repeating_attack_" + attackid + "_atkmod", "repeating_attack_" + attackid + "_dmgmod", "repeating_inventory_" + itemid + "_itemmodifiers", "repeating_attack_" + attackid + "_versatile_alt", "repeating_inventory_" + itemid + "_itemproperties", "repeating_attack_" + attackid + "_atkmagic"], function(v) {
+// 		var update = {};
+// 		var mods = v["repeating_inventory_" + itemid + "_itemmodifiers"];
+// 		var damage = v["repeating_attack_" + attackid + "_dmgbase"] ? v["repeating_attack_" + attackid + "_dmgbase"] : 0;
+// 		var damage2 = v["repeating_attack_" + attackid + "_dmg2base"] ? v["repeating_attack_" + attackid + "_dmg2base"] : 0;
+// 		var damagetype = v["repeating_attack_" + attackid + "_dmgtype"] ? v["repeating_attack_" + attackid + "_dmgtype"] : 0;
+// 		var damagetype2 = v["repeating_attack_" + attackid + "_dmg2type"] ? v["repeating_attack_" + attackid + "_dmg2type"] : 0;
+// 		var range = v["repeating_attack_" + attackid + "_atkrange"] ? v["repeating_attack_" + attackid + "_atkrange"] : 0;
+// 		var attackmod = v["repeating_attack_" + attackid + "_atkmod"] ? v["repeating_attack_" + attackid + "_atkmod"] : 0;
+// 		var damagemod = v["repeating_attack_" + attackid + "_dmgmod"] ? v["repeating_attack_" + attackid + "_dmgmod"] : 0;
+// 		var magicmod = v["repeating_attack_" + attackid + "_atkmagic"] ? v["repeating_attack_" + attackid + "_atkmagic"] : 0;
+// 		var atktype = "";
+// 		var altprefix = v["repeating_attack_" + attackid + "_versatile_alt"] === "1" ? "Alternate " : "";
 
-		if(/Alternate Damage:/i.test(v["repeating_inventory_" + itemid + "_itemmodifiers"])) {
-			update["repeating_inventory_" + itemid + "_itemname"] = v["repeating_attack_" + attackid + "_atkname"].replace(/\s*(?:\(One-Handed\)|\(Two-Handed\))/, "");
-		} else {
-			update["repeating_inventory_" + itemid + "_itemname"] = v["repeating_attack_" + attackid + "_atkname"];
-		}
+// 		if(/Alternate Damage:/i.test(v["repeating_inventory_" + itemid + "_itemmodifiers"])) {
+// 			update["repeating_inventory_" + itemid + "_itemname"] = v["repeating_attack_" + attackid + "_atkname"].replace(/\s*(?:\(One-Handed\)|\(Two-Handed\))/, "");
+// 		} else {
+// 			update["repeating_inventory_" + itemid + "_itemname"] = v["repeating_attack_" + attackid + "_atkname"];
+// 		}
 
-		var attack_type_regex = /(?:^|,)\s*Item Type: (Melee|Ranged) Weapon(?:,|$)/i;
-		var attack_type_results = attack_type_regex.exec(v["repeating_inventory_" + itemid + "_itemmodifiers"]);
-		atktype = attack_type_results ? attack_type_results[1] : "";
-		if(mods) {
-			mods = mods.split(",");
-		} else {
-			mods = [];
-		}
+// 		var attack_type_regex = /(?:^|,)\s*Item Type: (Melee|Ranged) Weapon(?:,|$)/i;
+// 		var attack_type_results = attack_type_regex.exec(v["repeating_inventory_" + itemid + "_itemmodifiers"]);
+// 		atktype = attack_type_results ? attack_type_results[1] : "";
+// 		if(mods) {
+// 			mods = mods.split(",");
+// 		} else {
+// 			mods = [];
+// 		}
 
-		var damage_regex = new RegExp("^\\s*" + altprefix + "Damage:\\s*(.+)$", "i");
-		var damage_found = false;
-		for(var i = 0; i < mods.length; i++) {
-			if(damage_found = damage_regex.exec(mods[i])) {
-				if(damage !== 0) {
-					mods[i] = mods[i].replace(damage_found[1], damage);
-				} else {
-					mods.splice(i, 1);
-				}
-				break;
-			}
-		}
-		if(!damage_found && damage !== 0) {
-			mods.push(altprefix + "Damage: " + damage);
-		}
+// 		var damage_regex = new RegExp("^\\s*" + altprefix + "Damage:\\s*(.+)$", "i");
+// 		var damage_found = false;
+// 		for(var i = 0; i < mods.length; i++) {
+// 			if(damage_found = damage_regex.exec(mods[i])) {
+// 				if(damage !== 0) {
+// 					mods[i] = mods[i].replace(damage_found[1], damage);
+// 				} else {
+// 					mods.splice(i, 1);
+// 				}
+// 				break;
+// 			}
+// 		}
+// 		if(!damage_found && damage !== 0) {
+// 			mods.push(altprefix + "Damage: " + damage);
+// 		}
 
-		var damage2_regex = new RegExp("^\\s*" + altprefix + "Secondary Damage:\\s*(.+)$", "i");
-		var damage2_found = false;
-		for(var i = 0; i < mods.length; i++) {
-			if(damage2_found = damage2_regex.exec(mods[i])) {
-				if(damage2 !== 0) {
-					mods[i] = mods[i].replace(damage2_found[1], damage2);
-				} else {
-					mods.splice(i, 1);
-				}
-				break;
-			}
-		}
-		if(!damage2_found && damage2 !== 0) {
-			mods.push(altprefix + "Secondary Damage: " + damage2);
-		}
+// 		var damage2_regex = new RegExp("^\\s*" + altprefix + "Secondary Damage:\\s*(.+)$", "i");
+// 		var damage2_found = false;
+// 		for(var i = 0; i < mods.length; i++) {
+// 			if(damage2_found = damage2_regex.exec(mods[i])) {
+// 				if(damage2 !== 0) {
+// 					mods[i] = mods[i].replace(damage2_found[1], damage2);
+// 				} else {
+// 					mods.splice(i, 1);
+// 				}
+// 				break;
+// 			}
+// 		}
+// 		if(!damage2_found && damage2 !== 0) {
+// 			mods.push(altprefix + "Secondary Damage: " + damage2);
+// 		}
 
-		var dmgtype_regex = new RegExp("^\\s*" + altprefix + "Damage Type:\\s*(.+)$", "i");
-		var dmgtype_found = false;
-		for(var i = 0; i < mods.length; i++) {
-			if(dmgtype_found = dmgtype_regex.exec(mods[i])) {
-				if(damagetype !== 0) {
-					mods[i] = mods[i].replace(dmgtype_found[1], damagetype);
-				} else {
-					mods.splice(i, 1);
-				}
-				break;
-			}
-		}
-		if(!dmgtype_found && damagetype !== 0) {
-			mods.push(altprefix + "Damage Type: " + damagetype);
-		}
+// 		var dmgtype_regex = new RegExp("^\\s*" + altprefix + "Damage Type:\\s*(.+)$", "i");
+// 		var dmgtype_found = false;
+// 		for(var i = 0; i < mods.length; i++) {
+// 			if(dmgtype_found = dmgtype_regex.exec(mods[i])) {
+// 				if(damagetype !== 0) {
+// 					mods[i] = mods[i].replace(dmgtype_found[1], damagetype);
+// 				} else {
+// 					mods.splice(i, 1);
+// 				}
+// 				break;
+// 			}
+// 		}
+// 		if(!dmgtype_found && damagetype !== 0) {
+// 			mods.push(altprefix + "Damage Type: " + damagetype);
+// 		}
 
-		var dmgtype2_regex = new RegExp("^\\s*" + altprefix + "Secondary Damage Type:\\s*(.+)$", "i");
-		var dmgtype2_found = false;
-		for(var i = 0; i < mods.length; i++) {
-			if(dmgtype2_found = dmgtype2_regex.exec(mods[i])) {
-				if(damagetype2 !== 0) {
-					mods[i] = mods[i].replace(dmgtype_found[1], damagetype);
-				} else {
-					mods.splice(i, 1);
-				}
-				break;
-			}
-		}
-		if(!dmgtype2_found && damagetype2 !== 0) {
-			mods.push(altprefix + "Secondary Damage Type: " + damagetype2);
-		}
+// 		var dmgtype2_regex = new RegExp("^\\s*" + altprefix + "Secondary Damage Type:\\s*(.+)$", "i");
+// 		var dmgtype2_found = false;
+// 		for(var i = 0; i < mods.length; i++) {
+// 			if(dmgtype2_found = dmgtype2_regex.exec(mods[i])) {
+// 				if(damagetype2 !== 0) {
+// 					mods[i] = mods[i].replace(dmgtype_found[1], damagetype);
+// 				} else {
+// 					mods.splice(i, 1);
+// 				}
+// 				break;
+// 			}
+// 		}
+// 		if(!dmgtype2_found && damagetype2 !== 0) {
+// 			mods.push(altprefix + "Secondary Damage Type: " + damagetype2);
+// 		}
 
-		var range_found = false;
-		for(var i = 0; i < mods.length; i++) {
-			if(range_found = /^\s*Range:\s*(.+)$/i.exec(mods[i])) {
-				if(range !== 0) {
-					mods[i] = mods[i].replace(range_found[1], range);
-				} else {
-					mods.splice(i, 1);
-				}
-				break;
-			}
-		}
-		if(!range_found && range !== 0) {
-			mods.push("Range: " + range);
-		}
+// 		var range_found = false;
+// 		for(var i = 0; i < mods.length; i++) {
+// 			if(range_found = /^\s*Range:\s*(.+)$/i.exec(mods[i])) {
+// 				if(range !== 0) {
+// 					mods[i] = mods[i].replace(range_found[1], range);
+// 				} else {
+// 					mods.splice(i, 1);
+// 				}
+// 				break;
+// 			}
+// 		}
+// 		if(!range_found && range !== 0) {
+// 			mods.push("Range: " + range);
+// 		}
 
-		var attackmod_regex = new RegExp("^\\s*(?:" + (atktype !== "" ? atktype + "|" : "") + "Weapon) Attacks \\+?(.+)$", "i");
-		var attackmod_found = false;
-		for(var i = 0; i < mods.length; i++) {
-			if(attackmod_found = attackmod_regex.exec(mods[i])) {
-				if(magicmod !== 0 || attackmod !== 0) {
-					mods[i] = mods[i].replace(attackmod_found[1], magicmod !== 0 ? magicmod : attackmod);
-				} else {
-					mods.splice(i, 1);
-				}
-				break;
-			}
-		}
-		if(!attackmod_found && (magicmod !== 0 || attackmod !== 0)) {
-			var properties = v["repeating_inventory_" + itemid + "_itemproperties"];
-			if(properties && /Thrown/i.test(properties)) {
-				mods.push("Weapon Attacks: " + (magicmod !== 0 ? magicmod : attackmod));
-			}
-			else {
-				mods.push(atktype + " Attacks: " + (magicmod !== 0 ? magicmod : attackmod));
-			}
-		}
+// 		var attackmod_regex = new RegExp("^\\s*(?:" + (atktype !== "" ? atktype + "|" : "") + "Weapon) Attacks \\+?(.+)$", "i");
+// 		var attackmod_found = false;
+// 		for(var i = 0; i < mods.length; i++) {
+// 			if(attackmod_found = attackmod_regex.exec(mods[i])) {
+// 				if(magicmod !== 0 || attackmod !== 0) {
+// 					mods[i] = mods[i].replace(attackmod_found[1], magicmod !== 0 ? magicmod : attackmod);
+// 				} else {
+// 					mods.splice(i, 1);
+// 				}
+// 				break;
+// 			}
+// 		}
+// 		if(!attackmod_found && (magicmod !== 0 || attackmod !== 0)) {
+// 			var properties = v["repeating_inventory_" + itemid + "_itemproperties"];
+// 			if(properties && /Thrown/i.test(properties)) {
+// 				mods.push("Weapon Attacks: " + (magicmod !== 0 ? magicmod : attackmod));
+// 			}
+// 			else {
+// 				mods.push(atktype + " Attacks: " + (magicmod !== 0 ? magicmod : attackmod));
+// 			}
+// 		}
 
-		var damagemod_regex = new RegExp("^\\s*(?:" + (atktype !== "" ? atktype + "|" : "") + "Weapon) Damage \\+?(.+)$", "i");
-		var damagemod_found = false;
-		for(var i = 0; i < mods.length; i++) {
-			if(damagemod_found = damagemod_regex.exec(mods[i])) {
-				if(magicmod !== 0 || damagemod !== 0) {
-					mods[i] = mods[i].replace(damagemod_found[1], magicmod !== 0 ? magicmod : attackmod);
-				} else {
-					mods.splice(i, 1);
-				}
-				break;
-			}
-		}
-		if(!damagemod_found && (magicmod !== 0 || damagemod !== 0)) {
-			var properties = v["repeating_inventory_" + itemid + "_itemproperties"];
-			if(properties && /Thrown/i.test(properties)) {
-				mods.push("Weapon Damage: " + (magicmod !== 0 ? magicmod : damagemod));
-			}
-			else {
-				mods.push(atktype + " Damage: " + (magicmod !== 0 ? magicmod : damagemod));
-			}
-		}
+// 		var damagemod_regex = new RegExp("^\\s*(?:" + (atktype !== "" ? atktype + "|" : "") + "Weapon) Damage \\+?(.+)$", "i");
+// 		var damagemod_found = false;
+// 		for(var i = 0; i < mods.length; i++) {
+// 			if(damagemod_found = damagemod_regex.exec(mods[i])) {
+// 				if(magicmod !== 0 || damagemod !== 0) {
+// 					mods[i] = mods[i].replace(damagemod_found[1], magicmod !== 0 ? magicmod : attackmod);
+// 				} else {
+// 					mods.splice(i, 1);
+// 				}
+// 				break;
+// 			}
+// 		}
+// 		if(!damagemod_found && (magicmod !== 0 || damagemod !== 0)) {
+// 			var properties = v["repeating_inventory_" + itemid + "_itemproperties"];
+// 			if(properties && /Thrown/i.test(properties)) {
+// 				mods.push("Weapon Damage: " + (magicmod !== 0 ? magicmod : damagemod));
+// 			}
+// 			else {
+// 				mods.push(atktype + " Damage: " + (magicmod !== 0 ? magicmod : damagemod));
+// 			}
+// 		}
 
-		update["repeating_inventory_" + itemid + "_itemmodifiers"] = mods.join(",");
+// 		update["repeating_inventory_" + itemid + "_itemmodifiers"] = mods.join(",");
 
-		setAttrs(update, {silent: true});
-	});
-};
+// 		setAttrs(update, {silent: true});
+// 	});
+// };
 
 var remove_attack = function(attackid) {
 	removeRepeatingRow("repeating_attack_" + attackid);
@@ -3325,7 +3352,7 @@ var update_weight = function() {
 	var update = {};
 	var wtotal = 0;
 	var stotal = 0; // ITEM SLOTS
-	var weight_attrs = ["cp", "sp", "ep", "gp", "pp", "currency_value", "encumberance_setting", "strength", "strength_mod", "size", "carrying_capacity_mod", "inventory_slots_mod", "use_inventory_slots", "itemweightfixed", "itemslotsfixed"];
+	var weight_attrs = ["cp", "sp", "ep", "gp", "pp", "currency_value", "encumberance_setting", "strength", "strength-mod", "size", "carrying_capacity_mod", "inventory_slots_mod", "use_inventory_slots", "itemweightfixed", "itemslotsfixed"];
 	getSectionIDs("repeating_inventory", function(idarray) {
 		_.each(idarray, function(currentID, i) {
 			weight_attrs.push("repeating_inventory_" + currentID + "_itemweight");
@@ -3420,7 +3447,7 @@ var update_weight = function() {
 					}
 				}
 
-				size_slots += parseInt(v.strength_mod, 10);
+				size_slots += parseInt(v.strength-mod, 10);
 
 				if (v.inventory_slots_mod) {
 					var operator = v.inventory_slots_mod.substring(0, 1);
@@ -3511,7 +3538,7 @@ var update_ac = function() {
 		}
 		else {
 			var update = {};
-			var ac_attrs = ["simpleinventory","custom_ac_base","custom_ac_part1","custom_ac_part2","strength_mod","dexterity_mod","constitution_mod","intelligence_mod","wisdom_mod","charisma_mod", "custom_ac_shield"];
+			var ac_attrs = ["simpleinventory","custom_ac_base","custom_ac_part1","custom_ac_part2","strength-mod","dexterity-mod","constitution-mod","intelligence-mod","wisdom-mod","charisma-mod", "custom_ac_shield"];
 			getSectionIDs("repeating_acmod", function(acidarray) {
 				_.each(acidarray, function(currentID, i) {
 					ac_attrs.push("repeating_acmod_" + currentID + "_global_ac_val");
@@ -3538,7 +3565,7 @@ var update_ac = function() {
 								globalacmod += parseInt(b["repeating_acmod_" + currentID + "_global_ac_val"], 10);
 							}
 						});
-						var dexmod = +b["dexterity_mod"];
+						var dexmod = +b["dexterity-mod"];
 						var total = 10 + dexmod;
 						var armorcount = 0;
 						var shieldcount = 0;
@@ -3630,7 +3657,7 @@ var check_customac = function(attr) {
 };
 
 var update_initiative = function() {
-	var attrs_to_get = ["dexterity","dexterity_mod","intelligence_mod","initmod","jack_of_all_trades","jack","init_tiebreaker","pb_type","use_intelligent_initiative"];
+	var attrs_to_get = ["dexterity","dexterity-mod","intelligence-mod","initmod","jack_of_all_trades","jack","init_tiebreaker","pb_type","use_intelligent_initiative","initiative_misc"];
 	getSectionIDs("repeating_inventory", function(idarray){
 		_.each(idarray, function(currentID, i) {
 			attrs_to_get.push("repeating_inventory_" + currentID + "_equipped");
@@ -3638,9 +3665,9 @@ var update_initiative = function() {
 		});
 		getAttrs(attrs_to_get, function(v) {
 			var update = {};
-			var final_init = parseInt(v["dexterity_mod"], 10);
+			var final_init = parseInt(v["dexterity-mod"], 10);
 			if(v["use_intelligent_initiative"] && v["use_intelligent_initiative"] != 0) {
-				final_init = parseInt(v["intelligence_mod"], 10);
+				final_init = parseInt(v["intelligence-mod"], 10);
 			}
 			if(v["initmod"] && !isNaN(parseInt(v["initmod"], 10))) {
 				final_init = final_init + parseInt(v["initmod"], 10);
@@ -3674,6 +3701,11 @@ var update_initiative = function() {
 					});
 				}
 			});
+
+			//Player custom edit on core page
+			final_init = final_init + parseInt(v["initiative_misc"], 10)
+			console.log("Changing Init " + parseInt(v["initiative_misc"], 10))
+
 			if(final_init % 1 != 0) {
 				final_init = parseFloat(final_init.toPrecision(12)); // ROUNDING ERROR BUGFIX
 			}
@@ -3684,7 +3716,7 @@ var update_initiative = function() {
 };
 
 var update_class = function() {
-	getAttrs(["class","base_level","custom_class","cust_classname","cust_hitdietype","cust_spellcasting_ability","cust_strength_save_prof","cust_dexterity_save_prof","cust_constitution_save_prof","cust_intelligence_save_prof","cust_wisdom_save_prof","cust_charisma_save_prof","strength_save_prof","dexterity_save_prof","constitution_save_prof","intelligence_save_prof","wisdom_save_prof","charisma_save_prof","subclass","multiclass1","multiclass1_subclass","multiclass2","multiclass2_subclass","multiclass3","multiclass3_subclass","npc"], function(v) {
+	getAttrs(["class","level","custom_class","cust_classname","cust_hitdietype","cust_spellcasting_ability","cust_strength_save_prof","cust_dexterity_save_prof","cust_constitution_save_prof","cust_intelligence_save_prof","cust_wisdom_save_prof","cust_charisma_save_prof","strength_save_prof","dexterity_save_prof","constitution_save_prof","intelligence_save_prof","wisdom_save_prof","charisma_save_prof","subclass","multiclass1","multiclass1_subclass","multiclass2","multiclass2_subclass","multiclass3","multiclass3_subclass","npc"], function(v) {
 		if(v.npc && v.npc == "1") {
 			return;
 		}
@@ -3725,7 +3757,7 @@ var update_class = function() {
 					break;
 				case "Bard":
 					update["hitdietype"] = 8;
-					update["spellcasting_ability"] = "@{charisma_mod}+";
+					update["spellcasting_ability"] = "@{charisma-mod}+";
 					update["strength_save_prof"] = 0;
 					update["dexterity_save_prof"] = "(@{pb})";
 					update["constitution_save_prof"] = 0;
@@ -3735,7 +3767,7 @@ var update_class = function() {
 					break;
 				case "Cleric":
 					update["hitdietype"] = 8;
-					update["spellcasting_ability"] = "@{wisdom_mod}+";
+					update["spellcasting_ability"] = "@{wisdom-mod}+";
 					update["strength_save_prof"] = 0;
 					update["dexterity_save_prof"] = 0;
 					update["constitution_save_prof"] = 0;
@@ -3745,7 +3777,7 @@ var update_class = function() {
 					break;
 				case "Druid":
 					update["hitdietype"] = 8;
-					update["spellcasting_ability"] = "@{wisdom_mod}+";
+					update["spellcasting_ability"] = "@{wisdom-mod}+";
 					update["strength_save_prof"] = 0;
 					update["dexterity_save_prof"] = 0;
 					update["constitution_save_prof"] = 0;
@@ -3775,7 +3807,7 @@ var update_class = function() {
 					break;
 				case "Paladin":
 					update["hitdietype"] = 10;
-					update["spellcasting_ability"] = "@{charisma_mod}+";
+					update["spellcasting_ability"] = "@{charisma-mod}+";
 					update["strength_save_prof"] = 0;
 					update["dexterity_save_prof"] = 0;
 					update["constitution_save_prof"] = 0;
@@ -3785,7 +3817,7 @@ var update_class = function() {
 					break;
 				case "Ranger":
 					update["hitdietype"] = 10;
-					update["spellcasting_ability"] = "@{wisdom_mod}+";
+					update["spellcasting_ability"] = "@{wisdom-mod}+";
 					update["strength_save_prof"] = "(@{pb})";
 					update["dexterity_save_prof"] = "(@{pb})";
 					update["constitution_save_prof"] = 0;
@@ -3805,7 +3837,7 @@ var update_class = function() {
 					break;
 				case "Sorcerer":
 					update["hitdietype"] = 6;
-					update["spellcasting_ability"] = "@{charisma_mod}+";
+					update["spellcasting_ability"] = "@{charisma-mod}+";
 					update["strength_save_prof"] = 0;
 					update["dexterity_save_prof"] = 0;
 					update["constitution_save_prof"] = "(@{pb})";
@@ -3815,7 +3847,7 @@ var update_class = function() {
 					break;
 				case "Warlock":
 					update["hitdietype"] = 8;
-					update["spellcasting_ability"] = "@{charisma_mod}+";
+					update["spellcasting_ability"] = "@{charisma-mod}+";
 					update["strength_save_prof"] = 0;
 					update["dexterity_save_prof"] = 0;
 					update["constitution_save_prof"] = 0;
@@ -3825,7 +3857,7 @@ var update_class = function() {
 					break;
 				case "Wizard":
 					update["hitdietype"] = 6;
-					update["spellcasting_ability"] = "@{intelligence_mod}+";
+					update["spellcasting_ability"] = "@{intelligence-mod}+";
 					update["strength_save_prof"] = 0;
 					update["dexterity_save_prof"] = 0;
 					update["constitution_save_prof"] = 0;
@@ -3841,19 +3873,19 @@ var update_class = function() {
 };
 
 var set_level = function() {
-	getAttrs(["base_level","multiclass1_flag","multiclass2_flag","multiclass3_flag","multiclass1_lvl","multiclass2_lvl","multiclass3_lvl","class","multiclass1","multiclass2","multiclass3", "arcane_fighter", "arcane_rogue", "custom_class", "cust_spellslots", "cust_classname", "level_calculations", "class", "subclass", "multiclass1_subclass","multiclass2_subclass","multiclass3_subclass"], function(v) {
+	getAttrs(["level","multiclass1_flag","multiclass2_flag","multiclass3_flag","multiclass1_lvl","multiclass2_lvl","multiclass3_lvl","class","multiclass1","multiclass2","multiclass3", "arcane_fighter", "arcane_rogue", "custom_class", "cust_spellslots", "cust_classname", "level_calculations", "class", "subclass", "multiclass1_subclass","multiclass2_subclass","multiclass3_subclass"], function(v) {
 		var update = {};
 		var callbacks = [];
 		var multiclass = (v.multiclass1_flag && v.multiclass1_flag === "1") || (v.multiclass2_flag && v.multiclass2_flag === "1") || (v.multiclass3_flag && v.multiclass3_flag === "1") ? true : false;
 		var finalclass = v["custom_class"] && v["custom_class"] != "0" ? v["cust_spellslots"] : v["class"];
-		var finallevel = (v.base_level && v.base_level > 0) ? parseInt(v.base_level,10) : 1;
+		var finallevel = (v.level && v.level > 0) ? parseInt(v.level,10) : 1;
 		var charclass = v.custom_class && v.custom_class != "0" ? v["cust_classname"] : v["class"];
 		var hitdie_final = multiclass ? "?{Hit Die Class|" + charclass + ",@{hitdietype}" : "@{hitdietype}";
 		var subclass = v.subclass ? v.subclass + " " : "";
 		var class_display = subclass + charclass + " " + finallevel;
 
 		// This nested array is used to determine the overall spellcasting level for the character.
-		var classes = [ [finalclass.toLowerCase(), v["base_level"]] ];
+		var classes = [ [finalclass.toLowerCase(), v["level"]] ];
 
 		if(v.multiclass1_flag && v.multiclass1_flag === "1") {
 			var multiclasslevel = (v["multiclass1_lvl"] && v["multiclass1_lvl"] > 0) ? parseInt(v["multiclass1_lvl"], 10) : 1;
@@ -4062,7 +4094,7 @@ var update_jack_attr = function() {
 
 var update_spell_info = function(attr) {
 	var update = {};
-	getAttrs(["spellcasting_ability","spell_dc_mod","globalmagicmod","strength_mod","dexterity_mod","constitution_mod","intelligence_mod","wisdom_mod","charisma_mod"], function(v) {
+	getAttrs(["spellcasting_ability","spell_dc_mod","globalmagicmod","strength-mod","dexterity-mod","constitution-mod","intelligence-mod","wisdom-mod","charisma-mod"], function(v) {
 		if(attr && v["spellcasting_ability"] && v["spellcasting_ability"].indexOf(attr) === -1) {
 			return
 		};
@@ -4327,12 +4359,12 @@ var update_npc_saves = function() {
 		var update = {};
 		var last_save = 0; var cha_save_flag = 0; var cha_save = ""; var wis_save_flag = 0; var wis_save = ""; var int_save_flag = 0; var int_save = ""; var con_save_flag = 0; var con_save = ""; var dex_save_flag = 0; var dex_save = ""; var str_save_flag = 0; var str_save = "";
 		// 1 = Positive, 2 = Last, 3 = Negative, 4 = Last Negative
-		if(v.npc_cha_save_base && v.npc_cha_save_base != "@{charisma_mod}") {cha_save = parseInt(v.npc_cha_save_base, 10); if(last_save === 0) {last_save = 1; cha_save_flag = cha_save < 0 ? 4 : 2;} else {cha_save_flag = cha_save < 0 ? 3 : 1;} } else {cha_save_flag = 0; cha_save = "";};
-		if(v.npc_wis_save_base && v.npc_wis_save_base != "@{wisdom_mod}") {wis_save = parseInt(v.npc_wis_save_base, 10); if(last_save === 0) {last_save = 1; wis_save_flag = wis_save < 0 ? 4 : 2;} else {wis_save_flag = wis_save < 0 ? 3 : 1;} } else {wis_save_flag = 0; wis_save = "";};
-		if(v.npc_int_save_base && v.npc_int_save_base != "@{intelligence_mod}") {int_save = parseInt(v.npc_int_save_base, 10); if(last_save === 0) {last_save = 1; int_save_flag = int_save < 0 ? 4 : 2;} else {int_save_flag = int_save < 0 ? 3 : 1;} } else {int_save_flag = 0; int_save = "";};
-		if(v.npc_con_save_base && v.npc_con_save_base != "@{constitution_mod}") {con_save = parseInt(v.npc_con_save_base, 10); if(last_save === 0) {last_save = 1; con_save_flag = con_save < 0 ? 4 : 2;} else {con_save_flag = con_save < 0 ? 3 : 1;} } else {con_save_flag = 0; con_save = "";};
-		if(v.npc_dex_save_base && v.npc_dex_save_base != "@{dexterity_mod}") {dex_save = parseInt(v.npc_dex_save_base, 10); if(last_save === 0) {last_save = 1; dex_save_flag = dex_save < 0 ? 4 : 2;} else {dex_save_flag = dex_save < 0 ? 3 : 1;} } else {dex_save_flag = 0; dex_save = "";};
-		if(v.npc_str_save_base && v.npc_str_save_base != "@{strength_mod}") {str_save = parseInt(v.npc_str_save_base, 10); if(last_save === 0) {last_save = 1; str_save_flag = str_save < 0 ? 4 : 2;} else {str_save_flag = str_save < 0 ? 3 : 1;} } else {str_save_flag = 0; str_save = "";};
+		if(v.npc_cha_save_base && v.npc_cha_save_base != "@{charisma-mod}") {cha_save = parseInt(v.npc_cha_save_base, 10); if(last_save === 0) {last_save = 1; cha_save_flag = cha_save < 0 ? 4 : 2;} else {cha_save_flag = cha_save < 0 ? 3 : 1;} } else {cha_save_flag = 0; cha_save = "";};
+		if(v.npc_wis_save_base && v.npc_wis_save_base != "@{wisdom-mod}") {wis_save = parseInt(v.npc_wis_save_base, 10); if(last_save === 0) {last_save = 1; wis_save_flag = wis_save < 0 ? 4 : 2;} else {wis_save_flag = wis_save < 0 ? 3 : 1;} } else {wis_save_flag = 0; wis_save = "";};
+		if(v.npc_int_save_base && v.npc_int_save_base != "@{intelligence-mod}") {int_save = parseInt(v.npc_int_save_base, 10); if(last_save === 0) {last_save = 1; int_save_flag = int_save < 0 ? 4 : 2;} else {int_save_flag = int_save < 0 ? 3 : 1;} } else {int_save_flag = 0; int_save = "";};
+		if(v.npc_con_save_base && v.npc_con_save_base != "@{constitution-mod}") {con_save = parseInt(v.npc_con_save_base, 10); if(last_save === 0) {last_save = 1; con_save_flag = con_save < 0 ? 4 : 2;} else {con_save_flag = con_save < 0 ? 3 : 1;} } else {con_save_flag = 0; con_save = "";};
+		if(v.npc_dex_save_base && v.npc_dex_save_base != "@{dexterity-mod}") {dex_save = parseInt(v.npc_dex_save_base, 10); if(last_save === 0) {last_save = 1; dex_save_flag = dex_save < 0 ? 4 : 2;} else {dex_save_flag = dex_save < 0 ? 3 : 1;} } else {dex_save_flag = 0; dex_save = "";};
+		if(v.npc_str_save_base && v.npc_str_save_base != "@{strength-mod}") {str_save = parseInt(v.npc_str_save_base, 10); if(last_save === 0) {last_save = 1; str_save_flag = str_save < 0 ? 4 : 2;} else {str_save_flag = str_save < 0 ? 3 : 1;} } else {str_save_flag = 0; str_save = "";};
 
 		update["npc_saving_flag"] = "" + cha_save + wis_save + int_save + con_save + dex_save + str_save;
 		update["npc_str_save"] = str_save;
@@ -4358,24 +4390,24 @@ var update_npc_skills = function() {
 		var survival_flag = 0; var survival = ""; var stealth_flag = 0; var stealth = ""; var sleight_of_hand_flag = 0; var sleight_of_hand = ""; var religion_flag = 0; var religion = ""; var persuasion_flag = 0; var persuasion = ""; var performance_flag = 0; var sperformance = ""; var perception_flag = 0; var perception = ""; var perception_flag = 0; var perception = ""; var nature_flag = 0; var nature = ""; var medicine_flag = 0; var medicine = ""; var investigation_flag = 0; var investigation = ""; var intimidation_flag = 0; var intimidation = ""; var insight_flag = 0; var insight = ""; var history_flag = 0; var history = ""; var deception_flag = 0; var deception = ""; var athletics_flag = 0; var athletics = ""; var arcana_flag = 0; var arcana = ""; var animal_handling_flag = 0; var animal_handling = ""; var acrobatics_flag = 0; var acrobatics = "";
 
 		// 1 = Positive, 2 = Last, 3 = Negative, 4 = Last Negative
-		if(v.npc_survival_base && v.npc_survival_base != "@{wisdom_mod}") {survival = parseInt(v.npc_survival_base, 10); if(last_skill === 0) {last_skill = 1; survival_flag = survival < 0 ? 4 : 2;} else {survival_flag = survival < 0 ? 3 : 1;} } else {survival_flag = 0; survival = "";};
-		if(v.npc_stealth_base && v.npc_stealth_base != "@{dexterity_mod}") {stealth = parseInt(v.npc_stealth_base, 10); if(last_skill === 0) {last_skill = 1; stealth_flag = stealth < 0 ? 4 : 2;} else {stealth_flag = stealth < 0 ? 3 : 1;} } else {stealth_flag = 0; stealth = "";};
-		if(v.npc_sleight_of_hand_base && v.npc_sleight_of_hand_base != "@{dexterity_mod}") {sleight_of_hand = parseInt(v.npc_sleight_of_hand_base, 10); if(last_skill === 0) {last_skill = 1; sleight_of_hand_flag = sleight_of_hand < 0 ? 4 : 2;} else {sleight_of_hand_flag = sleight_of_hand < 0 ? 3 : 1;} } else {sleight_of_hand_flag = 0; sleight_of_hand = "";};
-		if(v.npc_religion_base && v.npc_religion_base != "@{intelligence_mod}") {religion = parseInt(v.npc_religion_base, 10); if(last_skill === 0) {last_skill = 1; religion_flag = religion < 0 ? 4 : 2;} else {religion_flag = religion < 0 ? 3 : 1;} } else {religion_flag = 0; religion = "";};
-		if(v.npc_persuasion_base && v.npc_persuasion_base != "@{charisma_mod}") {persuasion = parseInt(v.npc_persuasion_base, 10); if(last_skill === 0) {last_skill = 1; persuasion_flag = persuasion < 0 ? 4 : 2;} else {persuasion_flag = persuasion < 0 ? 3 : 1;} } else {persuasion_flag = 0; persuasion = "";};
-		if(v.npc_performance_base && v.npc_performance_base != "@{charisma_mod}") {sperformance = parseInt(v.npc_performance_base, 10); if(last_skill === 0) {last_skill = 1; performance_flag = sperformance < 0 ? 4 : 2;} else {performance_flag = sperformance < 0 ? 3 : 1;} } else {performance_flag = 0; sperformance = "";};
-		if(v.npc_perception_base && v.npc_perception_base != "@{wisdom_mod}") {perception = parseInt(v.npc_perception_base, 10); if(last_skill === 0) {last_skill = 1; perception_flag = perception < 0 ? 4 : 2;} else {perception_flag = perception < 0 ? 3 : 1;} } else {perception_flag = 0; perception = "";};
-		if(v.npc_nature_base && v.npc_nature_base != "@{intelligence_mod}") {nature = parseInt(v.npc_nature_base, 10); if(last_skill === 0) {last_skill = 1; nature_flag = nature < 0 ? 4 : 2;} else {nature_flag = nature < 0 ? 3 : 1;} } else {nature_flag = 0; nature = "";};
-		if(v.npc_medicine_base && v.npc_medicine_base != "@{wisdom_mod}") {medicine = parseInt(v.npc_medicine_base, 10); if(last_skill === 0) {last_skill = 1; medicine_flag = medicine < 0 ? 4 : 2;} else {medicine_flag = medicine < 0 ? 3 : 1;} } else {medicine_flag = 0; medicine = "";};
-		if(v.npc_investigation_base && v.npc_investigation_base != "@{intelligence_mod}") {investigation = parseInt(v.npc_investigation_base, 10); if(last_skill === 0) {last_skill = 1; investigation_flag = investigation < 0 ? 4 : 2;} else {investigation_flag = investigation < 0 ? 3 : 1;} } else {investigation_flag = 0; investigation = "";};
-		if(v.npc_intimidation_base && v.npc_intimidation_base != "@{charisma_mod}") {intimidation = parseInt(v.npc_intimidation_base, 10); if(last_skill === 0) {last_skill = 1; intimidation_flag = intimidation < 0 ? 4 : 2;} else {intimidation_flag = intimidation < 0 ? 3 : 1;} } else {intimidation_flag = 0; intimidation = "";};
-		if(v.npc_insight_base && v.npc_insight_base != "@{wisdom_mod}") {insight = parseInt(v.npc_insight_base, 10); if(last_skill === 0) {last_skill = 1; insight_flag = insight < 0 ? 4 : 2;} else {insight_flag = insight < 0 ? 3 : 1;} } else {insight_flag = 0; insight = "";};
-		if(v.npc_history_base && v.npc_history_base != "@{intelligence_mod}") {history = parseInt(v.npc_history_base, 10); if(last_skill === 0) {last_skill = 1; history_flag = history < 0 ? 4 : 2;} else {history_flag = history < 0 ? 3 : 1;} } else {history_flag = 0; history = "";};
-		if(v.npc_deception_base && v.npc_deception_base != "@{charisma_mod}") {deception = parseInt(v.npc_deception_base, 10); if(last_skill === 0) {last_skill = 1; deception_flag = deception < 0 ? 4 : 2;} else {deception_flag = deception < 0 ? 3 : 1;} } else {deception_flag = 0; deception = "";};
-		if(v.npc_athletics_base && v.npc_athletics_base != "@{strength_mod}") {athletics = parseInt(v.npc_athletics_base, 10); if(last_skill === 0) {last_skill = 1; athletics_flag = athletics < 0 ? 4 : 2;} else {athletics_flag = athletics < 0 ? 3 : 1;} } else {athletics_flag = 0; athletics = "";};
-		if(v.npc_arcana_base && v.npc_arcana_base != "@{intelligence_mod}") {arcana = parseInt(v.npc_arcana_base, 10); if(last_skill === 0) {last_skill = 1; arcana_flag = arcana < 0 ? 4 : 2;} else {arcana_flag = arcana < 0 ? 3 : 1;} } else {arcana_flag = 0; arcana = "";};
-		if(v.npc_animal_handling_base && v.npc_animal_handling_base != "@{wisdom_mod}") {animal_handling = parseInt(v.npc_animal_handling_base, 10); if(last_skill === 0) {last_skill = 1; animal_handling_flag = animal_handling < 0 ? 4 : 2;} else {animal_handling_flag = animal_handling < 0 ? 3 : 1;} } else {animal_handling_flag = 0; animal_handling = "";};
-		if(v.npc_acrobatics_base && v.npc_acrobatics_base != "@{dexterity_mod}") {acrobatics = parseInt(v.npc_acrobatics_base, 10); if(last_skill === 0) {last_skill = 1; acrobatics_flag = acrobatics < 0 ? 4 : 2;} else {acrobatics_flag = acrobatics < 0 ? 3 : 1;} } else {acrobatics_flag = 0; acrobatics = "";};
+		if(v.npc_survival_base && v.npc_survival_base != "@{wisdom-mod}") {survival = parseInt(v.npc_survival_base, 10); if(last_skill === 0) {last_skill = 1; survival_flag = survival < 0 ? 4 : 2;} else {survival_flag = survival < 0 ? 3 : 1;} } else {survival_flag = 0; survival = "";};
+		if(v.npc_stealth_base && v.npc_stealth_base != "@{dexterity-mod}") {stealth = parseInt(v.npc_stealth_base, 10); if(last_skill === 0) {last_skill = 1; stealth_flag = stealth < 0 ? 4 : 2;} else {stealth_flag = stealth < 0 ? 3 : 1;} } else {stealth_flag = 0; stealth = "";};
+		if(v.npc_sleight_of_hand_base && v.npc_sleight_of_hand_base != "@{dexterity-mod}") {sleight_of_hand = parseInt(v.npc_sleight_of_hand_base, 10); if(last_skill === 0) {last_skill = 1; sleight_of_hand_flag = sleight_of_hand < 0 ? 4 : 2;} else {sleight_of_hand_flag = sleight_of_hand < 0 ? 3 : 1;} } else {sleight_of_hand_flag = 0; sleight_of_hand = "";};
+		if(v.npc_religion_base && v.npc_religion_base != "@{intelligence-mod}") {religion = parseInt(v.npc_religion_base, 10); if(last_skill === 0) {last_skill = 1; religion_flag = religion < 0 ? 4 : 2;} else {religion_flag = religion < 0 ? 3 : 1;} } else {religion_flag = 0; religion = "";};
+		if(v.npc_persuasion_base && v.npc_persuasion_base != "@{charisma-mod}") {persuasion = parseInt(v.npc_persuasion_base, 10); if(last_skill === 0) {last_skill = 1; persuasion_flag = persuasion < 0 ? 4 : 2;} else {persuasion_flag = persuasion < 0 ? 3 : 1;} } else {persuasion_flag = 0; persuasion = "";};
+		if(v.npc_performance_base && v.npc_performance_base != "@{charisma-mod}") {sperformance = parseInt(v.npc_performance_base, 10); if(last_skill === 0) {last_skill = 1; performance_flag = sperformance < 0 ? 4 : 2;} else {performance_flag = sperformance < 0 ? 3 : 1;} } else {performance_flag = 0; sperformance = "";};
+		if(v.npc_perception_base && v.npc_perception_base != "@{wisdom-mod}") {perception = parseInt(v.npc_perception_base, 10); if(last_skill === 0) {last_skill = 1; perception_flag = perception < 0 ? 4 : 2;} else {perception_flag = perception < 0 ? 3 : 1;} } else {perception_flag = 0; perception = "";};
+		if(v.npc_nature_base && v.npc_nature_base != "@{intelligence-mod}") {nature = parseInt(v.npc_nature_base, 10); if(last_skill === 0) {last_skill = 1; nature_flag = nature < 0 ? 4 : 2;} else {nature_flag = nature < 0 ? 3 : 1;} } else {nature_flag = 0; nature = "";};
+		if(v.npc_medicine_base && v.npc_medicine_base != "@{wisdom-mod}") {medicine = parseInt(v.npc_medicine_base, 10); if(last_skill === 0) {last_skill = 1; medicine_flag = medicine < 0 ? 4 : 2;} else {medicine_flag = medicine < 0 ? 3 : 1;} } else {medicine_flag = 0; medicine = "";};
+		if(v.npc_investigation_base && v.npc_investigation_base != "@{intelligence-mod}") {investigation = parseInt(v.npc_investigation_base, 10); if(last_skill === 0) {last_skill = 1; investigation_flag = investigation < 0 ? 4 : 2;} else {investigation_flag = investigation < 0 ? 3 : 1;} } else {investigation_flag = 0; investigation = "";};
+		if(v.npc_intimidation_base && v.npc_intimidation_base != "@{charisma-mod}") {intimidation = parseInt(v.npc_intimidation_base, 10); if(last_skill === 0) {last_skill = 1; intimidation_flag = intimidation < 0 ? 4 : 2;} else {intimidation_flag = intimidation < 0 ? 3 : 1;} } else {intimidation_flag = 0; intimidation = "";};
+		if(v.npc_insight_base && v.npc_insight_base != "@{wisdom-mod}") {insight = parseInt(v.npc_insight_base, 10); if(last_skill === 0) {last_skill = 1; insight_flag = insight < 0 ? 4 : 2;} else {insight_flag = insight < 0 ? 3 : 1;} } else {insight_flag = 0; insight = "";};
+		if(v.npc_history_base && v.npc_history_base != "@{intelligence-mod}") {history = parseInt(v.npc_history_base, 10); if(last_skill === 0) {last_skill = 1; history_flag = history < 0 ? 4 : 2;} else {history_flag = history < 0 ? 3 : 1;} } else {history_flag = 0; history = "";};
+		if(v.npc_deception_base && v.npc_deception_base != "@{charisma-mod}") {deception = parseInt(v.npc_deception_base, 10); if(last_skill === 0) {last_skill = 1; deception_flag = deception < 0 ? 4 : 2;} else {deception_flag = deception < 0 ? 3 : 1;} } else {deception_flag = 0; deception = "";};
+		if(v.npc_athletics_base && v.npc_athletics_base != "@{strength-mod}") {athletics = parseInt(v.npc_athletics_base, 10); if(last_skill === 0) {last_skill = 1; athletics_flag = athletics < 0 ? 4 : 2;} else {athletics_flag = athletics < 0 ? 3 : 1;} } else {athletics_flag = 0; athletics = "";};
+		if(v.npc_arcana_base && v.npc_arcana_base != "@{intelligence-mod}") {arcana = parseInt(v.npc_arcana_base, 10); if(last_skill === 0) {last_skill = 1; arcana_flag = arcana < 0 ? 4 : 2;} else {arcana_flag = arcana < 0 ? 3 : 1;} } else {arcana_flag = 0; arcana = "";};
+		if(v.npc_animal_handling_base && v.npc_animal_handling_base != "@{wisdom-mod}") {animal_handling = parseInt(v.npc_animal_handling_base, 10); if(last_skill === 0) {last_skill = 1; animal_handling_flag = animal_handling < 0 ? 4 : 2;} else {animal_handling_flag = animal_handling < 0 ? 3 : 1;} } else {animal_handling_flag = 0; animal_handling = "";};
+		if(v.npc_acrobatics_base && v.npc_acrobatics_base != "@{dexterity-mod}") {acrobatics = parseInt(v.npc_acrobatics_base, 10); if(last_skill === 0) {last_skill = 1; acrobatics_flag = acrobatics < 0 ? 4 : 2;} else {acrobatics_flag = acrobatics < 0 ? 3 : 1;} } else {acrobatics_flag = 0; acrobatics = "";};
 
 		update["npc_skills_flag"] = "" + acrobatics + animal_handling + arcana + athletics + deception + history + insight + intimidation + investigation + medicine + nature + perception + sperformance + persuasion + religion + sleight_of_hand + stealth + survival;
 		update["npc_stealth_flag"] = stealth_flag;
@@ -4585,10 +4617,10 @@ var parse_roll_string = function(rollstring) {
 };
 
 var get_class_level = function(class_name, callback) {
-	getAttrs(["class", "base_level", "multiclass1_flag", "multiclass1", "multiclass1_lvl", "multiclass2_flag", "multiclass2", "multiclass2_lvl", "multiclass3_flag", "multiclass3", "multiclass3_lvl"], function(attrs) {
+	getAttrs(["class", "level", "multiclass1_flag", "multiclass1", "multiclass1_lvl", "multiclass2_flag", "multiclass2", "multiclass2_lvl", "multiclass3_flag", "multiclass3", "multiclass3_lvl"], function(attrs) {
 		var regex = new RegExp(class_name, "i");
 		if(regex.test(attrs["class"])) {
-			callback(attrs.base_level);
+			callback(attrs.level);
 		} else if(attrs.multiclass1_flag && attrs.multiclass1_flag !== "0" && regex.test(attrs.multiclass1)) {
 			callback(attrs.multiclass1_lvl);
 		} else if(attrs.multiclass2_flag && attrs.multiclass2_flag !== "0" && regex.test(attrs.multiclass2)) {
@@ -4802,6 +4834,16 @@ var filterBlobs = function(blobs, filters) {
 	return results;
 };
 
+// //New Functions
+// var update_fortitude = function(){
+// 	getAttrs(["strength","constitution"], function(v) {
+// 		var fort = Math.max(parseInt(v["strength"], 10 ), parseInt(v["strength"], 10 ) );
+// 		fort = fort + 10 + 
+// 	)
+
+// }
+
+
 // CHANGE SURVIVAL CONDITIONS
 
 on("change:condition_temperature change:condition_hunger change:condition_thirst change:condition_fatigue", function () {
@@ -4878,6 +4920,7 @@ on("change:repeating_wounds remove:repeating_wounds", function (eventinfo) {
 on("change:stress", function (eventinfo) {
 	let stress = toInt(eventinfo.newValue);
 	let update = {};
+	console.log("I am stressed");
 	if (stress >= 20) {
 		update["stress_state_20"] = 1;
 	}
@@ -4950,164 +4993,164 @@ let isDefined = function (value) {
 	return value !== null && typeof(value) !== 'undefined';
 };
 
-// 4e Worker
-const multistats = {
-    strength_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['strength', 'level']},
-    constitution_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['constitution', 'level']},
-    dexterity_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['dexterity', 'level']},
-    intelligence_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['intelligence', 'level']},
-    wisdom_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['wisdom', 'level']},
-    charisma_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['charisma', 'level']},
-    acrobatics_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity_mod_level', 'acrobatics-trained', 'acrobatics-pen', 'acrobatics-misc']},
-    arcana_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence_mod_level', 'arcana-trained', 'arcana-pen', 'arcana-misc']},
-    athletics_modifier: {rule: 'dnd_skill_bonus', attributes: ['strength_mod_level', 'athletics-trained', 'athletics-pen', 'athletics-misc']},
-    bluff_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma_mod_level', 'bluff-trained', 'bluff-pen', 'bluff-misc']},
-    diplomacy_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma_mod_level', 'diplomacy-trained', 'diplomacy-pen', 'diplomacy-misc']},
-    dungeoneering_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'dungeoneering-trained', 'dungeoneering-pen', 'dungeoneering-misc']},
-    endurance_modifier: {rule: 'dnd_skill_bonus', attributes: ['constitution_mod_level', 'endurance-trained', 'endurance-pen', 'endurance-misc']},
-    heal_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'heal-trained', 'heal-pen', 'heal-misc']},
-    history_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence_mod_level', 'history-trained', 'history-pen', 'history-misc']},
-    insight_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'insight-trained', 'insight-pen', 'insight-misc']},
-    intimidate_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma_mod_level', 'intimidate-trained', 'intimidate-pen', 'intimidate-misc']},
-    nature_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'nature-trained', 'nature-pen', 'nature-misc']},
-    perception_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'perception-trained', 'perception-pen', 'perception-misc']},
-    religion_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence_mod_level', 'religion-trained', 'religion-pen', 'religion-misc']},
-    stealth_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity_mod_level', 'stealth-trained', 'stealth-pen', 'stealth-misc']},
-    streetwise_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma_mod_level', 'streetwise-trained', 'streetwise-pen', 'streetwise-misc']},
-    thievery_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity_mod_level', 'thievery-trained', 'thievery-pen', 'thievery-misc']},
-};
-const multifunctions = {
-    dnd_stat_half_bonus: function(arr) {
-        var score = arr[0];
-        var half = arr[1];
-        var bonus = (Math.floor(score/2) -5)+Math.floor(half/2);
-        return bonus;
-    },
-    dnd_skill_bonus: function(arr) {
-        var score = arr[0];
-        var trained = arr[1];
-        var penalty = arr[2];
-        var misc = arr[3];
-        var bonus = score + (trained*5) + penalty + misc;
-        return bonus;
-    },
-};
+//4e Worker
+// const multistats = {
+//     strength-mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['strength', 'level']},
+//     constitution-mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['constitution', 'level']},
+//     dexterity-mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['dexterity', 'level']},
+//     intelligence-mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['intelligence', 'level']},
+//     wisdom-mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['wisdom', 'level']},
+//     charisma-mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['charisma', 'level']},
+//     acrobatics_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity-mod_level', 'acrobatics-trained', 'acrobatics-pen', 'acrobatics-misc']},
+//     arcana_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence-mod_level', 'arcana-trained', 'arcana-pen', 'arcana-misc']},
+//     athletics_modifier: {rule: 'dnd_skill_bonus', attributes: ['strength-mod_level', 'athletics-trained', 'athletics-pen', 'athletics-misc']},
+//     bluff_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma-mod_level', 'bluff-trained', 'bluff-pen', 'bluff-misc']},
+//     diplomacy_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma-mod_level', 'diplomacy-trained', 'diplomacy-pen', 'diplomacy-misc']},
+//     dungeoneering_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom-mod_level', 'dungeoneering-trained', 'dungeoneering-pen', 'dungeoneering-misc']},
+//     endurance_modifier: {rule: 'dnd_skill_bonus', attributes: ['constitution-mod_level', 'endurance-trained', 'endurance-pen', 'endurance-misc']},
+//     heal_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom-mod_level', 'heal-trained', 'heal-pen', 'heal-misc']},
+//     history_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence-mod_level', 'history-trained', 'history-pen', 'history-misc']},
+//     insight_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom-mod_level', 'insight-trained', 'insight-pen', 'insight-misc']},
+//     intimidate_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma-mod_level', 'intimidate-trained', 'intimidate-pen', 'intimidate-misc']},
+//     nature_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom-mod_level', 'nature-trained', 'nature-pen', 'nature-misc']},
+//     perception_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom-mod_level', 'perception-trained', 'perception-pen', 'perception-misc']},
+//     religion_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence-mod_level', 'religion-trained', 'religion-pen', 'religion-misc']},
+//     stealth_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity-mod_level', 'stealth-trained', 'stealth-pen', 'stealth-misc']},
+//     streetwise_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma-mod_level', 'streetwise-trained', 'streetwise-pen', 'streetwise-misc']},
+//     thievery_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity-mod_level', 'thievery-trained', 'thievery-pen', 'thievery-misc']},
+// };
+// const multifunctions = {
+//     dnd_stat_half_bonus: function(arr) {
+//         var score = arr[0];
+//         var half = arr[1];
+//         var bonus = (Math.floor(score/2) -5)+Math.floor(half/2);
+//         return bonus;
+//     },
+//     dnd_skill_bonus: function(arr) {
+//         var score = arr[0];
+//         var trained = arr[1];
+//         var penalty = arr[2];
+//         var misc = arr[3];
+//         var bonus = score + (trained*5) + penalty + misc;
+//         return bonus;
+//     },
+// };
 
-// ======================================================*/
-//           DO NOT EDIT BELOW THIS LINE                 //
-// ======================================================*/
-const mvlog = (title, text, color = 'green', style='font-size:12px; font-weight:normal;', headerstyle = 'font-size:13px; font-weight:bold;') => {
-    let titleStyle = `color:${color}; ${headerstyle} text-decoration:underline;`;
-    let textStyle = `color:${color}; ${style}`;
-    const output = `%c${title}:%c ${text}`;
-    console.log(output,titleStyle,textStyle);
-};
-// can use $ placeholder in attribute names. This converts '$_stat' to 'repeating_section_stat'
-const rep = '$$'; //placeholder for repeating_section_
-const makeRepeatingName = (attribute, section) => attribute.startsWith(rep) ? attribute.replace(rep, `repeating_${section}_`) : attribute;
-const makeRepeatingAttributes = (attributes, section) => attributes.map(a => makeRepeatingName(a, section));
-const makeRepeatingID = (a, section, id) => a.replace(`repeating_${section}_`,`repeating_${section}_${id}_`);
-// given array of attributes, find if any have repeating_ and return the section name
-// section name will be 2nd element of name split on "_"
-const findSection = (arr) => {
-    const s = arr.find(a => a.includes('repeating_'));
-    const section = (s ? s.split('_')[1] : null);
-    return section;
-};
+// // ======================================================*/
+// //           DO NOT EDIT BELOW THIS LINE                 //
+// // ======================================================*/
+// const mvlog = (title, text, color = 'green', style='font-size:12px; font-weight:normal;', headerstyle = 'font-size:13px; font-weight:bold;') => {
+//     let titleStyle = `color:${color}; ${headerstyle} text-decoration:underline;`;
+//     let textStyle = `color:${color}; ${style}`;
+//     const output = `%c${title}:%c ${text}`;
+//     console.log(output,titleStyle,textStyle);
+// };
+// // can use $ placeholder in attribute names. This converts '$_stat' to 'repeating_section_stat'
+// const rep = '$$'; //placeholder for repeating_section_
+// const makeRepeatingName = (attribute, section) => attribute.startsWith(rep) ? attribute.replace(rep, `repeating_${section}_`) : attribute;
+// const makeRepeatingAttributes = (attributes, section) => attributes.map(a => makeRepeatingName(a, section));
+// const makeRepeatingID = (a, section, id) => a.replace(`repeating_${section}_`,`repeating_${section}_${id}_`);
+// // given array of attributes, find if any have repeating_ and return the section name
+// // section name will be 2nd element of name split on "_"
+// const findSection = (arr) => {
+//     const s = arr.find(a => a.includes('repeating_'));
+//     const section = (s ? s.split('_')[1] : null);
+//     return section;
+// };
 
-// check if attribute is one where a repeating section attribute depends on attributes both inside and outside the repeating section
-const isMixed = (attributes, destination) => {
-    const some = someRepeating(attributes);
-    const all = allRepeating(attributes);
-    const repeatingdestination = destination.startsWith('repeating_');
-    return (some && !all && repeatingdestination);
-};
-const allRepeating = attributes => attributes.every(r => r.startsWith('repeating_'));
-const someRepeating = attributes => attributes.some(r => r.startsWith('repeating_'));
+// // check if attribute is one where a repeating section attribute depends on attributes both inside and outside the repeating section
+// const isMixed = (attributes, destination) => {
+//     const some = someRepeating(attributes);
+//     const all = allRepeating(attributes);
+//     const repeatingdestination = destination.startsWith('repeating_');
+//     return (some && !all && repeatingdestination);
+// };
+// const allRepeating = attributes => attributes.every(r => r.startsWith('repeating_'));
+// const someRepeating = attributes => attributes.some(r => r.startsWith('repeating_'));
 
-const defaultDataType = 'array'; // might change this to object
-const getData = (values, data = 'a', isnumbers = 0) => {
-    // only a is functional right now, so this function is redundant.
-    switch(data.charAt(0).toLowerCase()) {
-        case 'o': return values;
-        case 'a': return Object.values(values).map(i => 1 === isnumbers ? parseInt(i) ||0 : (0 === isnumbers ? +i || 0 : i));
-        case 'v': return Object.values(values)[0];
-    }
-};
+// const defaultDataType = 'array'; // might change this to object
+// const getData = (values, data = 'a', isnumbers = 0) => {
+//     // only a is functional right now, so this function is redundant.
+//     switch(data.charAt(0).toLowerCase()) {
+//         case 'o': return values;
+//         case 'a': return Object.values(values).map(i => 1 === isnumbers ? parseInt(i) ||0 : (0 === isnumbers ? +i || 0 : i));
+//         case 'v': return Object.values(values)[0];
+//     }
+// };
 
-const processMax = (destination, result, max) => {
-    const settings = {};
-    if(max === 'current' || max === 'both') settings[destination] = result;
-    if(max === 'max' || max === 'both') settings[`${destination}_max`] = result;
-    return settings;
-};
+// const processMax = (destination, result, max) => {
+//     const settings = {};
+//     if(max === 'current' || max === 'both') settings[destination] = result;
+//     if(max === 'max' || max === 'both') settings[`${destination}_max`] = result;
+//     return settings;
+// };
 
-const isFunction = value => value && (Object.prototype.toString.call(value) === '[object Function]' || 'function' === typeof value || value instanceof Function);
+// const isFunction = value => value && (Object.prototype.toString.call(value) === '[object Function]' || 'function' === typeof value || value instanceof Function);
 
-const processFunction = (destination, values, section) => {
-    const rule = multistats[destination].rule;
-    const func = isFunction(rule) ? rule:  multifunctions[rule]; // need to test if this works for arrow functions
-    const data = multistats[destination].data || defaultDataType;
-    const v = getData(values, data);
-    const modifier = multistats[destination].modifier || null;
-    const result = func(v, modifier);
-    mvlog(`${makeRepeatingName(destination,section).toUpperCase()} MULTIFUNCTION`, `RULE: ${rule}; VALUES: ${JSON.stringify(values)}; RESULT: ${result}`);
-    return result;
-};
+// const processFunction = (destination, values, section) => {
+//     const rule = multistats[destination].rule;
+//     const func = isFunction(rule) ? rule:  multifunctions[rule]; // need to test if this works for arrow functions
+//     const data = multistats[destination].data || defaultDataType;
+//     const v = getData(values, data);
+//     const modifier = multistats[destination].modifier || null;
+//     const result = func(v, modifier);
+//     mvlog(`${makeRepeatingName(destination,section).toUpperCase()} MULTIFUNCTION`, `RULE: ${rule}; VALUES: ${JSON.stringify(values)}; RESULT: ${result}`);
+//     return result;
+// };
 
-Object.keys(multistats).forEach(destination => {
-    // get the section name if it exists. It is needed for mixed workers
-    const attributes_base = multistats[destination].attributes;
-    const section = multistats[destination].section || findSection(attributes_base) || null;
-    const attributes = makeRepeatingAttributes(attributes_base, section);
-    const realdestination = makeRepeatingName(destination, section); // needed in case of $ in destination
-    mvlog(`MULTIVERSAL- ${realdestination}`,`${attributes.join(', ')}`,'green');
-    if (isMixed(attributes, realdestination)) {
-        const changes = attributes.reduce((change, step) => `${change} change:${step.replace('repeating_' + section + '_','repeating_' +section + ':')}`,
-            `remove:repeating_${section} sheet:opened`);
-        on(changes.toLowerCase(), function (event) {
-            const trigger = event.sourceAttribute || '';
-            const triggerRow = (trigger && trigger.includes('_') && trigger.length >2) ? trigger.split('_')[2] : '';
-            // if triggerRow, only update initial row
-            getSectionIDs(`repeating_${section}`, function (ids) {
-                const sectionAtts = attributes.filter(f => f.startsWith(`repeating_${section}`));
-                const fixedAtts = attributes.filter(f => !f.startsWith(`repeating_${section}`));
-                if (triggerRow) ids = [triggerRow];
-                const fieldNames = ids.reduce( (m,id) => [...m, ...(sectionAtts.map(field => makeRepeatingID(field,section,id) ))],[]);
-                getAttrs([...fieldNames,...fixedAtts], function (values) {
-                    let settings = {};
-                    const max = multistats[destination].max || 'current';
-                    const fixedValues = fixedAtts.reduce((obj, a) => {
-                        obj[a] = values[a];
-                        return obj;
-                    }, {});
-                    ids.forEach(id => {
-                        // first get all relevant attributes for this row of the section
-                        const sectionValues = sectionAtts.reduce((obj, a) => {
-                            const att = makeRepeatingID(a, section, id);
-                            obj[att] = values[att]; 
-                            return obj;}, {});
-                        // now apply the formula for this row and add to settings
-                        const combinedValues = {...sectionValues,...fixedValues};
-                        const result = processFunction(destination,combinedValues, section);
-                        const tempDestination = makeRepeatingID(realdestination,section,id); 
-                        const tempSettings = processMax(tempDestination, result, max);
-                        settings = Object.assign({}, settings, tempSettings);
-                    });
-                    setAttrs(settings);
-                });
-            });
-        });
-    } else {
-        const changes = attributes.reduce((change, step) => `${change} change:${step.replace('repeating_' + section + '_','repeating_' +section + ':')}`,
-            `${someRepeating([...attributes,realdestination]) ? '' : 'sheet:opened '}${section ? `remove:repeating_${section}` : ''}`);
-        on(changes.toLowerCase(), function () {
-            getAttrs(attributes, function (values) {
-                const result = processFunction(destination,values, section);
-                const max = multistats[destination].max || 'current';
-                const settings = processMax(realdestination, result, max);
-                setAttrs(settings);
-            });
-        });
-    }
-});
+// Object.keys(multistats).forEach(destination => {
+//     // get the section name if it exists. It is needed for mixed workers
+//     const attributes_base = multistats[destination].attributes;
+//     const section = multistats[destination].section || findSection(attributes_base) || null;
+//     const attributes = makeRepeatingAttributes(attributes_base, section);
+//     const realdestination = makeRepeatingName(destination, section); // needed in case of $ in destination
+//     mvlog(`MULTIVERSAL- ${realdestination}`,`${attributes.join(', ')}`,'green');
+//     if (isMixed(attributes, realdestination)) {
+//         const changes = attributes.reduce((change, step) => `${change} change:${step.replace('repeating_' + section + '_','repeating_' +section + ':')}`,
+//             `remove:repeating_${section} sheet:opened`);
+//         on(changes.toLowerCase(), function (event) {
+//             const trigger = event.sourceAttribute || '';
+//             const triggerRow = (trigger && trigger.includes('_') && trigger.length >2) ? trigger.split('_')[2] : '';
+//             // if triggerRow, only update initial row
+//             getSectionIDs(`repeating_${section}`, function (ids) {
+//                 const sectionAtts = attributes.filter(f => f.startsWith(`repeating_${section}`));
+//                 const fixedAtts = attributes.filter(f => !f.startsWith(`repeating_${section}`));
+//                 if (triggerRow) ids = [triggerRow];
+//                 const fieldNames = ids.reduce( (m,id) => [...m, ...(sectionAtts.map(field => makeRepeatingID(field,section,id) ))],[]);
+//                 getAttrs([...fieldNames,...fixedAtts], function (values) {
+//                     let settings = {};
+//                     const max = multistats[destination].max || 'current';
+//                     const fixedValues = fixedAtts.reduce((obj, a) => {
+//                         obj[a] = values[a];
+//                         return obj;
+//                     }, {});
+//                     ids.forEach(id => {
+//                         // first get all relevant attributes for this row of the section
+//                         const sectionValues = sectionAtts.reduce((obj, a) => {
+//                             const att = makeRepeatingID(a, section, id);
+//                             obj[att] = values[att]; 
+//                             return obj;}, {});
+//                         // now apply the formula for this row and add to settings
+//                         const combinedValues = {...sectionValues,...fixedValues};
+//                         const result = processFunction(destination,combinedValues, section);
+//                         const tempDestination = makeRepeatingID(realdestination,section,id); 
+//                         const tempSettings = processMax(tempDestination, result, max);
+//                         settings = Object.assign({}, settings, tempSettings);
+//                     });
+//                     setAttrs(settings);
+//                 });
+//             });
+//         });
+//     } else {
+//         const changes = attributes.reduce((change, step) => `${change} change:${step.replace('repeating_' + section + '_','repeating_' +section + ':')}`,
+//             `${someRepeating([...attributes,realdestination]) ? '' : 'sheet:opened '}${section ? `remove:repeating_${section}` : ''}`);
+//         on(changes.toLowerCase(), function () {
+//             getAttrs(attributes, function (values) {
+//                 const result = processFunction(destination,values, section);
+//                 const max = multistats[destination].max || 'current';
+//                 const settings = processMax(realdestination, result, max);
+//                 setAttrs(settings);
+//             });
+//         });
+//     }
+// });
