@@ -1106,150 +1106,149 @@
 									<div class="sheet-container-body">
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_acrobatics_prof" title="@{acrobatics_prof}" value="(@{pb}*@{acrobatics_type})">
+												<input type="checkbox" name="attr_acrobatics-trained" title="@{acrobatics-trained}" value="(@{pb}*@{acrobatics_type})">
 												<span></span>
 											</div>
-											<span name="attr_acrobatics_bonus" title="@{acrobatics_bonus}">0</span>
-											<button type="roll" name="roll_acrobatics" value="@{wtype}&{template:simple} {{rname=@{acrobatics_attribute} (Acrobatics)}} {{mod=@{acrobatics_bonus}}} {{r1=[[@{d20}+@{acrobatics_bonus}@{pbd_safe}]]}} @{rtype}+@{acrobatics_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}">Acrobatics</button>
+											<span name="attr_acrobatics_modifer" title="@{acrobatics_modifer}">0</span>
+											<button type="roll" name="roll_acrobatics" value="@{wtype}&{template:simple} {{rname=@{acrobatics_attribute} (Acrobatics)}} {{mod=@{acrobatics_modifer}}} {{r1=[[@{d20}+@{acrobatics_modifer}@{pbd_safe}]]}} @{rtype}+@{acrobatics_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}">Acrobatics</button>
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_arcana_prof" title="@{arcana_prof}" value="(@{pb}*@{arcana_type})">
+												<input type="checkbox" name="attr_arcana-trained" title="@{arcana-trained}" value="(@{pb}*@{arcana_type})">
 												<span></span>
 											</div>
-											<span name='attr_arcana_bonus' title='@{arcana_bonus}'>0</span>
-											<button type='roll' name='roll_arcana' value='@{wtype}&{template:simple} {{rname=@{arcana_attribute} (Arcana)}} {{mod=@{arcana_bonus}}} {{r1=[[@{d20}+@{arcana_bonus}@{pbd_safe}]]}} @{rtype}+@{arcana_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Arcana</button>
+											<span name='attr_arcana_modifer' title='@{arcana_modifer}'>0</span>
+											<button type='roll' name='roll_arcana' value='@{wtype}&{template:simple} {{rname=@{arcana_attribute} (Arcana)}} {{mod=@{arcana_modifer}}} {{r1=[[@{d20}+@{arcana_modifer}@{pbd_safe}]]}} @{rtype}+@{arcana_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Arcana</button>
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_athletics_prof" title="@{athletics_prof}" value="(@{pb}*@{athletics_type})">
+												<input type="checkbox" name="attr_athletics-trained" title="@{athletics-trained}" value="(@{pb}*@{athletics_type})">
 												<span></span>
 											</div>
-											<span name='attr_athletics_bonus' title='@{athletics_bonus}'>0</span>
-											<button type='roll' name='roll_athletics' value='@{wtype}&{template:simple} {{rname=@{athletics_attribute} (Athletics)}} {{mod=@{athletics_bonus}}} {{r1=[[@{d20}+@{athletics_bonus}@{pbd_safe}]]}} @{rtype}+@{athletics_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Athletics</button>
+											<span name='attr_athletics_modifer' title='@{athletics_modifer}'>0</span>
+											<button type='roll' name='roll_athletics' value='@{wtype}&{template:simple} {{rname=@{athletics_attribute} (Athletics)}} {{mod=@{athletics_modifer}}} {{r1=[[@{d20}+@{athletics_modifer}@{pbd_safe}]]}} @{rtype}+@{athletics_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Athletics</button>
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_deception_prof" title="@{deception_prof}" value="(@{pb}*@{deception_type})">
+												<input type="checkbox" name="attr-bluff-trained" title="@{bluff-trained}" value="(@{pb}*@{bluff_type})">
 												<span></span>
 											</div>
-											<span name='attr_deception_bonus' title='@{deception_bonus}'>0</span>
-											<button type='roll' name='roll_deception' value='@{wtype}&{template:simple} {{rname=@{deception_attribute} (Deception)}} {{mod=@{deception_bonus}}} {{r1=[[@{d20}+@{deception_bonus}@{pbd_safe}]]}} @{rtype}+@{deception_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Deception</button>
+											<span name='attr-bluff_modifer' title='@{bluff_modifer}'>0</span>
+											<button type='roll' name='roll-bluff' value='@{wtype}&{template:simple} {{rname=@{bluff_attribute} (bluff)}} {{mod=@{bluff_modifer}}} {{r1=[[@{d20}+@{bluff_modifer}@{pbd_safe}]]}} @{rtype}+@{bluff_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Bluff</button>
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_history_prof" title="@{history_prof}" value="(@{pb}*@{history_type})">
+												<input type="checkbox" name="attr_diplomacy-trained" title="@{diplomacy-trained}" value="(@{pb}*@{diplomacy_type})">
 												<span></span>
 											</div>
-											<span name='attr_history_bonus' title='@{history_bonus}'>0</span>
-											<button type='roll' name='roll_history' value='@{wtype}&{template:simple} {{rname=@{history_attribute} (History)}} {{mod=@{history_bonus}}} {{r1=[[@{d20}+@{history_bonus}@{pbd_safe}]]}} @{rtype}+@{history_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>History</button>
+											<span name='attr_diplomacy_modifer' title='@{diplomacy_modifer}'>0</span>
+											<button type='roll' name='roll_diplomacy' value='@{wtype}&{template:simple} {{rname=@{diplomacy_attribute} (Diplomacy)}} {{mod=@{diplomacy_modifer}}} {{r1=[[@{d20}+@{diplomacy_modifer}@{pbd_safe}]]}} @{rtype}+@{diplomacy_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Diplomacy</button>
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_insight_prof" title="@{insight_prof}" value="(@{pb}*@{insight_type})">
+												<input type="checkbox" name="attr_dungeoneering-trained" title="@{dungeoneering-trained}" value="(@{pb}*@{dungeoneering_type})">
 												<span></span>
 											</div>
-											<span name='attr_insight_bonus' title='@{insight_bonus}'>0</span>
-											<button type='roll' name='roll_insight' value='@{wtype}&{template:simple} {{rname=@{insight_attribute} (Insight)}} {{mod=@{insight_bonus}}} {{r1=[[@{d20}+@{insight_bonus}@{pbd_safe}]]}} @{rtype}+@{insight_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Insight</button>
+											<span name='attr_dungeoneering_modifer' title='@{dungeoneering_modifer}'>0</span>
+											<button type='roll' name='roll_dungeoneering' value='@{wtype}&{template:simple} {{rname=@{dungeoneering_attribute} (Dungeoneering)}} {{mod=@{dungeoneering_modifer}}} {{r1=[[@{d20}+@{dungeoneering_modifer}@{pbd_safe}]]}} @{rtype}+@{dungeoneering_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Dungeoneering</button>
 											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_intimidation_prof" title="@{intimidation_prof}" value="(@{pb}*@{intimidation_type})">
+												<input type="checkbox" name="attr_endurance-trained" title="@{endurance-trained}" value="(@{pb}*@{endurance_type})">
 												<span></span>
 											</div>
-											<span name='attr_intimidation_bonus' title='@{intimidation_bonus}'>0</span>
-											<button type='roll' name='roll_intimidation' value='@{wtype}&{template:simple} {{rname=@{intimidation_attribute} (Intimidation)}} {{mod=@{intimidation_bonus}}} {{r1=[[@{d20}+@{intimidation_bonus}@{pbd_safe}]]}} @{rtype}+@{intimidation_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Intimidation</button>
+											<span name='attr_endurance_modifer' title='@{endurance_modifer}'>0</span>
+											<button type='roll' name='roll_endurance' value='@{wtype}&{template:simple} {{rname=@{endurance_attribute} (Endurance)}} {{mod=@{endurance_modifer}}} {{r1=[[@{d20}+@{endurance_modifer}@{pbd_safe}]]}} @{rtype}+@{endurance_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Endurance</button>
 											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_investigation_prof" title="@{investigation_prof}" value="(@{pb}*@{investigation_type})">
+												<input type="checkbox" name="attr_heal-trained" title="@{heal-trained}" value="(@{pb}*@{heal_type})">
 												<span></span>
 											</div>
-											<span name='attr_investigation_bonus' title='@{investigation_bonus}'>0</span>
-											<button type='roll' name='roll_investigation' value='@{wtype}&{template:simple} {{rname=@{investigation_attribute} (Investigation)}} {{mod=@{investigation_bonus}}} {{r1=[[@{d20}+@{investigation_bonus}@{pbd_safe}]]}} @{rtype}+@{investigation_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Investigation</button>
+											<span name='attr_heal_modifer' title='@{heal_modifer}'>0</span>
+											<button type='roll' name='roll_heal' value='@{wtype}&{template:simple} {{rname=@{heal_attribute} (Heal)}} {{mod=@{heal_modifer}}} {{r1=[[@{d20}+@{heal_modifer}@{pbd_safe}]]}} @{rtype}+@{heal_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Heal</button>
 											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_medicine_prof" title="@{medicine_prof}" value="(@{pb}*@{medicine_type})">
+												<input type="checkbox" name="attr_history-trained" title="@{history-trained}" value="(@{pb}*@{history_type})">
 												<span></span>
 											</div>
-											<span name='attr_medicine_bonus' title='@{medicine_bonus}'>0</span>
-											<button type='roll' name='roll_medicine' value='@{wtype}&{template:simple} {{rname=@{medicine_attribute} (Medicine)}} {{mod=@{medicine_bonus}}} {{r1=[[@{d20}+@{medicine_bonus}@{pbd_safe}]]}} @{rtype}+@{medicine_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Medicine</button>
+											<span name='attr_history_modifer' title='@{history_modifer}'>0</span>
+											<button type='roll' name='roll_history' value='@{wtype}&{template:simple} {{rname=@{history_attribute} (History)}} {{mod=@{history_modifer}}} {{r1=[[@{d20}+@{history_modifer}@{pbd_safe}]]}} @{rtype}+@{history_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>History</button>
+										</div>
+										<div class="sheet-pc-skill">
+											<div class="sheet-checkbox-image">
+												<input type="checkbox" name="attr_insight-trained" title="@{insight-trained}" value="(@{pb}*@{insight_type})">
+												<span></span>
+											</div>
+											<span name='attr_insight_modifer' title='@{insight_modifer}'>0</span>
+											<button type='roll' name='roll_insight' value='@{wtype}&{template:simple} {{rname=@{insight_attribute} (Insight)}} {{mod=@{insight_modifer}}} {{r1=[[@{d20}+@{insight_modifer}@{pbd_safe}]]}} @{rtype}+@{insight_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Insight</button>
 											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_nature_prof" title="@{nature_prof}" value="(@{pb}*@{nature_type})">
+												<input type="checkbox" name="attr_intimidate-trained" title="@{intimidate-trained}" value="(@{pb}*@{intimidate_type})">
 												<span></span>
 											</div>
-											<span name='attr_nature_bonus' title='@{nature_bonus}'>0</span>
-											<button type='roll' name='roll_nature' value='@{wtype}&{template:simple} {{rname=@{nature_attribute} (Nature)}} {{mod=@{nature_bonus}}} {{r1=[[@{d20}+@{nature_bonus}@{pbd_safe}]]}} @{rtype}+@{nature_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Nature</button>
+											<span name='attr_intimidate_modifer' title='@{intimidate_modifer}'>0</span>
+											<button type='roll' name='roll_intimidate' value='@{wtype}&{template:simple} {{rname=@{intimidate_attribute} (Intimidate)}} {{mod=@{intimidate_modifer}}} {{r1=[[@{d20}+@{intimidate_modifer}@{pbd_safe}]]}} @{rtype}+@{intimidate_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Intimidate</button>
 											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_perception_prof" title="@{perception_prof}" value="(@{pb}*@{perception_type})">
+												<input type="checkbox" name="attr_nature-trained" title="@{nature-trained}" value="(@{pb}*@{nature_type})">
 												<span></span>
 											</div>
-											<span name='attr_perception_bonus' title='@{perception_bonus}'>0</span>
-											<button type='roll' name='roll_perception' value='@{wtype}&{template:simple} {{rname=@{perception_attribute} (Perception)}} {{mod=@{perception_bonus}}} {{r1=[[@{d20}+@{perception_bonus}@{pbd_safe}]]}} @{rtype}+@{perception_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Perception</button>
+											<span name='attr_nature_modifer' title='@{nature_modifer}'>0</span>
+											<button type='roll' name='roll_nature' value='@{wtype}&{template:simple} {{rname=@{nature_attribute} (Nature)}} {{mod=@{nature_modifer}}} {{r1=[[@{d20}+@{nature_modifer}@{pbd_safe}]]}} @{rtype}+@{nature_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Nature</button>
 											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_performance_prof" title="@{performance_prof}" value="(@{pb}*@{performance_type})">
+												<input type="checkbox" name="attr_perception-trained" title="@{perception-trained}" value="(@{pb}*@{perception_type})">
 												<span></span>
 											</div>
-											<span name='attr_performance_bonus' title='@{performance_bonus}'>0</span>
-											<button type='roll' name='roll_performance' value='@{wtype}&{template:simple} {{rname=@{performance_attribute} (Performance)}} {{mod=@{performance_bonus}}} {{r1=[[@{d20}+@{performance_bonus}@{pbd_safe}]]}} @{rtype}+@{performance_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Performance</button>
+											<span name='attr_perception_modifer' title='@{perception_modifer}'>0</span>
+											<button type='roll' name='roll_perception' value='@{wtype}&{template:simple} {{rname=@{perception_attribute} (Perception)}} {{mod=@{perception_modifer}}} {{r1=[[@{d20}+@{perception_modifer}@{pbd_safe}]]}} @{rtype}+@{perception_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Perception</button>
 											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_persuasion_prof" title="@{persuasion_prof}" value="(@{pb}*@{persuasion_type})">
+												<input type="checkbox" name="attr_religion-trained" title="@{religion-trained}" value="(@{pb}*@{religion_type})">
 												<span></span>
 											</div>
-											<span name='attr_persuasion_bonus' title='@{persuasion_bonus}'>0</span>
-											<button type='roll' name='roll_persuasion' value='@{wtype}&{template:simple} {{rname=@{persuasion_attribute} (Persuasion)}} {{mod=@{persuasion_bonus}}} {{r1=[[@{d20}+@{persuasion_bonus}@{pbd_safe}]]}} @{rtype}+@{persuasion_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Persuasion</button>
+											<span name='attr_religion_modifer' title='@{religion_modifer}'>0</span>
+											<button type='roll' name='roll_religion' value='@{wtype}&{template:simple} {{rname=@{religion_attribute} (Religion)}} {{mod=@{religion_modifer}}} {{r1=[[@{d20}+@{religion_modifer}@{pbd_safe}]]}} @{rtype}+@{religion_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Religion</button>
 											
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_religion_prof" title="@{religion_prof}" value="(@{pb}*@{religion_type})">
+												<input type="checkbox" name="attr_stealth-trained" title="@{stealth-trained}" value="(@{pb}*@{stealth_type})">
 												<span></span>
 											</div>
-											<span name='attr_religion_bonus' title='@{religion_bonus}'>0</span>
-											<button type='roll' name='roll_religion' value='@{wtype}&{template:simple} {{rname=@{religion_attribute} (Religion)}} {{mod=@{religion_bonus}}} {{r1=[[@{d20}+@{religion_bonus}@{pbd_safe}]]}} @{rtype}+@{religion_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Religion</button>
+											<span name='attr_stealth_modifer' title='@{stealth_modifer}'>0</span>
+											<button type='roll' name='roll_stealth' value='@{wtype}&{template:simple} {{rname=@{stealth_attribute} (Stealth)}} {{mod=@{stealth_modifer}}} {{r1=[[@{d20}+@{stealth_modifer}@{pbd_safe}]]}} @{rtype}+@{stealth_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Stealth</button>
+											
+										</div>
+										<div class="sheet-pc-skill">
+											<div class="sheet-checkbox-image">
+												<input type="checkbox" name="attr_streetwise-trained" title="@{streetwise-trained}" value="(@{pb}*@{streetwise_type})">
+												<span></span>
+											</div>
+											<span name='attr_streetwise_modifer' title='@{streetwise_modifer}'>0</span>
+											<button type='roll' name='roll_streetwise' value='@{wtype}&{template:simple} {{rname=@{streetwise_attribute} (Streetwise)}} {{mod=@{streetwise_modifer}}} {{r1=[[@{d20}+@{streetwise_modifer}@{pbd_safe}]]}} @{rtype}+@{streetwise_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Streetwise</button>
 											
 										</div>
 										<div class="sheet-pc-skill sheet-pc-skill-sleight-of-hand">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_sleight_of_hand_prof" title="@{sleight_of_hand_prof}" value="(@{pb}*@{sleight_of_hand_type})">
+												<input type="checkbox" name="attr_thievery-trained" title="@{thievery-trained}" value="(@{pb}*@{thievery_type})">
 												<span></span>
 											</div>
-											<span name='attr_sleight_of_hand_bonus' title='@{sleight_of_hand_bonus}'>0</span>
-											<button type='roll' name='roll_sleight_of_hand' value='@{wtype}&{template:simple} {{rname=@{sleight_of_hand_attribute} (Sleight of Hand)}} {{mod=@{sleight_of_hand_bonus}}} {{r1=[[@{d20}+@{sleight_of_hand_bonus}@{pbd_safe}]]}} @{rtype}+@{sleight_of_hand_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Sleight of Hand</button>
-											
-										</div>
-										<div class="sheet-pc-skill">
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_stealth_prof" title="@{stealth_prof}" value="(@{pb}*@{stealth_type})">
-												<span></span>
-											</div>
-											<span name='attr_stealth_bonus' title='@{stealth_bonus}'>0</span>
-											<button type='roll' name='roll_stealth' value='@{wtype}&{template:simple} {{rname=@{stealth_attribute} (Stealth)}} {{mod=@{stealth_bonus}}} {{r1=[[@{d20}+@{stealth_bonus}@{pbd_safe}]]}} @{rtype}+@{stealth_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Stealth</button>
-											
-										</div>
-										<div class="sheet-pc-skill">
-											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr_survival_prof" title="@{survival_prof}" value="(@{pb}*@{survival_type})">
-												<span></span>
-											</div>
-											<span name='attr_survival_bonus' title='@{survival_bonus}'>0</span>
-											<button type='roll' name='roll_survival' value='@{wtype}&{template:simple} {{rname=@{survival_attribute} (Survival)}} {{mod=@{survival_bonus}}} {{r1=[[@{d20}+@{survival_bonus}@{pbd_safe}]]}} @{rtype}+@{survival_bonus}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Survival</button>
+											<span name='attr_thievery_modifer' title='@{thievery_modifer}'>0</span>
+											<button type='roll' name='roll_thievery' value='@{wtype}&{template:simple} {{rname=@{thievery_attribute} (Thievery)}} {{mod=@{thievery_modifer}}} {{r1=[[@{d20}+@{thievery_modifer}@{pbd_safe}]]}} @{rtype}+@{thievery_modifer}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Thievery</button>
 											
 										</div>
 									</div>
@@ -4334,9 +4333,9 @@
 													</select>
 												</div>
 												<div class="sheet-form-group">
-													<label>Deception Modifier:</label>
-													<input type="text" name="attr_deception_flat" placeholder="0" title="@{deception_flat}">
-													<select name="attr_deception_type" title="@{deception_type}">
+													<label>Bluff Modifier:</label>
+													<input type="text" name="attr-bluff_flat" placeholder="0" title="@{deception_flat}">
+													<select name="attr-bluff_type" title="@{deception_type}">
 														<option value="1" selected="selected">Normal</option>
 														<option value="2">Expertise</option>
 													</select>
@@ -4525,7 +4524,7 @@
 			<input type='hidden' name='attr_animal_handling_bonus' value='0'>
 			<input type='hidden' name='attr_arcana_bonus' value='0'>
 			<input type='hidden' name='attr_athletics_bonus' value='0'>
-			<input type='hidden' name='attr_deception_bonus' value='0'>
+			<input type='hidden' name='attr-bluff_bonus' value='0'>
 			<input type='hidden' name='attr_history_bonus' value='0'>
 			<input type='hidden' name='attr_insight_bonus' value='0'>
 			<input type='hidden' name='attr_intimidation_bonus' value='0'>

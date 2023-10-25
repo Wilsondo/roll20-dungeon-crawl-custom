@@ -747,7 +747,7 @@ var update_mod = function (attr) {
 		var attr_abr = attr.substring(0,3);
 		var finalattr = v[attr] && isNaN(v[attr]) === false ? Math.floor((parseInt(v[attr], 10) - 10) / 2) : 0;
 		var update = {};
-		update[attr + "-mod"] = finalattr;
+		update[attr + "mod"] = finalattr;
 		update["npc_" + attr_abr + "_negative"] = v[attr] && !isNaN(v[attr]) && parseInt(v[attr], 10) < 10 ? 1 : 0;
 		setAttrs(update);
 	});
@@ -2842,475 +2842,475 @@ var update_attacks = function(update_id, source) {
 	};
 };
 
-// var do_update_attack = function(attack_array, source) {
-// 	var attack_attribs = ["level","d20","pb","pb_type","pbd_safe","dtype","globalmagicmod","strength-mod","dexterity-mod","constitution-mod","intelligence-mod","wisdom-mod","charisma-mod","spellcasting_ability","spell_save_dc","spell_attack_mod", "spell_dc_mod", "global_damage_mod_roll", "global_damage_mod_crit"];
-// 	_.each(attack_array, function(attackid) {
-// 		attack_attribs.push("repeating_attack_" + attackid + "_atkflag");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_atkname");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_atkattr_base");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_atkmod");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_atkprofflag");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_atkmagic");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_dmgflag");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_dmgbase");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_dmgattr");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_dmgmod");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_dmgtype");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_dmg2flag");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_dmg2base");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_dmg2attr");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_dmg2mod");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_dmg2type");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_dmgcustcrit");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_dmg2custcrit");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_saveflag");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_savedc");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_saveeffect");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_saveflat");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_hldmg");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_spellid");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_spelllevel");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_atkrange");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_itemid");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_ammo");
-// 		attack_attribs.push("repeating_attack_" + attackid + "_global_damage_mod_field");
-// 	});
+var do_update_attack = function(attack_array, source) {
+	var attack_attribs = ["level","d20","pb","pb_type","pbd_safe","dtype","globalmagicmod","strength-mod","dexterity-mod","constitution-mod","intelligence-mod","wisdom-mod","charisma-mod","spellcasting_ability","spell_save_dc","spell_attack_mod", "spell_dc_mod", "global_damage_mod_roll", "global_damage_mod_crit"];
+	_.each(attack_array, function(attackid) {
+		attack_attribs.push("repeating_attack_" + attackid + "_atkflag");
+		attack_attribs.push("repeating_attack_" + attackid + "_atkname");
+		attack_attribs.push("repeating_attack_" + attackid + "_atkattr_base");
+		attack_attribs.push("repeating_attack_" + attackid + "_atkmod");
+		attack_attribs.push("repeating_attack_" + attackid + "_atkprofflag");
+		attack_attribs.push("repeating_attack_" + attackid + "_atkmagic");
+		attack_attribs.push("repeating_attack_" + attackid + "_dmgflag");
+		attack_attribs.push("repeating_attack_" + attackid + "_dmgbase");
+		attack_attribs.push("repeating_attack_" + attackid + "_dmgattr");
+		attack_attribs.push("repeating_attack_" + attackid + "_dmgmod");
+		attack_attribs.push("repeating_attack_" + attackid + "_dmgtype");
+		attack_attribs.push("repeating_attack_" + attackid + "_dmg2flag");
+		attack_attribs.push("repeating_attack_" + attackid + "_dmg2base");
+		attack_attribs.push("repeating_attack_" + attackid + "_dmg2attr");
+		attack_attribs.push("repeating_attack_" + attackid + "_dmg2mod");
+		attack_attribs.push("repeating_attack_" + attackid + "_dmg2type");
+		attack_attribs.push("repeating_attack_" + attackid + "_dmgcustcrit");
+		attack_attribs.push("repeating_attack_" + attackid + "_dmg2custcrit");
+		attack_attribs.push("repeating_attack_" + attackid + "_saveflag");
+		attack_attribs.push("repeating_attack_" + attackid + "_savedc");
+		attack_attribs.push("repeating_attack_" + attackid + "_saveeffect");
+		attack_attribs.push("repeating_attack_" + attackid + "_saveflat");
+		attack_attribs.push("repeating_attack_" + attackid + "_hldmg");
+		attack_attribs.push("repeating_attack_" + attackid + "_spellid");
+		attack_attribs.push("repeating_attack_" + attackid + "_spelllevel");
+		attack_attribs.push("repeating_attack_" + attackid + "_atkrange");
+		attack_attribs.push("repeating_attack_" + attackid + "_itemid");
+		attack_attribs.push("repeating_attack_" + attackid + "_ammo");
+		attack_attribs.push("repeating_attack_" + attackid + "_global_damage_mod_field");
+	});
 
-// 	getAttrs(attack_attribs, function(v) {
-// 		_.each(attack_array, function(attackid) {
-// 			var callbacks = [];
-// 			var update = {};
-// 			var hbonus = "";
-// 			var hdmg1 = "";
-// 			var hdmg2 = "";
-// 			var dmg = "";
-// 			var dmg2 = "";
-// 			var rollbase = "";
-// 			var spellattack = false;
-// 			var magicattackmod = 0;
-// 			var magicsavemod = 0;
-// 			var atkattr_abrev = "";
-// 			var dmgattr_abrev = "";
-// 			var dmg2attr_abrev = "";
-// 			var pbd_safe = v["pbd_safe"] ? v["pbd_safe"] : "";
-// 			var global_crit = v["repeating_attack_" + attackid + "_global_damage_mod_field"] && v["repeating_attack_" + attackid + "_global_damage_mod_field"] != "" ? "@{global_damage_mod_crit}" : "";
-// 			var hldmgcrit = v["repeating_attack_" + attackid + "_hldmg"] && v["repeating_attack_" + attackid + "_hldmg"] != "" ? v["repeating_attack_" + attackid + "_hldmg"].slice(0, 7) + "crit" + v["repeating_attack_" + attackid + "_hldmg"].slice(7) : "";
-// 			if(v["repeating_attack_" + attackid + "_spellid"] && v["repeating_attack_" + attackid + "_spellid"] != "") {
-// 				spellattack = true;
-// 				magicattackmod = v["spell_attack_mod"] && !isNaN(parseInt(v["spell_attack_mod"],10)) ? parseInt(v["spell_attack_mod"],10) : 0;
-// 				magicsavemod = v["spell_dc_mod"] && !isNaN(parseInt(v["spell_dc_mod"],10)) ? parseInt(v["spell_dc_mod"],10) : 0;
-// 			};
+	getAttrs(attack_attribs, function(v) {
+		_.each(attack_array, function(attackid) {
+			var callbacks = [];
+			var update = {};
+			var hbonus = "";
+			var hdmg1 = "";
+			var hdmg2 = "";
+			var dmg = "";
+			var dmg2 = "";
+			var rollbase = "";
+			var spellattack = false;
+			var magicattackmod = 0;
+			var magicsavemod = 0;
+			var atkattr_abrev = "";
+			var dmgattr_abrev = "";
+			var dmg2attr_abrev = "";
+			var pbd_safe = v["pbd_safe"] ? v["pbd_safe"] : "";
+			var global_crit = v["repeating_attack_" + attackid + "_global_damage_mod_field"] && v["repeating_attack_" + attackid + "_global_damage_mod_field"] != "" ? "@{global_damage_mod_crit}" : "";
+			var hldmgcrit = v["repeating_attack_" + attackid + "_hldmg"] && v["repeating_attack_" + attackid + "_hldmg"] != "" ? v["repeating_attack_" + attackid + "_hldmg"].slice(0, 7) + "crit" + v["repeating_attack_" + attackid + "_hldmg"].slice(7) : "";
+			if(v["repeating_attack_" + attackid + "_spellid"] && v["repeating_attack_" + attackid + "_spellid"] != "") {
+				spellattack = true;
+				magicattackmod = v["spell_attack_mod"] && !isNaN(parseInt(v["spell_attack_mod"],10)) ? parseInt(v["spell_attack_mod"],10) : 0;
+				magicsavemod = v["spell_dc_mod"] && !isNaN(parseInt(v["spell_dc_mod"],10)) ? parseInt(v["spell_dc_mod"],10) : 0;
+			};
 
-// 			if(!v["repeating_attack_" + attackid + "_atkattr_base"] || v["repeating_attack_" + attackid + "_atkattr_base"] === "0") {
-// 				atkattr_base = 0
-// 			} else if(v["repeating_attack_" + attackid + "_atkattr_base"] && v["repeating_attack_" + attackid + "_atkattr_base"] === "spell") {
-// 				atkattr_base = parseInt(v[v["spellcasting_ability"].substring(2, v["spellcasting_ability"].length - 2)], 10);
-// 				atkattr_abrev = v["spellcasting_ability"].substring(2, 5).toUpperCase();
-// 			} else {
-// 				atkattr_base = parseInt(v[v["repeating_attack_" + attackid + "_atkattr_base"].substring(2, v["repeating_attack_" + attackid + "_atkattr_base"].length - 1)], 10);
-// 				atkattr_abrev = v["repeating_attack_" + attackid + "_atkattr_base"].substring(2, 5).toUpperCase();
-// 			};
+			if(!v["repeating_attack_" + attackid + "_atkattr_base"] || v["repeating_attack_" + attackid + "_atkattr_base"] === "0") {
+				atkattr_base = 0
+			} else if(v["repeating_attack_" + attackid + "_atkattr_base"] && v["repeating_attack_" + attackid + "_atkattr_base"] === "spell") {
+				atkattr_base = parseInt(v[v["spellcasting_ability"].substring(2, v["spellcasting_ability"].length - 2)], 10);
+				atkattr_abrev = v["spellcasting_ability"].substring(2, 5).toUpperCase();
+			} else {
+				atkattr_base = parseInt(v[v["repeating_attack_" + attackid + "_atkattr_base"].substring(2, v["repeating_attack_" + attackid + "_atkattr_base"].length - 1)], 10);
+				atkattr_abrev = v["repeating_attack_" + attackid + "_atkattr_base"].substring(2, 5).toUpperCase();
+			};
 
-// 			if(!v["repeating_attack_" + attackid + "_dmgattr"] || v["repeating_attack_" + attackid + "_dmgattr"] === "0") {
-// 				dmgattr = 0;
-// 			} else if(v["repeating_attack_" + attackid + "_dmgattr"] && v["repeating_attack_" + attackid + "_dmgattr"] === "spell") {
-// 				dmgattr = parseInt(v[v["spellcasting_ability"].substring(2, v["spellcasting_ability"].length - 2)], 10);
-// 				dmgattr_abrev = v["spellcasting_ability"].substring(2, 5).toUpperCase();
-// 			} else {
-// 				dmgattr = parseInt(v[v["repeating_attack_" + attackid + "_dmgattr"].substring(2, v["repeating_attack_" + attackid + "_dmgattr"].length - 1)], 10);
-// 				dmgattr_abrev =v["repeating_attack_" + attackid + "_dmgattr"].substring(2, 5).toUpperCase();
-// 			};
+			if(!v["repeating_attack_" + attackid + "_dmgattr"] || v["repeating_attack_" + attackid + "_dmgattr"] === "0") {
+				dmgattr = 0;
+			} else if(v["repeating_attack_" + attackid + "_dmgattr"] && v["repeating_attack_" + attackid + "_dmgattr"] === "spell") {
+				dmgattr = parseInt(v[v["spellcasting_ability"].substring(2, v["spellcasting_ability"].length - 2)], 10);
+				dmgattr_abrev = v["spellcasting_ability"].substring(2, 5).toUpperCase();
+			} else {
+				dmgattr = parseInt(v[v["repeating_attack_" + attackid + "_dmgattr"].substring(2, v["repeating_attack_" + attackid + "_dmgattr"].length - 1)], 10);
+				dmgattr_abrev =v["repeating_attack_" + attackid + "_dmgattr"].substring(2, 5).toUpperCase();
+			};
 
-// 			if(!v["repeating_attack_" + attackid + "_dmg2attr"] || v["repeating_attack_" + attackid + "_dmg2attr"] === "0") {
-// 				dmg2attr = 0;
-// 			} else if(v["repeating_attack_" + attackid + "_dmg2attr"] && v["repeating_attack_" + attackid + "_dmg2attr"] === "spell") {
-// 				dmg2attr = parseInt(v[v["spellcasting_ability"].substring(2, v["spellcasting_ability"].length - 2)], 10);
-// 				dmg2attr_abrev = v["spellcasting_ability"].substring(2, 5).toUpperCase();
-// 			} else {
-// 				dmg2attr = parseInt(v[v["repeating_attack_" + attackid + "_dmg2attr"].substring(2, v["repeating_attack_" + attackid + "_dmg2attr"].length - 1)], 10);
-// 				dmg2attr_abrev =v["repeating_attack_" + attackid + "_dmg2attr"].substring(2, 5).toUpperCase();
-// 			};
+			if(!v["repeating_attack_" + attackid + "_dmg2attr"] || v["repeating_attack_" + attackid + "_dmg2attr"] === "0") {
+				dmg2attr = 0;
+			} else if(v["repeating_attack_" + attackid + "_dmg2attr"] && v["repeating_attack_" + attackid + "_dmg2attr"] === "spell") {
+				dmg2attr = parseInt(v[v["spellcasting_ability"].substring(2, v["spellcasting_ability"].length - 2)], 10);
+				dmg2attr_abrev = v["spellcasting_ability"].substring(2, 5).toUpperCase();
+			} else {
+				dmg2attr = parseInt(v[v["repeating_attack_" + attackid + "_dmg2attr"].substring(2, v["repeating_attack_" + attackid + "_dmg2attr"].length - 1)], 10);
+				dmg2attr_abrev =v["repeating_attack_" + attackid + "_dmg2attr"].substring(2, 5).toUpperCase();
+			};
 
-// 			var dmgbase = v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "" ? v["repeating_attack_" + attackid + "_dmgbase"] : 0;
-// 			var dmg2base = v["repeating_attack_" + attackid + "_dmg2base"] && v["repeating_attack_" + attackid + "_dmg2base"] != "" ? v["repeating_attack_" + attackid + "_dmg2base"] : 0;
-// 			var dmgmod = v["repeating_attack_" + attackid + "_dmgmod"] && isNaN(parseInt(v["repeating_attack_" + attackid + "_dmgmod"],10)) === false ? parseInt(v["repeating_attack_" + attackid + "_dmgmod"],10) : 0;
-// 			var dmg2mod = v["repeating_attack_" + attackid + "_dmg2mod"] && isNaN(parseInt(v["repeating_attack_" + attackid + "_dmg2mod"],10)) === false ? parseInt(v["repeating_attack_" + attackid + "_dmg2mod"],10) : 0;
-// 			var dmgtype = v["repeating_attack_" + attackid + "_dmgtype"] ? v["repeating_attack_" + attackid + "_dmgtype"] + " " : "";
-// 			var dmg2type = v["repeating_attack_" + attackid + "_dmg2type"] ? v["repeating_attack_" + attackid + "_dmg2type"] + " " : "";
-// 			var pb = v["repeating_attack_" + attackid + "_atkprofflag"] && v["repeating_attack_" + attackid + "_atkprofflag"] != 0 && v.pb ? v.pb : 0;
-// 			var atkmod = v["repeating_attack_" + attackid + "_atkmod"] && v["repeating_attack_" + attackid + "_atkmod"] != "" ? parseInt(v["repeating_attack_" + attackid + "_atkmod"],10) : 0;
-// 			var atkmag = v["repeating_attack_" + attackid + "_atkmagic"] && v["repeating_attack_" + attackid + "_atkmagic"] != "" ? parseInt(v["repeating_attack_" + attackid + "_atkmagic"],10) : 0;
-// 			var dmgmag = isNaN(atkmag) === false && atkmag != 0 && ((v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) || (v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0)) ? "+ " + atkmag + " Magic Bonus" : "";
-// 			if(v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0) {
-// 				bonus_mod = atkattr_base + atkmod + atkmag + magicattackmod;
-// 				if(v["pb_type"] && v["pb_type"] === "die") {
-// 					plus_minus = bonus_mod > -1 ? "+" : "";
-// 					bonus = bonus_mod + "+" + pb;
-// 				}
-// 				else {
-// 					bonus_mod = bonus_mod + parseInt(pb, 10);
-// 					plus_minus = bonus_mod > -1 ? "+" : "";
-// 					bonus = plus_minus + bonus_mod;
-// 				};
-// 			}
-// 			else if(v["repeating_attack_" + attackid + "_saveflag"] && v["repeating_attack_" + attackid + "_saveflag"] != 0) {
-// 				if(!v["repeating_attack_" + attackid + "_savedc"] || (v["repeating_attack_" + attackid + "_savedc"] && v["repeating_attack_" + attackid + "_savedc"] === "(@{spell_save_dc})")) {
-// 					var tempdc = v["spell_save_dc"];
-// 				}
-// 				else if(v["repeating_attack_" + attackid + "_savedc"] && v["repeating_attack_" + attackid + "_savedc"] === "(@{saveflat})") {
-// 					var tempdc = isNaN(parseInt(v["repeating_attack_" + attackid + "_saveflat"])) === false ? parseInt(v["repeating_attack_" + attackid + "_saveflat"]) : "0";
-// 				}
-// 				else {
-// 					var savedcattr = v["repeating_attack_" + attackid + "_savedc"].replace(/^[^{]*{/,"").replace(/\_.*$/,"");
-// 					var safe_pb = v["pb_type"] && v["pb_type"] === "die" ? parseInt(pb.substring(1), 10) / 2 : parseInt(pb,10);
-// 					var safe_attr = v[savedcattr + "_mod"] ? parseInt(v[savedcattr + "_mod"],10) : 0;
-// 					var tempdc = 8 + safe_attr + safe_pb + magicsavemod;
-// 				};
-// 				bonus = "DC" + tempdc;
-// 			}
-// 			else {
-// 				bonus = "-";
-// 			}
-// 			if(v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) {
-// 				if(spellattack === true && dmgbase.indexOf("[[round((@{level} + 1) / 6 + 0.5)]]") > -1) {
-// 					// SPECIAL CANTRIP DAMAGE
-// 					dmgdiestring = Math.round(((parseInt(v["level"], 10) + 1) / 6) + 0.5).toString()
-// 					dmg = dmgdiestring + dmgbase.substring(dmgbase.lastIndexOf("d"));
-// 					if(dmgattr + dmgmod != 0) {
-// 						dmg = dmg + "+" + (dmgattr + dmgmod);
-// 					}
-// 					dmg = dmg + " " + dmgtype;
-// 				}
-// 				else {
-// 					if(dmgbase === 0 && (dmgattr + dmgmod === 0)){
-// 						dmg = 0;
-// 					}
-// 					if(dmgbase != 0) {
-// 						dmg = dmgbase;
-// 					}
-// 					if(dmgbase != 0 && (dmgattr + dmgmod != 0)){
-// 						dmg = dmgattr + dmgmod > 0 ? dmg + "+" : dmg;
-// 					}
-// 					if(dmgattr + dmgmod != 0) {
-// 						dmg = dmg + (dmgattr + dmgmod);
-// 					}
-// 					dmg = dmg + " " + dmgtype;
-// 				}
-// 			}
-// 			else {
-// 				dmg = "";
-// 			};
-// 			if(v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0) {
-// 				if(dmg2base === 0 && (dmg2attr + dmg2mod === 0)){
-// 					dmg2 = 0;
-// 				}
-// 				if(dmg2base != 0) {
-// 					dmg2 = dmg2base;
-// 				}
-// 				if(dmg2base != 0 && (dmg2attr + dmg2mod != 0)){
-// 					dmg2 = dmg2attr + dmg2mod > 0 ? dmg2 + "+" : dmg2;
-// 				}
-// 				if(dmg2attr + dmg2mod != 0) {
-// 					dmg2 = dmg2 + (dmg2attr + dmg2mod);
-// 				}
-// 				dmg2 = dmg2 + " " + dmg2type;
-// 			}
-// 			else {
-// 				dmg2 = "";
-// 			};
-// 			dmgspacer = v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0 && v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0 ? "+ " : "";
-// 			crit1 = v["repeating_attack_" + attackid + "_dmgcustcrit"] && v["repeating_attack_" + attackid + "_dmgcustcrit"] != "" ? v["repeating_attack_" + attackid + "_dmgcustcrit"] : dmgbase;
-// 			crit2 = v["repeating_attack_" + attackid + "_dmg2custcrit"] && v["repeating_attack_" + attackid + "_dmg2custcrit"] != "" ? v["repeating_attack_" + attackid + "_dmg2custcrit"] : dmg2base;
-// 			r1 = v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0 ? "@{d20}" : "0d20";
-// 			r2 = v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0 ? "@{rtype}" : "{{r2=[[0d20";
-// 			if(v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0) {
-// 				if(magicattackmod != 0) {hbonus = " + " + magicattackmod + "[SPELLATK]" + hbonus};
-// 				if(atkmag != 0) {hbonus = " + " + atkmag + "[MAGIC]" + hbonus};
-// 				if(pb != 0) {hbonus = " + " + pb + pbd_safe + "[PROF]" + hbonus};
-// 				if(atkmod != 0) {hbonus = " + " + atkmod + "[MOD]" + hbonus};
-// 				if(atkattr_base != 0) {hbonus = " + " + atkattr_base + "[" + atkattr_abrev + "]" + hbonus};
-// 			}
-// 			else {
-// 				hbonus = "";
-// 			}
-// 			if(v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) {
-// 				if(atkmag != 0) {hdmg1 = " + " + atkmag + "[MAGIC]" + hdmg1};
-// 				if(dmgmod != 0) {hdmg1 = " + " + dmgmod + "[MOD]" + hdmg1};
-// 				if(dmgattr != 0) {hdmg1 = " + " + dmgattr + "[" + dmgattr_abrev + "]" + hdmg1};
-// 				hdmg1 = dmgbase + hdmg1;
-// 			}
-// 			else {
-// 				hdmg1 = "0";
-// 			}
-// 			if(v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0) {
-// 				if(dmg2mod != 0) {hdmg2 = " + " + dmg2mod + "[MOD]" + hdmg2};
-// 				if(dmg2attr != 0) {hdmg2 = " + " + dmg2attr + "[" + dmg2attr_abrev + "]" + hdmg2};
-// 				hdmg2 = dmg2base + hdmg2;
-// 			}
-// 			else {
-// 				hdmg2 = "0";
-// 			}
-// 			var globaldamage = `[[${v.global_damage_mod_roll && v.global_damage_mod_roll !== "" ? v.global_damage_mod_roll : "0"}]]`;
-// 			var globaldamagecrit = `[[${v.global_damage_mod_crit && v.global_damage_mod_crit !== "" ? v.global_damage_mod_crit : "0"}]]`;
-// 			if(v.dtype === "full") {
-// 				pickbase = "full";
-// 				rollbase = "@{wtype}&{template:atkdmg} {{mod=@{atkbonus}}} {{rname=@{atkname}}} {{r1=[[" + r1 + "cs>@{atkcritrange}" + hbonus + "]]}} " + r2 + "cs>@{atkcritrange}" + hbonus + "]]}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} {{crit1=[[" + crit1 + "[CRIT]]]}} {{crit2=[[" + crit2 + "[CRIT]]]}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} " + hldmgcrit + " {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globalattack=@{global_attack_mod}}} {{globaldamage=" + globaldamage + "}} {{globaldamagecrit=" + globaldamagecrit + "}} {{globaldamagetype=@{global_damage_mod_type}}} ammo=@{ammo} @{charname_output}";
-// 			}
-// 			else if(v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0) {
-// 				pickbase = "pick";
-// 				rollbase = "@{wtype}&{template:atk} {{mod=@{atkbonus}}} {{rname=[@{atkname}](~repeating_attack_attack_dmg)}} {{rnamec=[@{atkname}](~repeating_attack_attack_crit)}} {{r1=[[" + r1 + "cs>@{atkcritrange}" + hbonus + "]]}} " + r2 + "cs>@{atkcritrange}" + hbonus + "]]}} {{range=@{atkrange}}} {{desc=@{atk_desc}}} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globalattack=@{global_attack_mod}}} ammo=@{ammo} @{charname_output}";
-// 			}
-// 			else if(v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) {
-// 				pickbase = "dmg";
-// 				rollbase = "@{wtype}&{template:dmg} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globaldamage=" + globaldamage + "}} {{globaldamagetype=@{global_damage_mod_type}}} ammo=@{ammo} @{charname_output}"
-// 			}
-// 			else {
-// 				pickbase = "empty";
-// 				rollbase = "@{wtype}&{template:dmg} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{saveflag} {{desc=@{atk_desc}}} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} ammo=@{ammo} @{charname_output}"
-// 			}
-// 			update["repeating_attack_" + attackid + "_rollbase_dmg"] = "@{wtype}&{template:dmg} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globaldamage=" + globaldamage + "}} {{globaldamagetype=@{global_damage_mod_type}}} @{charname_output}";
-// 			update["repeating_attack_" + attackid + "_rollbase_crit"] = "@{wtype}&{template:dmg} {{crit=1}} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} {{crit1=[[" + crit1 + "]]}} {{crit2=[[" + crit2 + "]]}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} " + hldmgcrit + " {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globaldamage=" + globaldamage + "}} {{globaldamagecrit=" + globaldamagecrit + "}} {{globaldamagetype=@{global_damage_mod_type}}} @{charname_output}"
-// 			update["repeating_attack_" + attackid + "_atkbonus"] = bonus;
-// 			update["repeating_attack_" + attackid + "_atkdmgtype"] = dmg + dmgspacer + dmg2 + dmgmag + " ";
-// 			update["repeating_attack_" + attackid + "_rollbase"] = rollbase;
-// 			if(v["repeating_attack_" + attackid + "_spellid"] && v["repeating_attack_" + attackid + "_spellid"] != "" && (!source || source && source != "spell") && v["repeating_attack_" + attackid + "_spellid"].length == 20) {
-// 				var spellid = v["repeating_attack_" + attackid + "_spellid"];
-// 				var lvl = v["repeating_attack_" + attackid + "_spelllevel"];
-// 				callbacks.push( function() {update_spell_from_attack(lvl, spellid, attackid);} );
-// 			}
-// 			if(v["repeating_attack_" + attackid + "_itemid"] && v["repeating_attack_" + attackid + "_itemid"] != "" && (!source || source && source != "item")) {
-// 				var itemid = v["repeating_attack_" + attackid + "_itemid"];
-// 				callbacks.push( function() {update_item_from_attack(itemid, attackid);} );
-// 			}
-// 			setAttrs(update, {silent: true}, function() {callbacks.forEach(function(callback) {callback(); })} );
-// 		});
-// 	});
-// };
+			var dmgbase = v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "" ? v["repeating_attack_" + attackid + "_dmgbase"] : 0;
+			var dmg2base = v["repeating_attack_" + attackid + "_dmg2base"] && v["repeating_attack_" + attackid + "_dmg2base"] != "" ? v["repeating_attack_" + attackid + "_dmg2base"] : 0;
+			var dmgmod = v["repeating_attack_" + attackid + "_dmgmod"] && isNaN(parseInt(v["repeating_attack_" + attackid + "_dmgmod"],10)) === false ? parseInt(v["repeating_attack_" + attackid + "_dmgmod"],10) : 0;
+			var dmg2mod = v["repeating_attack_" + attackid + "_dmg2mod"] && isNaN(parseInt(v["repeating_attack_" + attackid + "_dmg2mod"],10)) === false ? parseInt(v["repeating_attack_" + attackid + "_dmg2mod"],10) : 0;
+			var dmgtype = v["repeating_attack_" + attackid + "_dmgtype"] ? v["repeating_attack_" + attackid + "_dmgtype"] + " " : "";
+			var dmg2type = v["repeating_attack_" + attackid + "_dmg2type"] ? v["repeating_attack_" + attackid + "_dmg2type"] + " " : "";
+			var pb = v["repeating_attack_" + attackid + "_atkprofflag"] && v["repeating_attack_" + attackid + "_atkprofflag"] != 0 && v.pb ? v.pb : 0;
+			var atkmod = v["repeating_attack_" + attackid + "_atkmod"] && v["repeating_attack_" + attackid + "_atkmod"] != "" ? parseInt(v["repeating_attack_" + attackid + "_atkmod"],10) : 0;
+			var atkmag = v["repeating_attack_" + attackid + "_atkmagic"] && v["repeating_attack_" + attackid + "_atkmagic"] != "" ? parseInt(v["repeating_attack_" + attackid + "_atkmagic"],10) : 0;
+			var dmgmag = isNaN(atkmag) === false && atkmag != 0 && ((v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) || (v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0)) ? "+ " + atkmag + " Magic Bonus" : "";
+			if(v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0) {
+				bonus_mod = atkattr_base + atkmod + atkmag + magicattackmod;
+				if(v["pb_type"] && v["pb_type"] === "die") {
+					plus_minus = bonus_mod > -1 ? "+" : "";
+					bonus = bonus_mod + "+" + pb;
+				}
+				else {
+					bonus_mod = bonus_mod + parseInt(pb, 10);
+					plus_minus = bonus_mod > -1 ? "+" : "";
+					bonus = plus_minus + bonus_mod;
+				};
+			}
+			else if(v["repeating_attack_" + attackid + "_saveflag"] && v["repeating_attack_" + attackid + "_saveflag"] != 0) {
+				if(!v["repeating_attack_" + attackid + "_savedc"] || (v["repeating_attack_" + attackid + "_savedc"] && v["repeating_attack_" + attackid + "_savedc"] === "(@{spell_save_dc})")) {
+					var tempdc = v["spell_save_dc"];
+				}
+				else if(v["repeating_attack_" + attackid + "_savedc"] && v["repeating_attack_" + attackid + "_savedc"] === "(@{saveflat})") {
+					var tempdc = isNaN(parseInt(v["repeating_attack_" + attackid + "_saveflat"])) === false ? parseInt(v["repeating_attack_" + attackid + "_saveflat"]) : "0";
+				}
+				else {
+					var savedcattr = v["repeating_attack_" + attackid + "_savedc"].replace(/^[^{]*{/,"").replace(/\_.*$/,"");
+					var safe_pb = v["pb_type"] && v["pb_type"] === "die" ? parseInt(pb.substring(1), 10) / 2 : parseInt(pb,10);
+					var safe_attr = v[savedcattr + "_mod"] ? parseInt(v[savedcattr + "_mod"],10) : 0;
+					var tempdc = 8 + safe_attr + safe_pb + magicsavemod;
+				};
+				bonus = "DC" + tempdc;
+			}
+			else {
+				bonus = "-";
+			}
+			if(v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) {
+				if(spellattack === true && dmgbase.indexOf("[[round((@{level} + 1) / 6 + 0.5)]]") > -1) {
+					// SPECIAL CANTRIP DAMAGE
+					dmgdiestring = Math.round(((parseInt(v["level"], 10) + 1) / 6) + 0.5).toString()
+					dmg = dmgdiestring + dmgbase.substring(dmgbase.lastIndexOf("d"));
+					if(dmgattr + dmgmod != 0) {
+						dmg = dmg + "+" + (dmgattr + dmgmod);
+					}
+					dmg = dmg + " " + dmgtype;
+				}
+				else {
+					if(dmgbase === 0 && (dmgattr + dmgmod === 0)){
+						dmg = 0;
+					}
+					if(dmgbase != 0) {
+						dmg = dmgbase;
+					}
+					if(dmgbase != 0 && (dmgattr + dmgmod != 0)){
+						dmg = dmgattr + dmgmod > 0 ? dmg + "+" : dmg;
+					}
+					if(dmgattr + dmgmod != 0) {
+						dmg = dmg + (dmgattr + dmgmod);
+					}
+					dmg = dmg + " " + dmgtype;
+				}
+			}
+			else {
+				dmg = "";
+			};
+			if(v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0) {
+				if(dmg2base === 0 && (dmg2attr + dmg2mod === 0)){
+					dmg2 = 0;
+				}
+				if(dmg2base != 0) {
+					dmg2 = dmg2base;
+				}
+				if(dmg2base != 0 && (dmg2attr + dmg2mod != 0)){
+					dmg2 = dmg2attr + dmg2mod > 0 ? dmg2 + "+" : dmg2;
+				}
+				if(dmg2attr + dmg2mod != 0) {
+					dmg2 = dmg2 + (dmg2attr + dmg2mod);
+				}
+				dmg2 = dmg2 + " " + dmg2type;
+			}
+			else {
+				dmg2 = "";
+			};
+			dmgspacer = v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0 && v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0 ? "+ " : "";
+			crit1 = v["repeating_attack_" + attackid + "_dmgcustcrit"] && v["repeating_attack_" + attackid + "_dmgcustcrit"] != "" ? v["repeating_attack_" + attackid + "_dmgcustcrit"] : dmgbase;
+			crit2 = v["repeating_attack_" + attackid + "_dmg2custcrit"] && v["repeating_attack_" + attackid + "_dmg2custcrit"] != "" ? v["repeating_attack_" + attackid + "_dmg2custcrit"] : dmg2base;
+			r1 = v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0 ? "@{d20}" : "0d20";
+			r2 = v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0 ? "@{rtype}" : "{{r2=[[0d20";
+			if(v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0) {
+				if(magicattackmod != 0) {hbonus = " + " + magicattackmod + "[SPELLATK]" + hbonus};
+				if(atkmag != 0) {hbonus = " + " + atkmag + "[MAGIC]" + hbonus};
+				if(pb != 0) {hbonus = " + " + pb + pbd_safe + "[PROF]" + hbonus};
+				if(atkmod != 0) {hbonus = " + " + atkmod + "[MOD]" + hbonus};
+				if(atkattr_base != 0) {hbonus = " + " + atkattr_base + "[" + atkattr_abrev + "]" + hbonus};
+			}
+			else {
+				hbonus = "";
+			}
+			if(v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) {
+				if(atkmag != 0) {hdmg1 = " + " + atkmag + "[MAGIC]" + hdmg1};
+				if(dmgmod != 0) {hdmg1 = " + " + dmgmod + "[MOD]" + hdmg1};
+				if(dmgattr != 0) {hdmg1 = " + " + dmgattr + "[" + dmgattr_abrev + "]" + hdmg1};
+				hdmg1 = dmgbase + hdmg1;
+			}
+			else {
+				hdmg1 = "0";
+			}
+			if(v["repeating_attack_" + attackid + "_dmg2flag"] && v["repeating_attack_" + attackid + "_dmg2flag"] != 0) {
+				if(dmg2mod != 0) {hdmg2 = " + " + dmg2mod + "[MOD]" + hdmg2};
+				if(dmg2attr != 0) {hdmg2 = " + " + dmg2attr + "[" + dmg2attr_abrev + "]" + hdmg2};
+				hdmg2 = dmg2base + hdmg2;
+			}
+			else {
+				hdmg2 = "0";
+			}
+			var globaldamage = `[[${v.global_damage_mod_roll && v.global_damage_mod_roll !== "" ? v.global_damage_mod_roll : "0"}]]`;
+			var globaldamagecrit = `[[${v.global_damage_mod_crit && v.global_damage_mod_crit !== "" ? v.global_damage_mod_crit : "0"}]]`;
+			if(v.dtype === "full") {
+				pickbase = "full";
+				rollbase = "@{wtype}&{template:atkdmg} {{mod=@{atkbonus}}} {{rname=@{atkname}}} {{r1=[[" + r1 + "cs>@{atkcritrange}" + hbonus + "]]}} " + r2 + "cs>@{atkcritrange}" + hbonus + "]]}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} {{crit1=[[" + crit1 + "[CRIT]]]}} {{crit2=[[" + crit2 + "[CRIT]]]}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} " + hldmgcrit + " {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globalattack=@{global_attack_mod}}} {{globaldamage=" + globaldamage + "}} {{globaldamagecrit=" + globaldamagecrit + "}} {{globaldamagetype=@{global_damage_mod_type}}} ammo=@{ammo} @{charname_output}";
+			}
+			else if(v["repeating_attack_" + attackid + "_atkflag"] && v["repeating_attack_" + attackid + "_atkflag"] != 0) {
+				pickbase = "pick";
+				rollbase = "@{wtype}&{template:atk} {{mod=@{atkbonus}}} {{rname=[@{atkname}](~repeating_attack_attack_dmg)}} {{rnamec=[@{atkname}](~repeating_attack_attack_crit)}} {{r1=[[" + r1 + "cs>@{atkcritrange}" + hbonus + "]]}} " + r2 + "cs>@{atkcritrange}" + hbonus + "]]}} {{range=@{atkrange}}} {{desc=@{atk_desc}}} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globalattack=@{global_attack_mod}}} ammo=@{ammo} @{charname_output}";
+			}
+			else if(v["repeating_attack_" + attackid + "_dmgflag"] && v["repeating_attack_" + attackid + "_dmgflag"] != 0) {
+				pickbase = "dmg";
+				rollbase = "@{wtype}&{template:dmg} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globaldamage=" + globaldamage + "}} {{globaldamagetype=@{global_damage_mod_type}}} ammo=@{ammo} @{charname_output}"
+			}
+			else {
+				pickbase = "empty";
+				rollbase = "@{wtype}&{template:dmg} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{saveflag} {{desc=@{atk_desc}}} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} ammo=@{ammo} @{charname_output}"
+			}
+			update["repeating_attack_" + attackid + "_rollbase_dmg"] = "@{wtype}&{template:dmg} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globaldamage=" + globaldamage + "}} {{globaldamagetype=@{global_damage_mod_type}}} @{charname_output}";
+			update["repeating_attack_" + attackid + "_rollbase_crit"] = "@{wtype}&{template:dmg} {{crit=1}} {{rname=@{atkname}}} @{atkflag} {{range=@{atkrange}}} @{dmgflag} {{dmg1=[[" + hdmg1 + "]]}} {{dmg1type=" + dmgtype + "}} @{dmg2flag} {{dmg2=[[" + hdmg2 + "]]}} {{dmg2type=" + dmg2type + "}} {{crit1=[[" + crit1 + "]]}} {{crit2=[[" + crit2 + "]]}} @{saveflag} {{desc=@{atk_desc}}} @{hldmg} " + hldmgcrit + " {{spelllevel=@{spelllevel}}} {{innate=@{spell_innate}}} {{globaldamage=" + globaldamage + "}} {{globaldamagecrit=" + globaldamagecrit + "}} {{globaldamagetype=@{global_damage_mod_type}}} @{charname_output}"
+			update["repeating_attack_" + attackid + "_atkbonus"] = bonus;
+			update["repeating_attack_" + attackid + "_atkdmgtype"] = dmg + dmgspacer + dmg2 + dmgmag + " ";
+			update["repeating_attack_" + attackid + "_rollbase"] = rollbase;
+			if(v["repeating_attack_" + attackid + "_spellid"] && v["repeating_attack_" + attackid + "_spellid"] != "" && (!source || source && source != "spell") && v["repeating_attack_" + attackid + "_spellid"].length == 20) {
+				var spellid = v["repeating_attack_" + attackid + "_spellid"];
+				var lvl = v["repeating_attack_" + attackid + "_spelllevel"];
+				callbacks.push( function() {update_spell_from_attack(lvl, spellid, attackid);} );
+			}
+			if(v["repeating_attack_" + attackid + "_itemid"] && v["repeating_attack_" + attackid + "_itemid"] != "" && (!source || source && source != "item")) {
+				var itemid = v["repeating_attack_" + attackid + "_itemid"];
+				callbacks.push( function() {update_item_from_attack(itemid, attackid);} );
+			}
+			setAttrs(update, {silent: true}, function() {callbacks.forEach(function(callback) {callback(); })} );
+		});
+	});
+};
 
-// var update_spell_from_attack = function(lvl, spellid, attackid) {
-// 	var update = {};
-// 	getAttrs(["repeating_attack_" + attackid + "_atkname", "repeating_attack_" + attackid + "_atkrange", "repeating_attack_" + attackid + "_atkflag", "repeating_attack_" + attackid + "_atkattr_base", "repeating_attack_" + attackid + "_dmgbase", "repeating_attack_" + attackid + "_dmgtype", "repeating_attack_" + attackid + "_dmg2base", "repeating_attack_" + attackid + "_dmg2type", "repeating_attack_" + attackid + "_saveflag", "repeating_attack_" + attackid + "_saveattr", "repeating_attack_" + attackid + "_saveeffect"], function(v) {
-// 		update["repeating_spell-" + lvl + "_" + spellid + "_spellname"] = v["repeating_attack_" + attackid + "_atkname"];
-// 		if(v["repeating_attack_" + attackid + "_atkrange"] && v["repeating_attack_" + attackid + "_atkrange"] != "") {
-// 			update["repeating_spell-" + lvl + "_" + spellid + "_spellrange"] = v["repeating_attack_" + attackid + "_atkrange"];
-// 		}
-// 		else {
-// 			update["repeating_spell-" + lvl + "_" + spellid + "_spellrange"] = "";
-// 		};
+var update_spell_from_attack = function(lvl, spellid, attackid) {
+	var update = {};
+	getAttrs(["repeating_attack_" + attackid + "_atkname", "repeating_attack_" + attackid + "_atkrange", "repeating_attack_" + attackid + "_atkflag", "repeating_attack_" + attackid + "_atkattr_base", "repeating_attack_" + attackid + "_dmgbase", "repeating_attack_" + attackid + "_dmgtype", "repeating_attack_" + attackid + "_dmg2base", "repeating_attack_" + attackid + "_dmg2type", "repeating_attack_" + attackid + "_saveflag", "repeating_attack_" + attackid + "_saveattr", "repeating_attack_" + attackid + "_saveeffect"], function(v) {
+		update["repeating_spell-" + lvl + "_" + spellid + "_spellname"] = v["repeating_attack_" + attackid + "_atkname"];
+		if(v["repeating_attack_" + attackid + "_atkrange"] && v["repeating_attack_" + attackid + "_atkrange"] != "") {
+			update["repeating_spell-" + lvl + "_" + spellid + "_spellrange"] = v["repeating_attack_" + attackid + "_atkrange"];
+		}
+		else {
+			update["repeating_spell-" + lvl + "_" + spellid + "_spellrange"] = "";
+		};
 
-// 		if(v["repeating_attack_" + attackid + "_dmgtype"] && v["repeating_attack_" + attackid + "_dmgtype"].toLowerCase() == "healing") {
-// 			if(v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "") {
-// 				update["repeating_spell-" + lvl + "_" + spellid + "_spellhealing"] = v["repeating_attack_" + attackid + "_dmgbase"];
-// 			}
-// 		}
-// 		else {
-// 			if(v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "" && v["repeating_attack_" + attackid + "_dmgbase"].indexOf("[[round((@{level} + 1) / 6 + 0.5)]]") === -1) {
-// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage"] = v["repeating_attack_" + attackid + "_dmgbase"];
-// 			}
-// 			else if(!v["repeating_attack_" + attackid + "_dmgbase"] || v["repeating_attack_" + attackid + "_dmgbase"] === "") {
-// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage"] = "";
-// 			}
-// 			if(v["repeating_attack_" + attackid + "_dmgtype"] && v["repeating_attack_" + attackid + "_dmgtype"] != "") {
-// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype"] = v["repeating_attack_" + attackid + "_dmgtype"];
-// 			}
-// 			else {
-// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype"] = "";
-// 			}
-// 		};
-// 		if(v["repeating_attack_" + attackid + "_dmg2type"] && v["repeating_attack_" + attackid + "_dmg2type"].toLowerCase() == "healing") {
-// 			if(v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "") {
-// 				update["repeating_spell-" + lvl + "_" + spellid + "_spellhealing"] = v["repeating_attack_" + attackid + "_dmgbase"];
-// 			}
-// 		}
-// 		else {
-// 			if(v["repeating_attack_" + attackid + "_dmg2base"] && v["repeating_attack_" + attackid + "_dmg2base"] != "") {
-// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage2"] = v["repeating_attack_" + attackid + "_dmg2base"];
-// 			}
-// 			else {
-// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage2"] = "";
-// 			}
-// 			if(v["repeating_attack_" + attackid + "_dmg2type"] && v["repeating_attack_" + attackid + "_dmg2type"] != "") {
-// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype2"] = v["repeating_attack_" + attackid + "_dmg2type"];
-// 			}
-// 			else {
-// 				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype2"] = "";
-// 			}
-// 		};
+		if(v["repeating_attack_" + attackid + "_dmgtype"] && v["repeating_attack_" + attackid + "_dmgtype"].toLowerCase() == "healing") {
+			if(v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "") {
+				update["repeating_spell-" + lvl + "_" + spellid + "_spellhealing"] = v["repeating_attack_" + attackid + "_dmgbase"];
+			}
+		}
+		else {
+			if(v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "" && v["repeating_attack_" + attackid + "_dmgbase"].indexOf("[[round((@{level} + 1) / 6 + 0.5)]]") === -1) {
+				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage"] = v["repeating_attack_" + attackid + "_dmgbase"];
+			}
+			else if(!v["repeating_attack_" + attackid + "_dmgbase"] || v["repeating_attack_" + attackid + "_dmgbase"] === "") {
+				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage"] = "";
+			}
+			if(v["repeating_attack_" + attackid + "_dmgtype"] && v["repeating_attack_" + attackid + "_dmgtype"] != "") {
+				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype"] = v["repeating_attack_" + attackid + "_dmgtype"];
+			}
+			else {
+				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype"] = "";
+			}
+		};
+		if(v["repeating_attack_" + attackid + "_dmg2type"] && v["repeating_attack_" + attackid + "_dmg2type"].toLowerCase() == "healing") {
+			if(v["repeating_attack_" + attackid + "_dmgbase"] && v["repeating_attack_" + attackid + "_dmgbase"] != "") {
+				update["repeating_spell-" + lvl + "_" + spellid + "_spellhealing"] = v["repeating_attack_" + attackid + "_dmgbase"];
+			}
+		}
+		else {
+			if(v["repeating_attack_" + attackid + "_dmg2base"] && v["repeating_attack_" + attackid + "_dmg2base"] != "") {
+				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage2"] = v["repeating_attack_" + attackid + "_dmg2base"];
+			}
+			else {
+				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamage2"] = "";
+			}
+			if(v["repeating_attack_" + attackid + "_dmg2type"] && v["repeating_attack_" + attackid + "_dmg2type"] != "") {
+				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype2"] = v["repeating_attack_" + attackid + "_dmg2type"];
+			}
+			else {
+				update["repeating_spell-" + lvl + "_" + spellid + "_spelldamagetype2"] = "";
+			}
+		};
 
-// 		if(v["repeating_attack_" + attackid + "_saveflag"] && v["repeating_attack_" + attackid + "_saveflag"] != "0") {
-// 			update["repeating_spell-" + lvl + "_" + spellid + "_spellsave"] = v["repeating_attack_" + attackid + "_saveattr"];
-// 		}
-// 		else {
-// 			update["repeating_spell-" + lvl + "_" + spellid + "_spellsave"] = "";
-// 		};
-// 		if(v["repeating_attack_" + attackid + "_saveeffect"] && v["repeating_attack_" + attackid + "_saveeffect"] != "") {
-// 			update["repeating_spell-" + lvl + "_" + spellid + "_spellsavesuccess"] = v["repeating_attack_" + attackid + "_saveeffect"];
-// 		}
-// 		else {
-// 			update["repeating_spell-" + lvl + "_" + spellid + "_spellsavesuccess"] = "";
-// 		};
-// 		setAttrs(update, {silent: true});
-// 	});
-// };
+		if(v["repeating_attack_" + attackid + "_saveflag"] && v["repeating_attack_" + attackid + "_saveflag"] != "0") {
+			update["repeating_spell-" + lvl + "_" + spellid + "_spellsave"] = v["repeating_attack_" + attackid + "_saveattr"];
+		}
+		else {
+			update["repeating_spell-" + lvl + "_" + spellid + "_spellsave"] = "";
+		};
+		if(v["repeating_attack_" + attackid + "_saveeffect"] && v["repeating_attack_" + attackid + "_saveeffect"] != "") {
+			update["repeating_spell-" + lvl + "_" + spellid + "_spellsavesuccess"] = v["repeating_attack_" + attackid + "_saveeffect"];
+		}
+		else {
+			update["repeating_spell-" + lvl + "_" + spellid + "_spellsavesuccess"] = "";
+		};
+		setAttrs(update, {silent: true});
+	});
+};
 
-// var update_item_from_attack = function(itemid, attackid) {
-// 	getAttrs(["repeating_attack_" + attackid + "_atkname", "repeating_attack_" + attackid + "_dmgbase", "repeating_attack_" + attackid + "_dmg2base", "repeating_attack_" + attackid + "_dmgtype", "repeating_attack_" + attackid + "_dmg2type", "repeating_attack_" + attackid + "_atkrange", "repeating_attack_" + attackid + "_atkmod", "repeating_attack_" + attackid + "_dmgmod", "repeating_inventory_" + itemid + "_itemmodifiers", "repeating_attack_" + attackid + "_versatile_alt", "repeating_inventory_" + itemid + "_itemproperties", "repeating_attack_" + attackid + "_atkmagic"], function(v) {
-// 		var update = {};
-// 		var mods = v["repeating_inventory_" + itemid + "_itemmodifiers"];
-// 		var damage = v["repeating_attack_" + attackid + "_dmgbase"] ? v["repeating_attack_" + attackid + "_dmgbase"] : 0;
-// 		var damage2 = v["repeating_attack_" + attackid + "_dmg2base"] ? v["repeating_attack_" + attackid + "_dmg2base"] : 0;
-// 		var damagetype = v["repeating_attack_" + attackid + "_dmgtype"] ? v["repeating_attack_" + attackid + "_dmgtype"] : 0;
-// 		var damagetype2 = v["repeating_attack_" + attackid + "_dmg2type"] ? v["repeating_attack_" + attackid + "_dmg2type"] : 0;
-// 		var range = v["repeating_attack_" + attackid + "_atkrange"] ? v["repeating_attack_" + attackid + "_atkrange"] : 0;
-// 		var attackmod = v["repeating_attack_" + attackid + "_atkmod"] ? v["repeating_attack_" + attackid + "_atkmod"] : 0;
-// 		var damagemod = v["repeating_attack_" + attackid + "_dmgmod"] ? v["repeating_attack_" + attackid + "_dmgmod"] : 0;
-// 		var magicmod = v["repeating_attack_" + attackid + "_atkmagic"] ? v["repeating_attack_" + attackid + "_atkmagic"] : 0;
-// 		var atktype = "";
-// 		var altprefix = v["repeating_attack_" + attackid + "_versatile_alt"] === "1" ? "Alternate " : "";
+var update_item_from_attack = function(itemid, attackid) {
+	getAttrs(["repeating_attack_" + attackid + "_atkname", "repeating_attack_" + attackid + "_dmgbase", "repeating_attack_" + attackid + "_dmg2base", "repeating_attack_" + attackid + "_dmgtype", "repeating_attack_" + attackid + "_dmg2type", "repeating_attack_" + attackid + "_atkrange", "repeating_attack_" + attackid + "_atkmod", "repeating_attack_" + attackid + "_dmgmod", "repeating_inventory_" + itemid + "_itemmodifiers", "repeating_attack_" + attackid + "_versatile_alt", "repeating_inventory_" + itemid + "_itemproperties", "repeating_attack_" + attackid + "_atkmagic"], function(v) {
+		var update = {};
+		var mods = v["repeating_inventory_" + itemid + "_itemmodifiers"];
+		var damage = v["repeating_attack_" + attackid + "_dmgbase"] ? v["repeating_attack_" + attackid + "_dmgbase"] : 0;
+		var damage2 = v["repeating_attack_" + attackid + "_dmg2base"] ? v["repeating_attack_" + attackid + "_dmg2base"] : 0;
+		var damagetype = v["repeating_attack_" + attackid + "_dmgtype"] ? v["repeating_attack_" + attackid + "_dmgtype"] : 0;
+		var damagetype2 = v["repeating_attack_" + attackid + "_dmg2type"] ? v["repeating_attack_" + attackid + "_dmg2type"] : 0;
+		var range = v["repeating_attack_" + attackid + "_atkrange"] ? v["repeating_attack_" + attackid + "_atkrange"] : 0;
+		var attackmod = v["repeating_attack_" + attackid + "_atkmod"] ? v["repeating_attack_" + attackid + "_atkmod"] : 0;
+		var damagemod = v["repeating_attack_" + attackid + "_dmgmod"] ? v["repeating_attack_" + attackid + "_dmgmod"] : 0;
+		var magicmod = v["repeating_attack_" + attackid + "_atkmagic"] ? v["repeating_attack_" + attackid + "_atkmagic"] : 0;
+		var atktype = "";
+		var altprefix = v["repeating_attack_" + attackid + "_versatile_alt"] === "1" ? "Alternate " : "";
 
-// 		if(/Alternate Damage:/i.test(v["repeating_inventory_" + itemid + "_itemmodifiers"])) {
-// 			update["repeating_inventory_" + itemid + "_itemname"] = v["repeating_attack_" + attackid + "_atkname"].replace(/\s*(?:\(One-Handed\)|\(Two-Handed\))/, "");
-// 		} else {
-// 			update["repeating_inventory_" + itemid + "_itemname"] = v["repeating_attack_" + attackid + "_atkname"];
-// 		}
+		if(/Alternate Damage:/i.test(v["repeating_inventory_" + itemid + "_itemmodifiers"])) {
+			update["repeating_inventory_" + itemid + "_itemname"] = v["repeating_attack_" + attackid + "_atkname"].replace(/\s*(?:\(One-Handed\)|\(Two-Handed\))/, "");
+		} else {
+			update["repeating_inventory_" + itemid + "_itemname"] = v["repeating_attack_" + attackid + "_atkname"];
+		}
 
-// 		var attack_type_regex = /(?:^|,)\s*Item Type: (Melee|Ranged) Weapon(?:,|$)/i;
-// 		var attack_type_results = attack_type_regex.exec(v["repeating_inventory_" + itemid + "_itemmodifiers"]);
-// 		atktype = attack_type_results ? attack_type_results[1] : "";
-// 		if(mods) {
-// 			mods = mods.split(",");
-// 		} else {
-// 			mods = [];
-// 		}
+		var attack_type_regex = /(?:^|,)\s*Item Type: (Melee|Ranged) Weapon(?:,|$)/i;
+		var attack_type_results = attack_type_regex.exec(v["repeating_inventory_" + itemid + "_itemmodifiers"]);
+		atktype = attack_type_results ? attack_type_results[1] : "";
+		if(mods) {
+			mods = mods.split(",");
+		} else {
+			mods = [];
+		}
 
-// 		var damage_regex = new RegExp("^\\s*" + altprefix + "Damage:\\s*(.+)$", "i");
-// 		var damage_found = false;
-// 		for(var i = 0; i < mods.length; i++) {
-// 			if(damage_found = damage_regex.exec(mods[i])) {
-// 				if(damage !== 0) {
-// 					mods[i] = mods[i].replace(damage_found[1], damage);
-// 				} else {
-// 					mods.splice(i, 1);
-// 				}
-// 				break;
-// 			}
-// 		}
-// 		if(!damage_found && damage !== 0) {
-// 			mods.push(altprefix + "Damage: " + damage);
-// 		}
+		var damage_regex = new RegExp("^\\s*" + altprefix + "Damage:\\s*(.+)$", "i");
+		var damage_found = false;
+		for(var i = 0; i < mods.length; i++) {
+			if(damage_found = damage_regex.exec(mods[i])) {
+				if(damage !== 0) {
+					mods[i] = mods[i].replace(damage_found[1], damage);
+				} else {
+					mods.splice(i, 1);
+				}
+				break;
+			}
+		}
+		if(!damage_found && damage !== 0) {
+			mods.push(altprefix + "Damage: " + damage);
+		}
 
-// 		var damage2_regex = new RegExp("^\\s*" + altprefix + "Secondary Damage:\\s*(.+)$", "i");
-// 		var damage2_found = false;
-// 		for(var i = 0; i < mods.length; i++) {
-// 			if(damage2_found = damage2_regex.exec(mods[i])) {
-// 				if(damage2 !== 0) {
-// 					mods[i] = mods[i].replace(damage2_found[1], damage2);
-// 				} else {
-// 					mods.splice(i, 1);
-// 				}
-// 				break;
-// 			}
-// 		}
-// 		if(!damage2_found && damage2 !== 0) {
-// 			mods.push(altprefix + "Secondary Damage: " + damage2);
-// 		}
+		var damage2_regex = new RegExp("^\\s*" + altprefix + "Secondary Damage:\\s*(.+)$", "i");
+		var damage2_found = false;
+		for(var i = 0; i < mods.length; i++) {
+			if(damage2_found = damage2_regex.exec(mods[i])) {
+				if(damage2 !== 0) {
+					mods[i] = mods[i].replace(damage2_found[1], damage2);
+				} else {
+					mods.splice(i, 1);
+				}
+				break;
+			}
+		}
+		if(!damage2_found && damage2 !== 0) {
+			mods.push(altprefix + "Secondary Damage: " + damage2);
+		}
 
-// 		var dmgtype_regex = new RegExp("^\\s*" + altprefix + "Damage Type:\\s*(.+)$", "i");
-// 		var dmgtype_found = false;
-// 		for(var i = 0; i < mods.length; i++) {
-// 			if(dmgtype_found = dmgtype_regex.exec(mods[i])) {
-// 				if(damagetype !== 0) {
-// 					mods[i] = mods[i].replace(dmgtype_found[1], damagetype);
-// 				} else {
-// 					mods.splice(i, 1);
-// 				}
-// 				break;
-// 			}
-// 		}
-// 		if(!dmgtype_found && damagetype !== 0) {
-// 			mods.push(altprefix + "Damage Type: " + damagetype);
-// 		}
+		var dmgtype_regex = new RegExp("^\\s*" + altprefix + "Damage Type:\\s*(.+)$", "i");
+		var dmgtype_found = false;
+		for(var i = 0; i < mods.length; i++) {
+			if(dmgtype_found = dmgtype_regex.exec(mods[i])) {
+				if(damagetype !== 0) {
+					mods[i] = mods[i].replace(dmgtype_found[1], damagetype);
+				} else {
+					mods.splice(i, 1);
+				}
+				break;
+			}
+		}
+		if(!dmgtype_found && damagetype !== 0) {
+			mods.push(altprefix + "Damage Type: " + damagetype);
+		}
 
-// 		var dmgtype2_regex = new RegExp("^\\s*" + altprefix + "Secondary Damage Type:\\s*(.+)$", "i");
-// 		var dmgtype2_found = false;
-// 		for(var i = 0; i < mods.length; i++) {
-// 			if(dmgtype2_found = dmgtype2_regex.exec(mods[i])) {
-// 				if(damagetype2 !== 0) {
-// 					mods[i] = mods[i].replace(dmgtype_found[1], damagetype);
-// 				} else {
-// 					mods.splice(i, 1);
-// 				}
-// 				break;
-// 			}
-// 		}
-// 		if(!dmgtype2_found && damagetype2 !== 0) {
-// 			mods.push(altprefix + "Secondary Damage Type: " + damagetype2);
-// 		}
+		var dmgtype2_regex = new RegExp("^\\s*" + altprefix + "Secondary Damage Type:\\s*(.+)$", "i");
+		var dmgtype2_found = false;
+		for(var i = 0; i < mods.length; i++) {
+			if(dmgtype2_found = dmgtype2_regex.exec(mods[i])) {
+				if(damagetype2 !== 0) {
+					mods[i] = mods[i].replace(dmgtype_found[1], damagetype);
+				} else {
+					mods.splice(i, 1);
+				}
+				break;
+			}
+		}
+		if(!dmgtype2_found && damagetype2 !== 0) {
+			mods.push(altprefix + "Secondary Damage Type: " + damagetype2);
+		}
 
-// 		var range_found = false;
-// 		for(var i = 0; i < mods.length; i++) {
-// 			if(range_found = /^\s*Range:\s*(.+)$/i.exec(mods[i])) {
-// 				if(range !== 0) {
-// 					mods[i] = mods[i].replace(range_found[1], range);
-// 				} else {
-// 					mods.splice(i, 1);
-// 				}
-// 				break;
-// 			}
-// 		}
-// 		if(!range_found && range !== 0) {
-// 			mods.push("Range: " + range);
-// 		}
+		var range_found = false;
+		for(var i = 0; i < mods.length; i++) {
+			if(range_found = /^\s*Range:\s*(.+)$/i.exec(mods[i])) {
+				if(range !== 0) {
+					mods[i] = mods[i].replace(range_found[1], range);
+				} else {
+					mods.splice(i, 1);
+				}
+				break;
+			}
+		}
+		if(!range_found && range !== 0) {
+			mods.push("Range: " + range);
+		}
 
-// 		var attackmod_regex = new RegExp("^\\s*(?:" + (atktype !== "" ? atktype + "|" : "") + "Weapon) Attacks \\+?(.+)$", "i");
-// 		var attackmod_found = false;
-// 		for(var i = 0; i < mods.length; i++) {
-// 			if(attackmod_found = attackmod_regex.exec(mods[i])) {
-// 				if(magicmod !== 0 || attackmod !== 0) {
-// 					mods[i] = mods[i].replace(attackmod_found[1], magicmod !== 0 ? magicmod : attackmod);
-// 				} else {
-// 					mods.splice(i, 1);
-// 				}
-// 				break;
-// 			}
-// 		}
-// 		if(!attackmod_found && (magicmod !== 0 || attackmod !== 0)) {
-// 			var properties = v["repeating_inventory_" + itemid + "_itemproperties"];
-// 			if(properties && /Thrown/i.test(properties)) {
-// 				mods.push("Weapon Attacks: " + (magicmod !== 0 ? magicmod : attackmod));
-// 			}
-// 			else {
-// 				mods.push(atktype + " Attacks: " + (magicmod !== 0 ? magicmod : attackmod));
-// 			}
-// 		}
+		var attackmod_regex = new RegExp("^\\s*(?:" + (atktype !== "" ? atktype + "|" : "") + "Weapon) Attacks \\+?(.+)$", "i");
+		var attackmod_found = false;
+		for(var i = 0; i < mods.length; i++) {
+			if(attackmod_found = attackmod_regex.exec(mods[i])) {
+				if(magicmod !== 0 || attackmod !== 0) {
+					mods[i] = mods[i].replace(attackmod_found[1], magicmod !== 0 ? magicmod : attackmod);
+				} else {
+					mods.splice(i, 1);
+				}
+				break;
+			}
+		}
+		if(!attackmod_found && (magicmod !== 0 || attackmod !== 0)) {
+			var properties = v["repeating_inventory_" + itemid + "_itemproperties"];
+			if(properties && /Thrown/i.test(properties)) {
+				mods.push("Weapon Attacks: " + (magicmod !== 0 ? magicmod : attackmod));
+			}
+			else {
+				mods.push(atktype + " Attacks: " + (magicmod !== 0 ? magicmod : attackmod));
+			}
+		}
 
-// 		var damagemod_regex = new RegExp("^\\s*(?:" + (atktype !== "" ? atktype + "|" : "") + "Weapon) Damage \\+?(.+)$", "i");
-// 		var damagemod_found = false;
-// 		for(var i = 0; i < mods.length; i++) {
-// 			if(damagemod_found = damagemod_regex.exec(mods[i])) {
-// 				if(magicmod !== 0 || damagemod !== 0) {
-// 					mods[i] = mods[i].replace(damagemod_found[1], magicmod !== 0 ? magicmod : attackmod);
-// 				} else {
-// 					mods.splice(i, 1);
-// 				}
-// 				break;
-// 			}
-// 		}
-// 		if(!damagemod_found && (magicmod !== 0 || damagemod !== 0)) {
-// 			var properties = v["repeating_inventory_" + itemid + "_itemproperties"];
-// 			if(properties && /Thrown/i.test(properties)) {
-// 				mods.push("Weapon Damage: " + (magicmod !== 0 ? magicmod : damagemod));
-// 			}
-// 			else {
-// 				mods.push(atktype + " Damage: " + (magicmod !== 0 ? magicmod : damagemod));
-// 			}
-// 		}
+		var damagemod_regex = new RegExp("^\\s*(?:" + (atktype !== "" ? atktype + "|" : "") + "Weapon) Damage \\+?(.+)$", "i");
+		var damagemod_found = false;
+		for(var i = 0; i < mods.length; i++) {
+			if(damagemod_found = damagemod_regex.exec(mods[i])) {
+				if(magicmod !== 0 || damagemod !== 0) {
+					mods[i] = mods[i].replace(damagemod_found[1], magicmod !== 0 ? magicmod : attackmod);
+				} else {
+					mods.splice(i, 1);
+				}
+				break;
+			}
+		}
+		if(!damagemod_found && (magicmod !== 0 || damagemod !== 0)) {
+			var properties = v["repeating_inventory_" + itemid + "_itemproperties"];
+			if(properties && /Thrown/i.test(properties)) {
+				mods.push("Weapon Damage: " + (magicmod !== 0 ? magicmod : damagemod));
+			}
+			else {
+				mods.push(atktype + " Damage: " + (magicmod !== 0 ? magicmod : damagemod));
+			}
+		}
 
-// 		update["repeating_inventory_" + itemid + "_itemmodifiers"] = mods.join(",");
+		update["repeating_inventory_" + itemid + "_itemmodifiers"] = mods.join(",");
 
-// 		setAttrs(update, {silent: true});
-// 	});
-// };
+		setAttrs(update, {silent: true});
+	});
+};
 
 var remove_attack = function(attackid) {
 	removeRepeatingRow("repeating_attack_" + attackid);
@@ -4995,12 +4995,12 @@ let isDefined = function (value) {
 
 //4e Worker
 // const multistats = {
-//     strength-mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['strength', 'level']},
-//     constitution-mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['constitution', 'level']},
-//     dexterity-mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['dexterity', 'level']},
-//     intelligence-mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['intelligence', 'level']},
-//     wisdom-mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['wisdom', 'level']},
-//     charisma-mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['charisma', 'level']},
+// 	strength_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['strength', 'level']},
+//     constitution_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['constitution', 'level']},
+//     dexterity_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['dexterity', 'level']},
+//     intelligence_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['intelligence', 'level']},
+//     wisdom_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['wisdom', 'level']},
+//     charisma_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['charisma', 'level']},
 //     acrobatics_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity-mod_level', 'acrobatics-trained', 'acrobatics-pen', 'acrobatics-misc']},
 //     arcana_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence-mod_level', 'arcana-trained', 'arcana-pen', 'arcana-misc']},
 //     athletics_modifier: {rule: 'dnd_skill_bonus', attributes: ['strength-mod_level', 'athletics-trained', 'athletics-pen', 'athletics-misc']},
