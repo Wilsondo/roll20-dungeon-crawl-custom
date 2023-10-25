@@ -4918,22 +4918,40 @@ on("change:repeating_wounds remove:repeating_wounds", function (eventinfo) {
 // CHANGE STRESS
 
 on("change:stress", function (eventinfo) {
-	let stress = toInt(eventinfo.newValue);
-	let update = {};
-	console.log("I am stressed");
-	if (stress >= 20) {
-		update["stress_state_20"] = 1;
-	}
-	if (stress >= 30) {
-		update["stress_state_30"] = 1;
-	}
-	if (stress >= 35) {
-		update["stress_state_35"] = 1;
-	}
-	if (stress >= 40) {
-		update["stress_state_40"] = 1;
-	}
-	setAttrs(update);
+	getAttrs(["intelligence","level","stress"], function(v) {
+
+		let stress_top = (parseInt(v["intelligence"], 10)*4) + parseInt(v["level"], 10) + 20
+		let stress = parseInt(v["stress"], 10)
+		let update = {};
+		// console.log(stress)
+		// console.log(Math.ceil(stress_top/2));
+		// console.log(Math.ceil(stress_top*(3/4)));
+		// console.log(Math.ceil(stress_top*(7/8)));
+		// console.log(stress_top);
+
+		update["stress_state_A"] = Math.ceil(stress_top/2) + ": Affliction"
+		update["stress_state_B"] = Math.ceil(stress_top*(3/4)) + ": Affliction"
+		update["stress_state_C"] = Math.ceil(stress_top*(7/8)) + ": Affliction"
+		update["stress_state_D"] = stress_top + ": Breakpoint"
+
+		if (stress >= Math.ceil(stress_top/2)){
+			console.log("A")
+			update["stress_state_check_A"] = 1;
+		}
+		if (stress >= Math.ceil(stress_top * (3/4))) {
+			console.log("B")
+			update["stress_state_check_B"] = 1;
+		}
+		if (stress >= Math.ceil(stress_top * (7/8))) {
+			console.log("C")
+			update["stress_state_check_C"] = 1;
+		}
+		if (stress >= stress_top) {
+			console.log("D")
+			update["stress_state_check_D"] = 1;
+		}
+		setAttrs(update);
+		});
 });
 
 // CHANGE HIT POINTS
