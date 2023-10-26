@@ -115,6 +115,7 @@ on("change:test", function() {
 		(attr === "dexterity") ? update_initiative() : false;
 		(attr === "intelligence") ? update_initiative() : false;
 
+
 		(attr === "strength" || attr == "constitution") ? update_fortitude() : false;
 		(attr === "dexterity"|| attr === "intelligence") ? update_reflex() : false;
 		(attr === "wisdom"|| attr === "charisma") ? update_will() : false;
@@ -4957,6 +4958,18 @@ on("change:repeating_wounds remove:repeating_wounds", function (eventinfo) {
 });
 
 // CHANGE STRESS
+on("change:intelligence change:level", function (eventinfo) {
+	getAttrs(["intelligence","level"], function(v) {
+		let stress_top = (parseInt(v["intelligence"], 10)*4) + parseInt(v["level"], 10) + 20;
+		let update = {}''
+		update["stress_state_A"] = Math.ceil(stress_top/2) + ": Affliction";
+		update["stress_state_B"] = Math.ceil(stress_top*(3/4)) + ": Affliction";
+		update["stress_state_C"] = Math.ceil(stress_top*(7/8)) + ": Affliction";
+		update["stress_state_D"] = stress_top + ": Breakpoint";
+		setAttrs(update);
+	});
+});
+
 
 on("change:stress", function (eventinfo) {
 	getAttrs(["intelligence","level","stress"], function(v) {
@@ -4969,11 +4982,6 @@ on("change:stress", function (eventinfo) {
 		// console.log(Math.ceil(stress_top*(3/4)));
 		// console.log(Math.ceil(stress_top*(7/8)));
 		// console.log(stress_top);
-
-		update["stress_state_A"] = Math.ceil(stress_top/2) + ": Affliction"
-		update["stress_state_B"] = Math.ceil(stress_top*(3/4)) + ": Affliction"
-		update["stress_state_C"] = Math.ceil(stress_top*(7/8)) + ": Affliction"
-		update["stress_state_D"] = stress_top + ": Breakpoint"
 
 		if (stress >= Math.ceil(stress_top/2)){
 			console.log("A")
