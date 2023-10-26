@@ -1391,55 +1391,55 @@
 										<button type="roll" name="roll_armor_class" value="@{wtype}&{template:simple} {{rname=Armor Class}} {{mod=@{armor_mod}}} {{r1=[[@{armor_mod}]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Armor Class</button>
 									</div>
 									<div class="sheet-container-body">
-										<span name="attr_strength-mod" title="@{strength-mod}">0</span>
+										<span name="attr_fort" title="@{ac}">0</span>
 									</div>
 									<div class="sheet-container-footer">
-										<input type="text" name="attr_strength_base" title="@{strength}" value="10">
-										<input type="hidden" name="attr_strength" value="10">
-										<input type="hidden" name="attr_strength_flag" value="0" class="sheet-field-toggle">
+										<input type="text" name="attr_ac_misc" title="@{ac_misc}" value="0">
+										<input type="hidden" name="attr_ac" value="0">
+										<input type="hidden" name="attr_ac_flag" value="0" class="sheet-field-toggle">
 										<span name="attr_strength"></span>
 									</div>
 								</div>
 								<div class="sheet-container-attribute sheet-pc-fortitude">
 									<div class="sheet-container-header">
-										<button type="roll" name="roll_foritude" value="@{wtype}&{template:simple} {{rname=Fortitude}} {{mod=@{fortitude}} {{r1=[[@{strength-mod}]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Fortitude</button>
+										<button type="roll" name="roll_foritude" value="@{wtype}&{template:simple} {{rname=Fortitude}} {{mod=@{fort}} {{r1=[[@{strength-mod}]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Fortitude</button>
 									</div>
 									<div class="sheet-container-body">
-										<span name="attr_fortitude_mod" title="@{fortitude_mod}">0</span>
+										<span name="attr_fort" title="@{fort}">0</span>
 									</div>
 									<div class="sheet-container-footer">
-										<input type="text" name="attr_fortitude_base" title="@{fortitude}" value="0">
-										<input type="hidden" name="attr_fortitude" value="0">
-										<input type="hidden" name="attr_fortitude_flag" value="0" class="sheet-field-toggle">
+										<input type="text" name="attr_fort_misc" title="@{fort_misc}" value="0">
+										<input type="hidden" name="attr_fort" value="0">
+										<input type="hidden" name="attr_fort_flag" value="0" class="sheet-field-toggle">
 										<span name="attr_fortitude"></span>
 									</div>
 								</div>
 								<div class="sheet-container-attribute sheet-pc-reflex">
 									<div class="sheet-container-header">
-										<button type="roll" name="roll_passive_insight" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength-mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Refelx</button>
+										<button type="roll" name="roll_reflex" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength-mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Reflex</button>
 									</div>
 									<div class="sheet-container-body">
-										<span name="attr_strength-mod" title="@{strength-mod}">0</span>
+										<span name="attr_ref" title="@{ref}">0</span>
 									</div>
 									<div class="sheet-container-footer">
-										<input type="text" name="attr_strength_base" title="@{strength}" value="10">
-										<input type="hidden" name="attr_strength" value="10">
-										<input type="hidden" name="attr_strength_flag" value="0" class="sheet-field-toggle">
-										<span name="attr_strength"></span>
+										<input type="text" name="attr_ref_misc" title="@{ref_misc}" value="0">
+										<input type="hidden" name="attr_ref_misc" value="0">
+										<input type="hidden" name="attr_ref_flag" value="0" class="sheet-field-toggle">
+										<span name="attr_reflex"></span>
 									</div>
 								</div>
 								<div class="sheet-container-attribute sheet-pc-will">
 									<div class="sheet-container-header">
-										<button type="roll" name="roll_passive_insight" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength-mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Will</button>
+										<button type="roll" name="roll_will" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength-mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Will</button>
 									</div>
 									<div class="sheet-container-body">
-										<span name="attr_strength-mod" title="@{strength-mod}">0</span>
+										<span name="attr_will" title="@{will}">0</span>
 									</div>
 									<div class="sheet-container-footer">
-										<input type="text" name="attr_strength_base" title="@{strength}" value="10">
-										<input type="hidden" name="attr_strength" value="10">
-										<input type="hidden" name="attr_strength_flag" value="0" class="sheet-field-toggle">
-										<span name="attr_strength"></span>
+										<input type="text" name="attr_will_misc" title="@{will_misc}" value="0">
+										<input type="hidden" name="attr_will_misc" value="0">
+										<input type="hidden" name="attr_will_flag" value="0" class="sheet-field-toggle">
+										<span name="attr_will"></span>
 									</div>
 								</div>
 								<div class="sheet-container-attribute sheet-pc-initiative">

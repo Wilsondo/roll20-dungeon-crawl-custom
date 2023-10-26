@@ -115,9 +115,9 @@ on("change:test", function() {
 		(attr === "dexterity") ? update_initiative() : false;
 		(attr === "intelligence") ? update_initiative() : false;
 
-		//  (attr === "strength" || attr == "constitution") ? update_fortitude() : false;
-		// (attr === "dexterity"|| attr === "intelligence") ? update_reflex() : false;
-		// (attr === "wisdom"|| attr === "charisma") ? update_will() : false;
+		(attr === "strength" || attr == "constitution") ? update_fortitude() : false;
+		(attr === "dexterity"|| attr === "intelligence") ? update_reflex() : false;
+		(attr === "wisdom"|| attr === "charisma") ? update_will() : false;
 
 
 	});
@@ -127,10 +127,10 @@ on("change:test", function() {
 	console.log("C thing has started")
 	on(`change:${attr}-mod`, function() {
 		console.log("C thing has ended")
-		update_save(`${attr}`);
-		update_attacks(`${attr}`);
+		// update_save(`${attr}`);
+		// update_attacks(`${attr}`);
 		update_tool(`${attr}`);
-		update_spell_info(`${attr}`);
+		// update_spell_info(`${attr}`);
 
 		switch(`${attr}`) {
 			case "strength":
@@ -747,7 +747,7 @@ var update_mod = function (attr) {
 		var attr_abr = attr.substring(0,3);
 		var finalattr = v[attr] && isNaN(v[attr]) === false ? Math.floor((parseInt(v[attr], 10) - 10) / 2) : 0;
 		var update = {};
-		update[attr + "mod"] = finalattr;
+		update[attr + "-mod"] = finalattr;
 		update["npc_" + attr_abr + "_negative"] = v[attr] && !isNaN(v[attr]) && parseInt(v[attr], 10) < 10 ? 1 : 0;
 		setAttrs(update);
 	});
@@ -3538,7 +3538,7 @@ var update_ac = function() {
 		}
 		else {
 			var update = {};
-			var ac_attrs = ["simpleinventory","custom_ac_base","custom_ac_part1","custom_ac_part2","strength-mod","dexterity-mod","constitution-mod","intelligence-mod","wisdom-mod","charisma-mod", "custom_ac_shield"];
+			var ac_attrs = ["simpleinventory","custom_ac_base","custom_ac_part1","custom_ac_part2","strength-mod","dexterity-mod","constitution-mod","intelligence-mod","wisdom-mod","charisma-mod", "custom_ac_shield", "ac_misc"];
 			getSectionIDs("repeating_acmod", function(acidarray) {
 				_.each(acidarray, function(currentID, i) {
 					ac_attrs.push("repeating_acmod_" + currentID + "_global_ac_val");
@@ -3555,9 +3555,11 @@ var update_ac = function() {
 							var base = isNaN(parseInt(b.custom_ac_base, 10)) === false ? parseInt(b.custom_ac_base, 10) : 10;
 							var part1attr = b.custom_ac_part1.toLowerCase();
 							var part2attr = b.custom_ac_part2.toLowerCase();
+							var part3attr = b.ac_misc.toLowerCase();
 							var part1 = part1attr === "none" ? 0 : parseInt(b[part1attr + "_mod"], 10);
 							var part2 = part2attr === "none" ? 0 : parseInt(b[part2attr + "_mod"], 10);
-							custom_total = base + part1 + part2;
+							var part3 = part3attr === "none" ? 0 : parseInt(b["ac_misc"], 10);
+							custom_total = base + part1 + part2 + part3;
 						}
 						var globalacmod = 0;
 						_.each(acidarray, function(currentID, i) {
@@ -3657,7 +3659,7 @@ var check_customac = function(attr) {
 };
 
 var update_initiative = function() {
-	var attrs_to_get = ["dexterity","dexterity-mod","intelligence-mod","initmod","jack_of_all_trades","jack","init_tiebreaker","pb_type","use_intelligent_initiative","initiative_misc"];
+	var attrs_to_get = ["dexterity","dexterity-mod","intelligence-mod","initmod","jack_of_all_trades","jack","init_tiebreaker","pb_type","use_intelligent_initiative","initiative_misc","level"];
 	getSectionIDs("repeating_inventory", function(idarray){
 		_.each(idarray, function(currentID, i) {
 			attrs_to_get.push("repeating_inventory_" + currentID + "_equipped");
@@ -3702,14 +3704,19 @@ var update_initiative = function() {
 				}
 			});
 
+			//Add 4e half level
+			console.log("Changing Init " + final_init);
+			final_init = final_init + Math.floor(parseInt(v["level"], 10)/2);
 			//Player custom edit on core page
-			final_init = final_init + parseInt(v["initiative_misc"], 10)
-			console.log("Changing Init " + parseInt(v["initiative_misc"], 10))
+			console.log("Changing Init " + final_init);
+			final_init = final_init + parseInt(v["initiative_misc"], 10);
+			console.log("Changing Init " + final_init);
 
 			if(final_init % 1 != 0) {
 				final_init = parseFloat(final_init.toPrecision(12)); // ROUNDING ERROR BUGFIX
 			}
 			update["initiative_bonus"] = final_init;
+			update["initiative"] = final_init;
 			setAttrs(update, {silent: true});
 		});
 	});
@@ -4835,13 +4842,47 @@ var filterBlobs = function(blobs, filters) {
 };
 
 // //New Functions
-// var update_fortitude = function(){
-// 	getAttrs(["strength","constitution"], function(v) {
-// 		var fort = Math.max(parseInt(v["strength"], 10 ), parseInt(v["strength"], 10 ) );
-// 		fort = fort + 10 + 
-// 	)
+on("change:fort_misc change:level", function() {
+	update_fortitude()
+});
 
-// }
+var update_fortitude = function(){
+	getAttrs(["strength-mod","constitution-mod","level", "fort_misc"], function(v) {
+		var fort = Math.max(parseInt(v["strength-mod"], 10 ), parseInt(v["constitution-mod"], 10 ) );
+		fort = fort + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["fort_misc"], 10);
+		let update = {};
+		update["fort"] = fort;
+		setAttrs(update);
+	});
+};
+
+on("change:ref_misc change:level", function(){
+	update_reflex();
+});
+
+var update_reflex = function(){
+	getAttrs(["dexterity-mod","intelligence-mod","level","ref_misc"], function(v) {
+		var ref = Math.max(parseInt(v["dexterity-mod"], 10 ), parseInt(v["intelligence-mod"], 10 ) );
+		ref = ref + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["ref_misc"], 10);
+		let update = {};
+		update["ref"] = ref;
+		setAttrs(update);
+	});
+};
+
+on("change:will_misc change:level", function(){
+	update_will();
+});
+
+var update_will = function(){
+	getAttrs(["wisdom-mod","charisma-mod","level","will_misc"], function(v) {
+		var will = Math.max(parseInt(v["wisdom-mod"], 10 ), parseInt(v["charisma-mod"], 10 ) );
+		will = will + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["will_misc"], 10);
+		let update = {};
+		update["will"] = will;
+		setAttrs(update);
+	});
+};
 
 
 // CHANGE SURVIVAL CONDITIONS
