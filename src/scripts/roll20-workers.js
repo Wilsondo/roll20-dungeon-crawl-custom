@@ -615,9 +615,13 @@ on("change:cancel", function(eventinfo) {
 	setAttrs(update, {silent: true});
 });
 
-on("change:passiveperceptionmod", function(eventinfo) {
+on("change:passiveperceptionmod change:passive_perception_misc", function(eventinfo) {
 	update_passive_perception();
 });
+on("change:passiveinsightmod change:passive_insight_misc", function(eventinfo) {
+	update_passive_insight();
+});
+
 
 on("remove:repeating_inventory", function(eventinfo) {
 	var itemid = eventinfo.sourceAttribute.substring(20, 40);
@@ -812,6 +816,10 @@ var update_skills = function (skills_array) {
 
 	if(skills_array.indexOf("perception") > -1) {
 		callbacks.push( function() {update_passive_perception();} )
+	};
+
+	if(skills_array.indexOf("insight") > -1) {
+		callbacks.push( function() {update_passive_insight();} )
 	};
 
 	_.each(skills_array, function(s) {
@@ -4178,21 +4186,46 @@ var update_spell_info = function(attr) {
 };
 
 var update_passive_perception = function() {
-	getAttrs(["pb_type","passiveperceptionmod","perception_bonus"], function(v) {
+	getAttrs(["pb_type","passiveperceptionmod","perception_modifier","passive_perception_misc" ], function(v) {
 		var passive_perception = 10;
 		var mod = !isNaN(parseInt(v["passiveperceptionmod"],10)) ? parseInt(v["passiveperceptionmod"],10) : 0;
-		var bonus = !isNaN(parseInt(v["perception_bonus"],10)) ? parseInt(v["perception_bonus"],10) : 0;
-		if(v["pb_type"] && v["pb_type"] === "die" && v["perception_bonus"] && isNaN(v["perception_bonus"]) && v["perception_bonus"].indexOf("+") > -1) {
-			var pieces = v["perception_bonus"].split(/\+|d/);
+		var bonus = !isNaN(parseInt(v["perception_modifier"],10)) ? parseInt(v["perception_modifier"],10) : 0;
+		var misc = !isNaN(parseInt(v["passive_perception_misc"],10)) ? parseInt(v["passive_perception_misc"],10) : 0;
+		var update = {};
+		if(v["pb_type"] && v["pb_type"] === "die" && v["perception_modifier"] && isNaN(v["perception_modifier"]) && v["perception_modifier"].indexOf("+") > -1) {
+			var pieces = v["perception_modifier"].split(/\+|d/);
 			var base = !isNaN(parseInt(pieces[0],10)) ? parseInt(pieces[0],10) : 0;
 			var num_dice = !isNaN(parseInt(pieces[1],10)) ? parseInt(pieces[1],10) : 1;
 			var half_pb_die = !isNaN(parseInt(pieces[2],10)) ? parseInt(pieces[2],10)/2 : 2;
 			bonus = base + (num_dice * half_pb_die);
 		}
-		passive_perception = passive_perception + bonus + mod;
-		setAttrs({passive_wisdom: passive_perception})
+		passive_perception = passive_perception + bonus + mod + misc;
+		update["passive-perception"] = passive_perception;
+		setAttrs(update);
+		// setAttrs({passive_wisdom: passive_perception})
 	});
 };
+
+var update_passive_insight = function() {
+	getAttrs(["pb_type","passiveinsightmod","insight_modifier","passive_insight_misc" ], function(v) {
+		var passive_insight = 10;
+		var mod = !isNaN(parseInt(v["passiveinsightmod"],10)) ? parseInt(v["passiveinsightmod"],10) : 0;
+		var bonus = !isNaN(parseInt(v["insight_modifier"],10)) ? parseInt(v["insight_modifier"],10) : 0;
+		var misc = !isNaN(parseInt(v["passive_insight_misc"],10)) ? parseInt(v["passive_insight_misc"],10) : 0;
+		var update = {};
+		if(v["pb_type"] && v["pb_type"] === "die" && v["insight_modifier"] && isNaN(v["insight_modifier"]) && v["insight_modifier"].indexOf("+") > -1) {
+			var pieces = v["insight_modifier"].split(/\+|d/);
+			var base = !isNaN(parseInt(pieces[0],10)) ? parseInt(pieces[0],10) : 0;
+			var num_dice = !isNaN(parseInt(pieces[1],10)) ? parseInt(pieces[1],10) : 1;
+			var half_pb_die = !isNaN(parseInt(pieces[2],10)) ? parseInt(pieces[2],10)/2 : 2;
+			bonus = base + (num_dice * half_pb_die);
+		}
+		passive_insight = passive_insight + bonus + mod + misc;
+		update["passive-insight"] = passive_insight;
+		setAttrs(update);
+	});
+};
+
 
 var update_race_display = function() {
 	getAttrs(["race", "subrace"], function(v) {

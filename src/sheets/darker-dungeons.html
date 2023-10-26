@@ -1136,10 +1136,10 @@
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
-												<input type="checkbox" name="attr-bluff-trained" title="@{bluff-trained}" value="(@{pb}*@{bluff_type})">
+												<input type="checkbox" name="attr_bluff-trained" title="@{bluff-trained}" value="(@{pb}*@{bluff_type})">
 												<span></span>
 											</div>
-											<span name='attr-bluff_modifier' title='@{bluff_modifier}'>0</span>
+											<span name='attr_bluff_modifier' title='@{bluff_modifier}'>0</span>
 											<button type='roll' name='roll-bluff' value='@{wtype}&{template:simple} {{rname=@{bluff_attribute} (bluff)}} {{mod=@{bluff_modifier}}} {{r1=[[@{d20}+@{bluff_modifier}@{pbd_safe}]]}} @{rtype}+@{bluff_modifier}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Bluff</button>
 											<input type="hidden" name="attr_bluff_attribute" value="Charisma">
 
@@ -1279,16 +1279,17 @@
 								<!-- Change template to show perception -->
 								<div class="sheet-container-attribute sheet-pc-passive-perception">
 									<div class="sheet-container-header">
-										<button type="roll" name="roll_passive_perception" value="@{wtype}&{template:simple} {{rname=Passive Perception}} {{mod=@{strength-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength-mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Passive Perception</button>
+										<button type="roll" name="roll_passive_perception" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength-mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Passive Perception</button>
 									</div>
 									<div class="sheet-container-body">
-										<span name="attr_dexterity-mod" title="@{dexterity-mod}">0</span>
+										<span name="attr_passive-perception" title="@{passive-perception}">0</span>
+										<!-- <input type="text" name="attr_passive-perception" title="@{passive-perception}" value="(10+@{perception_modifier}+@{passiveperceptionmod}+@{passive_perception_misc})" disabled="true" hidden> -->
 									</div>
 									<div class="sheet-container-footer">
-										<input type="text" name="attr_dexterity_base" title="@{dexterity}" value="10">
-										<input type="hidden" name="attr_dexterity" value="10">
-										<input type="hidden" name="attr_dexterity_flag" value="0" class="sheet-field-toggle">
-										<span name="attr_dexterity"></span>
+										<input type="text" name="attr_passive_perception_misc" title="@{passive_perception_misc}" value="0">
+										<input type="hidden" name="attr_passive_perception_misc" value="0">
+										<input type="hidden" name="attr_passive_perception_misc_flag" value="0" class="sheet-field-toggle">
+										<span name="attr_passive_perception_misc"></span>
 									</div>
 								</div>
 								<div class="sheet-container-attribute sheet-pc-passive-insight">
@@ -1296,13 +1297,14 @@
 										<button type="roll" name="roll_passive_insight" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength-mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Passive Insight</button>
 									</div>
 									<div class="sheet-container-body">
-										<span name="attr_strength-mod" title="@{strength-mod}">0</span>
+										<span name="attr_passive-insight" title="@{passive-insight}">0</span>
+										<input type="text" name="attr_passive-insight" title="@{passive-insight}" value="(10+@{perception_modifier}+@{passiveperceptionmod}+@{passive_insight_misc})" disabled="true" hidden>
 									</div>
 									<div class="sheet-container-footer">
-										<input type="text" name="attr_strength_base" title="@{strength}" value="10">
-										<input type="hidden" name="attr_strength" value="10">
-										<input type="hidden" name="attr_strength_flag" value="0" class="sheet-field-toggle">
-										<span name="attr_strength"></span>
+										<input type="text" name="attr_passive_insight_misc" title="@{passive_insight_misc}" value="0">
+										<input type="hidden" name="attr_passive_insight_misc" value="0">
+										<input type="hidden" name="attr_passive_insight_misc_flag" value="0" class="sheet-field-toggle">
+										<span name="attr_passive_insight_misc"></span>
 									</div>
 								</div>
 								<div class="sheet-container-box sheet-pc-resource-class resourceA">
