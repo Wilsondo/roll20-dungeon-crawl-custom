@@ -4915,9 +4915,9 @@ on("change:exhaustion_base change:exhaustion_wounds change:exhaustion_conditions
 	let field2 = "exhaustion_wounds";
 	let field3 = "exhaustion_conditions";
 	let field4 = "show_survival_conditions";
-	let field5 = "healing_surge"
+	let field5 = "surges"
 	let field6 = "healing_surge_lost";
-	let field7 = "healing_surge_max";
+	let field7 = "surges-max";
 
 
 	getAttrs([field1, field2, field3, field4, field5, field6, field7], function (v) {
@@ -4962,7 +4962,7 @@ on("change:exhaustion_base change:exhaustion_wounds change:exhaustion_conditions
 			currentSurge = currentSurge + changeSurge;
 			maxSurge = maxSurge + changeSurge;
 			lostSurge = exhaustionTotal;
-			
+
 			update[field5] = currentSurge;
 			update[field6] = lostSurge;
 			update[field7] = maxSurge;
