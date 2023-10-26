@@ -4915,14 +4915,61 @@ on("change:exhaustion_base change:exhaustion_wounds change:exhaustion_conditions
 	let field2 = "exhaustion_wounds";
 	let field3 = "exhaustion_conditions";
 	let field4 = "show_survival_conditions";
+	let field5 = "healing_surge"
+	let field6 = "healing_surge_lost";
+	let field7 = "healing_surge_max";
 
-	getAttrs([field1, field2, field3, field4], function (v) {
+
+	getAttrs([field1, field2, field3, field4, field5, field6, field7], function (v) {
 		let update = {};
-		let exhaustionTotal = clamp(toInt(v[field1]) + toInt(v[field2]) + toInt(v[field3]), 0, 6);
+		// let exhaustionTotal = clamp(toInt(v[field1]) + toInt(v[field2]) + toInt(v[field3]), 0, 6);
+		let exhaustionTotal = toInt(v[field1]) + toInt(v[field2]) + toInt(v[field3])
 		update["exhaustion_total"] = exhaustionTotal;
 		if (toInt(v[field4]) == 1) {
 			update["exhaustion_status"] = exhaustionTotal;
 		}
+
+		//Get current healing surge lost value,
+		//get difference between new and old value
+		//Subtract the difference from max
+		//If max goes below the current, subtract from current
+		//If max goes above current, add to current
+		let currentSurge = toInt(v[field5]);
+		let lostSurge = toInt(v[field6]);
+		let maxSurge = toInt(v[field7]);
+		let changeSurge = lostSurge - exhaustionTotal;
+
+		console.log("_________________LINE BREAK_________________")
+		console.log("Current Surges:" + currentSurge )
+		console.log("Lost Surges:" + lostSurge )
+		console.log("Max Surges:" + maxSurge )
+		console.log("Exhaustion:" + exhaustionTotal )
+		console.log("Change Surge:" + changeSurge )
+
+		//We became less hurt, add more healing surges
+		if(changeSurge <= -1){
+			maxSurge = maxSurge + changeSurge;
+			currentSurge = currentSurge + changeSurge;
+			lostSurge = exhaustionTotal;
+
+			update[field5] = currentSurge;
+			update[field6] = lostSurge;
+			update[field7] = maxSurge;
+				
+		} 
+		//We got more hurt, reduce healing surges
+		else if (changeSurge >= 1){
+			//If we are currently capped, then we lose some healing surges
+			if(currentSurge == maxSurge){
+				currentSurge = currentSurge + changeSurge;
+			}
+			maxSurge = maxSurge + changeSurge;
+			lostSurge = exhaustionTotal;
+			update[field5] = currentSurge;
+			update[field6] = lostSurge;
+			update[field7] = maxSurge;
+		}
+
 		setAttrs(update);
 	});
 });
@@ -5005,48 +5052,48 @@ on("change:stress", function (eventinfo) {
 
 // CHANGE HIT POINTS
 
-on("change:hit_dice change:hit_dice_max change:hp change:hp_max", function () {
-	let field1 = "hp";
-	let field2 = "hp_max";
-	let field3 = "hit_dice_max";
-	let field4 = "hit_dice";
+// on("change:hit_dice change:hit_dice_max change:hp change:hp_max", function () {
+// 	let field1 = "hp";
+// 	let field2 = "hp_max";
+// 	let field3 = "hit_dice_max";
+// 	let field4 = "hit_dice";
 
-	getAttrs([field1, field2, field3, field4], function (v) {
-		let conditionHealth = "";
-		let hp = toInt(v[field1]);
-		let hpMax = toInt(v[field2]);
-		let hpPercentage = clamp(hp / hpMax, 0, 1) || 0;
-		let hitDiceTotal = toInt(v[field3]);
-		let hitDiceSpent = clamp(hitDiceTotal - toInt(v[field4]), 0, hitDiceTotal);
-		let hitDicePercentage = clamp((hitDiceTotal - hitDiceSpent) / hitDiceTotal, 0, 1) || 0;
+// 	getAttrs([field1, field2, field3, field4], function (v) {
+// 		let conditionHealth = "";
+// 		let hp = toInt(v[field1]);
+// 		let hpMax = toInt(v[field2]);
+// 		let hpPercentage = clamp(hp / hpMax, 0, 1) || 0;
+// 		let hitDiceTotal = toInt(v[field3]);
+// 		let hitDiceSpent = clamp(hitDiceTotal - toInt(v[field4]), 0, hitDiceTotal);
+// 		let hitDicePercentage = clamp((hitDiceTotal - hitDiceSpent) / hitDiceTotal, 0, 1) || 0;
 
-		if (hp >= hpMax) {
-			if (hitDicePercentage == 1) {
-				conditionHealth = 0;
-			} else if (hitDicePercentage >= 0.5) {
-				conditionHealth = 1;
-			} else {
-				conditionHealth = 2;
-			}
-		} else {
-			if (hpPercentage > 0.5) {
-				conditionHealth = 3;
-			} else if (hp == 1) {
-				 conditionHealth = 6;
-			} else if (hpPercentage >= 0.25) {
-				conditionHealth = 4;
-			} else if (hpPercentage >= 0.1) {
-				conditionHealth = 5;
-			} else {
-				conditionHealth = 6;
-			}
-		}
+// 		if (hp >= hpMax) {
+// 			if (hitDicePercentage == 1) {
+// 				conditionHealth = 0;
+// 			} else if (hitDicePercentage >= 0.5) {
+// 				conditionHealth = 1;
+// 			} else {
+// 				conditionHealth = 2;
+// 			}
+// 		} else {
+// 			if (hpPercentage > 0.5) {
+// 				conditionHealth = 3;
+// 			} else if (hp == 1) {
+// 				 conditionHealth = 6;
+// 			} else if (hpPercentage >= 0.25) {
+// 				conditionHealth = 4;
+// 			} else if (hpPercentage >= 0.1) {
+// 				conditionHealth = 5;
+// 			} else {
+// 				conditionHealth = 6;
+// 			}
+// 		}
 
-		let update = {};
-		update["condition_health"] = conditionHealth;
-		setAttrs(update);
-	});
-});
+// 		let update = {};
+// 		update["condition_health"] = conditionHealth;
+// 		setAttrs(update);
+// 	});
+// });
 
 let toInt = function (value) {
 	return (value && !isNaN(value)) ? parseInt(value) : 0;

@@ -1512,14 +1512,16 @@
 									</div> -->
 									<div class="sheet-container-box sheet-pc-hit-dice">
 										<div class="sheet-container-header">
-											<button type="roll" name="roll_hit_dice" value="@{wtype}&{template:simple} {{rname=Hit Dice}} {{mod=D@{hitdie_final}+[[@{constitution-mod}[CON]]]}} {{r1=[[1d@{hitdie_final}+[[@{constitution-mod}]][CON]]]}} {{normal=1}} @{charname_output}">Hit Dice</button>
+											<button type="roll" name="roll_surge" value="@{wtype}&{template:simple} {{rname=Hit Dice}} {{mod=D@{hitdie_final}+[[@{constitution-mod}[CON]]]}} {{r1=[[1d@{hitdie_final}+[[@{constitution-mod}]][CON]]]}} {{normal=1}} @{charname_output}">Healing Surge</button>
 										</div>
 										<div class="sheet-container-body">
-											<input type="text" name="attr_hit_dice" title="@{hit_dice}">
+											<input type="text" name="attr_healing_surge" title="@{healing_surge}">
 											<span>/</span>
-											<input type="text" name="attr_hit_dice_lost" title="@{hit_dice}">
+											<span name="attr_healing_surge_lost" title="@{healing_surge_lost}"><strong>0</strong></span>
+											<!-- <input type="text" name="attr_healing_surge_lost" title="@{healing_surge_lost}"> -->
 											<span>/</span>
-											<input type="text" name="attr_hit_dice_max" title="@{hit_dice_max}">
+											<!-- <span name="attr_healing_surge_max" title="@{healing_surge_max}"></span> -->
+											<input type="text" name="attr_healing_surge_max" >
 										</div>
 										<div class="sheet-container-footer">
 											<span>Remaining</span>
