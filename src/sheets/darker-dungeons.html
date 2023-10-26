@@ -1388,10 +1388,10 @@
 							<div class="sheet-container-well sheet-container-well-trackers">
 								<div class="sheet-container-attribute sheet-pc-armor">
 									<div class="sheet-container-header">
-										<button type="roll" name="roll_armor_class" value="@{wtype}&{template:simple} {{rname=Armor Class}} {{mod=@{armor_mod}}} {{r1=[[@{armor_mod}]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Armor Class</button>
+										<button type="roll" name="roll_ac" value="@{wtype}&{template:simple} {{rname=Armor Class}} {{r1=[[@{AC}]]}} @{rtype}]]}} @{charname_output}">Armor Class</button>
 									</div>
 									<div class="sheet-container-body">
-										<span name="attr_fort" title="@{ac}">0</span>
+										<span name="attr_ac" title="@{ac}">0</span>
 									</div>
 									<div class="sheet-container-footer">
 										<input type="text" name="attr_ac_misc" title="@{ac_misc}" value="0">
@@ -1402,7 +1402,7 @@
 								</div>
 								<div class="sheet-container-attribute sheet-pc-fortitude">
 									<div class="sheet-container-header">
-										<button type="roll" name="roll_foritude" value="@{wtype}&{template:simple} {{rname=Fortitude}} {{mod=@{fort}} {{r1=[[@{strength-mod}]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Fortitude</button>
+										<button type="roll" name="roll_fort" value="@{wtype}&{template:simple} {{rname=Fortitude}} {{r1=[[@{fort}]]}} @{rtype}]]}} @{charname_output}">Fortitude</button>
 									</div>
 									<div class="sheet-container-body">
 										<span name="attr_fort" title="@{fort}">0</span>
@@ -1416,7 +1416,7 @@
 								</div>
 								<div class="sheet-container-attribute sheet-pc-reflex">
 									<div class="sheet-container-header">
-										<button type="roll" name="roll_reflex" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength-mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Reflex</button>
+										<button type="roll" name="roll_ref" value="@{wtype}&{template:simple} {{rname=Reflex}} {{r1=[[@{ref}]]}} @{rtype}]]}} @{charname_output}">Reflex</button>
 									</div>
 									<div class="sheet-container-body">
 										<span name="attr_ref" title="@{ref}">0</span>
@@ -1430,7 +1430,7 @@
 								</div>
 								<div class="sheet-container-attribute sheet-pc-will">
 									<div class="sheet-container-header">
-										<button type="roll" name="roll_will" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength-mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Will</button>
+										<button type="roll" name="roll_will" value="@{wtype}&{template:simple} {{rname=Will}} {{r1=[[@{will}]]}} @{rtype}]]}} @{charname_output}">Will</button>
 									</div>
 									<div class="sheet-container-body">
 										<span name="attr_will" title="@{will}">0</span>
