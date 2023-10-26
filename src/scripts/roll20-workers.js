@@ -94,18 +94,14 @@ on("change:test", function() {
  });
  
  ['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
-	console.log("A thing has started")
 	on(`change:${attr}_base change:${attr}_bonus`, function() {
-		console.log("A thing has ended")
 		update_attr(`${attr}`);
 
 	});
 });
 
 ['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
-	console.log("B thing has started")
 	on(`change:${attr}`, function() {
-		console.log("B thing has ended")
 		update_mod(`${attr}`);
 
 		const cap = attr.charAt(0).toUpperCase() + attr.slice(1);
@@ -125,9 +121,7 @@ on("change:test", function() {
 });
 
 ['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
-	console.log("C thing has started")
 	on(`change:${attr}-mod`, function() {
-		console.log("C thing has ended")
 		// update_save(`${attr}`);
 		// update_attacks(`${attr}`);
 		update_tool(`${attr}`);
@@ -138,19 +132,19 @@ on("change:test", function() {
 				update_skills(["athletics"]);
 				break;
 			case "dexterity":
-				update_skills(["acrobatics", "sleight_of_hand", "stealth"]);
+				update_skills(["acrobatics", "thievery", "stealth"]);
 				update_ac();
 				update_initiative();
 				break;
 			case "intelligence":
-				update_skills(["arcana", "history", "investigation", "nature", "religion"]);
+				update_skills(["arcana", "history", "religion"]);
 				update_initiative();
 				break;
 			case "wisdom":
-				update_skills(["animal_handling", "insight", "medicine", "perception", "survival"]);
+				update_skills(["dungeoneering", "insight", "nature", "heal", "perception"]);
 				break;
 			case "charisma":
-				update_skills(["deception", "intimidation", "performance", "persuasion"]);
+				update_skills(["bluff", "intimidate", "streetwise", "diplomacy"]);
 				break;
 			default:
 				false;
@@ -159,7 +153,6 @@ on("change:test", function() {
 });
 
 ['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
-	console.log("D thing has changed")
 	on(`change:${attr}_save_prof change:${attr}_save_mod`, function(eventinfo) {
 		if(eventinfo.sourceType === "sheetworker") {return;};
 		update_save(`${attr}`);
@@ -181,8 +174,8 @@ on("change:death_save_mod", function(eventinfo) {
 	update_save("death");
 });
 
-['acrobatics','animal_handling','arcana','athletics','deception','history','insight','intimidation','investigation', 'medicine','nature','perception','performance','persuasion','religion','sleight_of_hand','stealth','survival'].forEach(attr => {
-	on(`change:${attr}_prof change:${attr}_type change:${attr}_flat change:${attr}_attribute`, function(eventinfo) {
+["athletics", "acrobatics", "thievery", "stealth", "arcana", "history", "nature", "religion", "dungeoneering", "insight", "heal", "perception", "streetwise", "bluff", "intimidate", "endurance", "diplomacy"].forEach(attr => {
+	on(`change:${attr}-trained change:${attr}_type change:${attr}_flat change:${attr}_attribute`, function(eventinfo) {
 		if(eventinfo.sourceType === "sheetworker") {return;};
 		update_skills([`${attr}`]);
 	});
@@ -809,7 +802,7 @@ var update_all_saves = function() {
 
 var update_all_ability_checks = function(){
 	update_initiative();
-	update_skills(["athletics", "acrobatics", "sleight_of_hand", "stealth", "arcana", "history", "investigation", "nature", "religion", "animal_handling", "insight", "medicine", "perception", "survival","deception", "intimidation", "performance", "persuasion"]);
+	update_skills(["athletics", "acrobatics", "thievery", "stealth", "arcana", "history", "nature", "religion", "dungeoneering", "insight", "heal", "perception", "streetwise", "bluff", "intimidate", "endurance", "diplomacy"]);
 };
 
 var update_skills = function (skills_array) {
@@ -823,9 +816,10 @@ var update_skills = function (skills_array) {
 
 	_.each(skills_array, function(s) {
 		attrs_to_get.push(s + "_attribute")
-		attrs_to_get.push(s + "_prof");
+		attrs_to_get.push(s + "-trained");
 		attrs_to_get.push(s + "_type");
 		attrs_to_get.push(s + "_flat");
+		attrs_to_get.push("level");
 	});
 
 	getSectionIDs("repeating_inventory", function(idarray) {
@@ -839,14 +833,25 @@ var update_skills = function (skills_array) {
 				console.log("UPDATING SKILL: " + s);
 				var attr_mod = 0;
 				if (v[s + "_attribute"]) {
-					var attribute = v[s + "_attribute"].toLowerCase() + "_mod";
+					var attribute = v[s + "_attribute"].toLowerCase() + "-mod";
+					console.log("Getting attr:" + attribute);
 					attr_mod = parseInt(v[attribute], 10);
 				}
-				var prof = v[s + "_prof"] != 0 && !isNaN(v["pb"]) ? parseInt(v["pb"], 10) : 0;
+
+				// var prof = v[s + "-trained"] != 0 && !isNaN(v["pb"]) ? parseInt(v["pb"], 10) : 0;
+				//If they are trained, they get a flat +5 to the skill
+				var prof = v[s + "-trained"] != 0 ? 5 : 0;
 				var flat = v[s + "_flat"] && !isNaN(parseInt(v[s + "_flat"], 10)) ? parseInt(v[s + "_flat"], 10) : 0;
 				var type = v[s + "_type"] && !isNaN(parseInt(v[s + "_type"], 10)) ? parseInt(v[s + "_type"], 10) : 1;
 				var jack = v["jack_of_all_trades"] && v["jack_of_all_trades"] != 0 && v["jack"] ? v["jack"] : 0;
+				var halfLevel = Math.floor(parseInt(v["level"], 10)/2);
+
+				console.log("half Level: " + halfLevel);
+
 				var item_bonus = 0;
+
+				console.log("prof is: " + prof);
+				console.log("Getting attr:" + attr_mod);
 
 				_.each(idarray, function(currentID) {
 					if(v["repeating_inventory_" + currentID + "_equipped"] && v["repeating_inventory_" + currentID + "_equipped"] === "1" && v["repeating_inventory_" + currentID + "_itemmodifiers"] && (v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().replace(/ /g,"_").indexOf(s) > -1 || v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().indexOf("ability checks") > -1)) {
@@ -866,27 +871,30 @@ var update_skills = function (skills_array) {
 					};
 				});
 
-				var total = attr_mod + flat + item_bonus;
+				var total = attr_mod + flat + item_bonus + prof + halfLevel;
+				console.log("Total value:" + total)
 
-				if(v["pb_type"] && v["pb_type"] === "die") {
-					if(v[s + "_prof"] != 0) {
-						type === 1 ? "" : "2"
-						total = total + "+" + type + v["pb"];
-					}
-					else if(v[s + "_prof"] == 0 && jack != 0) {
-						total = total + "+" + jack;
-					};
-				}
-				else {
-					if(v[s + "_prof"] != 0) {
-						total = total + (prof * type);
-					}
-					else if(v[s + "_prof"] == 0 && jack != 0) {
-						total = total + parseInt(jack, 10);
-					};
+				// if(v["pb_type"] && v["pb_type"] === "die") {
+				// 	if(v[s + "-trained"] != 0) {
+				// 		type === 1 ? "" : "2"
+				// 		total = total + "+" + type + v["pb"];
+				// 	}
+				// 	else if(v[s + "_prof"] == 0 && jack != 0) {
+				// 		total = total + "+" + jack;
+				// 	};
+				// }
+				// else {
+				// 	if(v[s + "_prof"] != 0) {
+				// 		total = total + (prof * type);
+				// 	}
+				// 	else if(v[s + "_prof"] == 0 && jack != 0) {
+				// 		total = total + parseInt(jack, 10);
+				// 	};
 
-				};
-				update[s + "_bonus"] = total;
+				// };
+				// update[s + "_bonus"] = total;
+				update[s + "_modifier"] = total;
+
 			});
 
 			setAttrs(update, {silent: true}, function() {callbacks.forEach(function(callback) {callback(); })} );
@@ -4050,36 +4058,42 @@ var update_spell_slots = function() {
 	});
 };
 
+//There is no proficiency bonus as we know it in 4e. I'm going to switch this to a flat +5 if you are "trained" in the skill
 var update_pb = function() {
 	callbacks = [];
 	getAttrs(["level","pb_type","pb_custom"], function(v) {
+		// var update = {};
+		// var pb = 2;
+		// var lvl = parseInt(v["level"],10);
+		// if(lvl < 5) {pb = "2"} else if(lvl < 9) {pb = "3"} else if(lvl < 13) {pb = "4"} else if(lvl < 17) {pb = "5"} else {pb = "6"}
+		// var jack = Math.floor(pb/2);
+		// if(v["pb_type"] === "die") {
+		// 	update["jack"] = "d" + pb;
+		// 	update["pb"] = "d" + pb*2;
+		// 	update["pbd_safe"] = "cs0cf0";
+		// }
+		// else if(v["pb_type"] === "custom" && v["pb_custom"] && v["pb_custom"] != "") {
+		// 	update["pb"] = v["pb_custom"]
+		// 	update["jack"] = !isNaN(parseInt(v["pb_custom"],10)) ? Math.floor(parseInt(v["pb_custom"],10)/2) : jack;
+		// 	update["pbd_safe"] = "";
+		// }
+		// else {
+		// 	update["pb"] = pb;
+		// 	update["jack"] = jack;
+		// 	update["pbd_safe"] = "";
+		// };
+
 		var update = {};
 		var pb = 2;
-		var lvl = parseInt(v["level"],10);
-		if(lvl < 5) {pb = "2"} else if(lvl < 9) {pb = "3"} else if(lvl < 13) {pb = "4"} else if(lvl < 17) {pb = "5"} else {pb = "6"}
-		var jack = Math.floor(pb/2);
-		if(v["pb_type"] === "die") {
-			update["jack"] = "d" + pb;
-			update["pb"] = "d" + pb*2;
-			update["pbd_safe"] = "cs0cf0";
-		}
-		else if(v["pb_type"] === "custom" && v["pb_custom"] && v["pb_custom"] != "") {
-			update["pb"] = v["pb_custom"]
-			update["jack"] = !isNaN(parseInt(v["pb_custom"],10)) ? Math.floor(parseInt(v["pb_custom"],10)/2) : jack;
-			update["pbd_safe"] = "";
-		}
-		else {
-			update["pb"] = pb;
-			update["jack"] = jack;
-			update["pbd_safe"] = "";
-		};
-		callbacks.push( function() {update_attacks("all");} );
-		callbacks.push( function() {update_spell_info();} );
-		callbacks.push( function() {update_jack_attr();} );
+		update["pb"] = pb;
+		update["pbd_safe"] = "";
+		// callbacks.push( function() {update_attacks("all");} );
+		// callbacks.push( function() {update_spell_info();} );
+		// callbacks.push( function() {update_jack_attr();} );
 		callbacks.push( function() {update_initiative();} );
 		callbacks.push( function() {update_tool("all");} );
-		callbacks.push( function() {update_all_saves();} );
-		callbacks.push( function() {update_skills(["athletics", "acrobatics", "sleight_of_hand", "stealth", "arcana", "history", "investigation", "nature", "religion", "animal_handling", "insight", "medicine", "perception", "survival","deception", "intimidation", "performance", "persuasion"]);} );
+		// callbacks.push( function() {update_all_saves();} );
+		callbacks.push( function() {update_skills(["athletics", "acrobatics", "thievery", "stealth", "arcana", "history", "nature", "religion", "dungeoneering", "insight", "heal", "perception", "streetwise", "bluff", "intimidate", "endurance", "diplomacy"]);} );
 
 		setAttrs(update, {silent: true}, function() {callbacks.forEach(function(callback) {callback(); })} );
 	});
@@ -5105,6 +5119,10 @@ let isDefined = function (value) {
 	return value !== null && typeof(value) !== 'undefined';
 };
 
+//Can't use this, get NaN
+//Additionally, querying fields from sheet give strings, not the number they should return
+//Litterally can't use autocalulating fields with sheetworker unless specific attention is made
+//https://app.roll20.net/forum/post/5079572/sheet-worker-nan-issue
 //4e Worker
 // const multistats = {
 // 	strength_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['strength', 'level']},
@@ -5113,23 +5131,23 @@ let isDefined = function (value) {
 //     intelligence_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['intelligence', 'level']},
 //     wisdom_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['wisdom', 'level']},
 //     charisma_mod_level: {rule: 'dnd_stat_half_bonus', attributes: ['charisma', 'level']},
-//     acrobatics_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity-mod_level', 'acrobatics-trained', 'acrobatics-pen', 'acrobatics-misc']},
-//     arcana_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence-mod_level', 'arcana-trained', 'arcana-pen', 'arcana-misc']},
-//     athletics_modifier: {rule: 'dnd_skill_bonus', attributes: ['strength-mod_level', 'athletics-trained', 'athletics-pen', 'athletics-misc']},
-//     bluff_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma-mod_level', 'bluff-trained', 'bluff-pen', 'bluff-misc']},
-//     diplomacy_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma-mod_level', 'diplomacy-trained', 'diplomacy-pen', 'diplomacy-misc']},
-//     dungeoneering_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom-mod_level', 'dungeoneering-trained', 'dungeoneering-pen', 'dungeoneering-misc']},
-//     endurance_modifier: {rule: 'dnd_skill_bonus', attributes: ['constitution-mod_level', 'endurance-trained', 'endurance-pen', 'endurance-misc']},
-//     heal_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom-mod_level', 'heal-trained', 'heal-pen', 'heal-misc']},
-//     history_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence-mod_level', 'history-trained', 'history-pen', 'history-misc']},
-//     insight_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom-mod_level', 'insight-trained', 'insight-pen', 'insight-misc']},
-//     intimidate_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma-mod_level', 'intimidate-trained', 'intimidate-pen', 'intimidate-misc']},
-//     nature_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom-mod_level', 'nature-trained', 'nature-pen', 'nature-misc']},
-//     perception_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom-mod_level', 'perception-trained', 'perception-pen', 'perception-misc']},
-//     religion_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence-mod_level', 'religion-trained', 'religion-pen', 'religion-misc']},
-//     stealth_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity-mod_level', 'stealth-trained', 'stealth-pen', 'stealth-misc']},
-//     streetwise_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma-mod_level', 'streetwise-trained', 'streetwise-pen', 'streetwise-misc']},
-//     thievery_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity-mod_level', 'thievery-trained', 'thievery-pen', 'thievery-misc']},
+//     acrobatics_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity_mod_level', 'acrobatics-trained', 'acrobatics-pen', 'acrobatics-misc']},
+//     arcana_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence_mod_level', 'arcana-trained', 'arcana-pen', 'arcana-misc']},
+//     athletics_modifier: {rule: 'dnd_skill_bonus', attributes: ['strength_mod_level', 'athletics-trained', 'athletics-pen', 'athletics-misc']},
+//     bluff_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma_mod_level', 'bluff-trained', 'bluff-pen', 'bluff-misc']},
+//     diplomacy_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma_mod_level', 'diplomacy-trained', 'diplomacy-pen', 'diplomacy-misc']},
+//     dungeoneering_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'dungeoneering-trained', 'dungeoneering-pen', 'dungeoneering-misc']},
+//     endurance_modifier: {rule: 'dnd_skill_bonus', attributes: ['constitution_mod_level', 'endurance-trained', 'endurance-pen', 'endurance-misc']},
+//     heal_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'heal-trained', 'heal-pen', 'heal-misc']},
+//     history_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence_mod_level', 'history-trained', 'history-pen', 'history-misc']},
+//     insight_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'insight-trained', 'insight-pen', 'insight-misc']},
+//     intimidate_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma_mod_level', 'intimidate-trained', 'intimidate-pen', 'intimidate-misc']},
+//     nature_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'nature-trained', 'nature-pen', 'nature-misc']},
+//     perception_modifier: {rule: 'dnd_skill_bonus', attributes: ['wisdom_mod_level', 'perception-trained', 'perception-pen', 'perception-misc']},
+//     religion_modifier: {rule: 'dnd_skill_bonus', attributes: ['intelligence_mod_level', 'religion-trained', 'religion-pen', 'religion-misc']},
+//     stealth_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity_mod_level', 'stealth-trained', 'stealth-pen', 'stealth-misc']},
+//     streetwise_modifier: {rule: 'dnd_skill_bonus', attributes: ['charisma_mod_level', 'streetwise-trained', 'streetwise-pen', 'streetwise-misc']},
+//     thievery_modifier: {rule: 'dnd_skill_bonus', attributes: ['dexterity_mod_level', 'thievery-trained', 'thievery-pen', 'thievery-misc']},
 // };
 // const multifunctions = {
 //     dnd_stat_half_bonus: function(arr) {
@@ -5204,7 +5222,9 @@ let isDefined = function (value) {
 //     const func = isFunction(rule) ? rule:  multifunctions[rule]; // need to test if this works for arrow functions
 //     const data = multistats[destination].data || defaultDataType;
 //     const v = getData(values, data);
+// 	console.log("data is " + v)
 //     const modifier = multistats[destination].modifier || null;
+// 	console.log("MODIFIER IS " + modifier)
 //     const result = func(v, modifier);
 //     mvlog(`${makeRepeatingName(destination,section).toUpperCase()} MULTIFUNCTION`, `RULE: ${rule}; VALUES: ${JSON.stringify(values)}; RESULT: ${result}`);
 //     return result;
