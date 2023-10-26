@@ -4939,17 +4939,18 @@ on("change:exhaustion_base change:exhaustion_wounds change:exhaustion_conditions
 		let maxSurge = toInt(v[field7]);
 		let changeSurge = lostSurge - exhaustionTotal;
 
-		console.log("_________________LINE BREAK_________________")
-		console.log("Current Surges:" + currentSurge )
-		console.log("Lost Surges:" + lostSurge )
-		console.log("Max Surges:" + maxSurge )
-		console.log("Exhaustion:" + exhaustionTotal )
-		console.log("Change Surge:" + changeSurge )
+		// console.log("_________________LINE BREAK_________________")
+		// console.log("Current Surges:" + currentSurge )
+		// console.log("Lost Surges:" + lostSurge )
+		// console.log("Max Surges:" + maxSurge )
+		// console.log("Exhaustion:" + exhaustionTotal )
+		// console.log("Change Surge:" + changeSurge )
 
-		//We became less hurt, add more healing surges
 		if(changeSurge <= -1){
+			if(currentSurge == maxSurge){
+				currentSurge = currentSurge + changeSurge;
+			}
 			maxSurge = maxSurge + changeSurge;
-			currentSurge = currentSurge + changeSurge;
 			lostSurge = exhaustionTotal;
 
 			update[field5] = currentSurge;
@@ -4957,14 +4958,11 @@ on("change:exhaustion_base change:exhaustion_wounds change:exhaustion_conditions
 			update[field7] = maxSurge;
 				
 		} 
-		//We got more hurt, reduce healing surges
 		else if (changeSurge >= 1){
-			//If we are currently capped, then we lose some healing surges
-			if(currentSurge == maxSurge){
-				currentSurge = currentSurge + changeSurge;
-			}
+			currentSurge = currentSurge + changeSurge;
 			maxSurge = maxSurge + changeSurge;
 			lostSurge = exhaustionTotal;
+			
 			update[field5] = currentSurge;
 			update[field6] = lostSurge;
 			update[field7] = maxSurge;
