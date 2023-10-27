@@ -4943,6 +4943,22 @@ var update_will = function(){
 };
 
 
+//HP related stuff
+on("change:hp-max", function() {
+	getAttrs(["hp-max"], function(v) {
+		let update = {};
+		let surgeValue = Math.floor(parseInt(v["hp-max"], 10)/4);
+		let bloodied= Math.floor(parseInt(v["hp-max"], 10)/2);
+
+		update["surge-value"] = surgeValue;
+		update["hp-bloodied"] = bloodied;
+		setAttrs(update);
+	});
+});
+
+
+
+
 // CHANGE SURVIVAL CONDITIONS
 
 on("change:condition_temperature change:condition_hunger change:condition_thirst change:condition_fatigue", function () {
