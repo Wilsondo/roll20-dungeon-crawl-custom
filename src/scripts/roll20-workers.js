@@ -902,7 +902,7 @@ var update_skills = function (skills_array) {
 				// };
 				// update[s + "_bonus"] = total;
 				update[s + "_modifier"] = total;
-
+				update[s] = total;
 			});
 
 			setAttrs(update, {silent: true}, function() {callbacks.forEach(function(callback) {callback(); })} );

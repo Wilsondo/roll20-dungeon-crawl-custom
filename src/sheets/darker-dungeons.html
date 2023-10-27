@@ -1307,26 +1307,26 @@
 										<span name="attr_passive_insight_misc"></span>
 									</div>
 								</div>
-								<div class="sheet-container-box sheet-pc-resource-class resourceA">
+								<div class="sheet-container-box sheet-pc-resource-other resourceA">
 									<div class="sheet-container-header">
-										<input type="text" name="attr_class_resource_name" title="@{class_resource_name}" class="sheet-input-overlay">
-										<span name="attr_class_resource_name" title="@{class_resource_name}">Class Resource 1</span>
+										<input type="text" name="attr_other_resource_name" title="@{other_resource_name}" class="sheet-input-overlay">
+										<span name="attr_other_resource_name">Other Resource</span>
 									</div>
-									 <div class="sheet-container-body">
-										<!-- <input type="text" name="attr_class_resource" title="@{class_resource}">
+									<div class="sheet-container-body">
+										<!-- <input type="text" name="attr_other_resource" title="@{other_resource}">
 										<span>/</span> -->
-										<input type="text" name="attr_class_resource_max" title="@{class_resource_max}">
+										<input type="text" name="attr_other_resource_max" title="@{other_resource_max}">
 									</div>
 								</div>
-								<div class="sheet-container-box sheet-pc-resource-class resourceB">
+								<div class="sheet-container-box sheet-pc-resource-other resourceB">
 									<div class="sheet-container-header">
-										<input type="text" name="attr_class_resource_name" title="@{class_resource_name}" class="sheet-input-overlay">
-										<span name="attr_class_resource_name" title="@{class_resource_name}">Class Resource 2</span>
+										<input type="text" name="attr_other_resource_name" title="@{other_resource_name}" class="sheet-input-overlay">
+										<span name="attr_other_resource_name">Other Resource</span>
 									</div>
-									 <div class="sheet-container-body">
-										<!-- <input type="text" name="attr_class_resource" title="@{class_resource}">
-										<span>/</span> -->
-										<input type="text" name="attr_class_resource_max" title="@{class_resource_max}">
+									<div class="sheet-container-body">
+										<!-- <input type="text" name="attr_other_resource" title="@{other_resource}"> -->
+										<!-- <span>/</span> -->
+										<input type="text" name="attr_other_resource_max" title="@{other_resource_max}">
 									</div>
 								</div>
 								<div class="sheet-container-panel sheet-pc-movement">
@@ -1541,10 +1541,10 @@
 										</div>
 										<div class="sheet-container-body">
 											<input type="text" name="attr_surges" title="@{surges}">
-											<span>/</span>
-											<span name="attr_healing_surge_lost" title="@{surges_lost}"><strong>0</strong></span>
+											<span>/&nbsp;&nbsp;</span>
+											<span name="attr_healing_surge_lost" title="@{surges_lost}" class="sheet-pc-surge-lost-value"><strong>0</strong></span>
 											<!-- <input type="text" name="attr_healing_surge_lost" title="@{healing_surge_lost}"> -->
-											<span>/</span>
+											<span>&nbsp;&nbsp;/</span>
 											<!-- <span name="attr_healing_surge_max" title="@{healing_surge_max}"></span> -->
 											<input type="text" name="attr_surges-max" >
 										</div>
@@ -4336,14 +4336,6 @@
 													</select>
 												</div>
 												<div class="sheet-form-group">
-													<label>Animal Handling Modifier:</label>
-													<input type="text" name="attr_animal_handling_flat" placeholder="0" title="@{animal_handling_flat}">
-													<select name="attr_animal_handling_type" title="@{animal_handling_type}">
-														<option value="1" selected="selected">Normal</option>
-														<option value="2">Expertise</option>
-													</select>
-												</div>
-												<div class="sheet-form-group">
 													<label>Arcana Modifier:</label>
 													<input type="text" name="attr_arcana_flat" placeholder="0" title="@{arcana_flat}">
 													<select name="attr_arcana_type" title="@{arcana_type}">
@@ -4368,6 +4360,30 @@
 													</select>
 												</div>
 												<div class="sheet-form-group">
+													<label>Diplomacy Modifier:</label>
+													<input type="text" name="attr_diplomacy_flat" placeholder="0" title="@{diplomacy_flat}">
+													<select name="attr_diplomacy_type" title="@{diplomacy_type}">
+														<option value="1" selected="selected">Normal</option>
+														<option value="2">Expertise</option>
+													</select>
+												</div>
+												<div class="sheet-form-group">
+													<label>Dungeoneering Modifier:</label>
+													<input type="text" name="attr_dungeoneering_flat" placeholder="0" title="@{dungeoneering_flat}">
+													<select name="attr_dungeoneering_type" title="@{dungeoneering_type}">
+														<option value="1" selected="selected">Normal</option>
+														<option value="2">Expertise</option>
+													</select>
+												</div>
+												<div class="sheet-form-group">
+													<label>Heal Modifier:</label>
+													<input type="text" name="attr_heal_flat" placeholder="0" title="@{heal_flat}">
+													<select name="attr_heal_type" title="@{heal_type}">
+														<option value="1" selected="selected">Normal</option>
+														<option value="2">Expertise</option>
+													</select>
+												</div>
+												<div class="sheet-form-group">
 													<label>History Modifier:</label>
 													<input type="text" name="attr_history_flat" placeholder="0" title="@{history_flat}">
 													<select name="attr_history_type" title="@{history_type}">
@@ -4384,25 +4400,17 @@
 													</select>
 												</div>
 												<div class="sheet-form-group">
-													<label>Intimidation Modifier:</label>
-													<input type="text" name="attr_intimidation_flat" placeholder="0" title="@{intimidation_flat}">
-													<select name="attr_intimidation_type" title="@{intimidation_type}">
+													<label>Endurance Modifier:</label>
+													<input type="text" name="attr_endurance_flat" placeholder="0" title="@{endurance_flat}">
+													<select name="attr_endurance_type" title="@{endurance_type}">
 														<option value="1" selected="selected">Normal</option>
 														<option value="2">Expertise</option>
 													</select>
 												</div>
 												<div class="sheet-form-group">
-													<label>Investigation Modifier:</label>
-													<input type="text" name="attr_investigation_flat" placeholder="0" title="@{investigation_flat}">
-													<select name="attr_investigation_type" title="@{investigation_type}">
-														<option value="1" selected="selected">Normal</option>
-														<option value="2">Expertise</option>
-													</select>
-												</div>
-												<div class="sheet-form-group">
-													<label>Medicine Modifier:</label>
-													<input type="text" name="attr_medicine_flat" placeholder="0" title="@{medicine_flat}">
-													<select name="attr_medicine_type" title="@{medicine_type}">
+													<label>Intimidate Modifier:</label>
+													<input type="text" name="attr_intimidate_flat" placeholder="0" title="@{intimidate_flat}">
+													<select name="attr_intimidate_type" title="@{intimidate_type}">
 														<option value="1" selected="selected">Normal</option>
 														<option value="2">Expertise</option>
 													</select>
@@ -4424,22 +4432,6 @@
 													</select>
 												</div>
 												<div class="sheet-form-group">
-													<label>Performance Modifier:</label>
-													<input type="text" name="attr_performance_flat" placeholder="0" title="@{performance_flat}">
-													<select name="attr_performance_type" title="@{performance_typ}">
-														<option value="1" selected="selected">Normal</option>
-														<option value="2">Expertise</option>
-													</select>
-												</div>
-												<div class="sheet-form-group">
-													<label>Persuasion Modifier:</label>
-													<input type="text" name="attr_persuasion_flat" placeholder="0" title="@{persuasion_flat}">
-													<select name="attr_persuasion_type" title="@{persuasion_type}">
-														<option value="1" selected="selected">Normal</option>
-														<option value="2">Expertise</option>
-													</select>
-												</div>
-												<div class="sheet-form-group">
 													<label>Religion Modifier:</label>
 													<input type="text" name="attr_religion_flat" placeholder="0" title="@{religion_flat}">
 													<select name="attr_religion_type" title="@{religion_type}">
@@ -4448,9 +4440,9 @@
 													</select>
 												</div>
 												<div class="sheet-form-group">
-													<label>Sleight of Hand Modifier:</label>
-													<input type="text" name="attr_sleight_of_hand_flat" placeholder="0" title="@{sleight_of_hand_flat}">
-													<select name="attr_sleight_of_hand_type" title="@{sleight_of_hand_type}">
+													<label>Streetwise Modifier:</label>
+													<input type="text" name="attr_streetwise_flat" placeholder="0" title="@{streetwise_flat}">
+													<select name="attr_streetwise_type" title="@{streetwise_type}">
 														<option value="1" selected="selected">Normal</option>
 														<option value="2">Expertise</option>
 													</select>
@@ -4464,22 +4456,26 @@
 													</select>
 												</div>
 												<div class="sheet-form-group">
-													<label>Survival Modifier:</label>
-													<input type="text" name="attr_survival_flat" placeholder="0" title="@{survival_flat}">
-													<select name="attr_survival_type" title="@{survival_type}">
+													<label>Thievery Modifier:</label>
+													<input type="text" name="attr_thievery_flat" placeholder="0" title="@{thievery_flat}">
+													<select name="attr_thievery_type" title="@{thievery_type}">
 														<option value="1" selected="selected">Normal</option>
 														<option value="2">Expertise</option>
 													</select>
 												</div>
-												<div class="sheet-form-group">
+												<!-- <div class="sheet-form-group">
 													<label class="sheet-form-checkbox" title="@{jack_of_all_trades}">
 														<input type="checkbox" name="attr_jack_of_all_trades" value="@{jack}">
 														<span>Jack of all Trade</span>
 													</label>
-												</div>
+												</div> -->
 												<div class="sheet-form-group">
 													<label>Passive Perception Modifier:</label>
 													<input type="text" name="attr_passiveperceptionmod" placeholder="0" title="@{passiveperceptionmod}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Passive Insight Modifier:</label>
+													<input type="text" name="attr_passiveinsightmod" placeholder="0" title="@{passiveinsightmod}">
 												</div>
 											</div>
 										</div>
