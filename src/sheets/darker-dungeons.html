@@ -1019,8 +1019,7 @@
 								<div class="sheet-pc-attributes-stats">
 									<div class="sheet-container-attribute">
 										<div class="sheet-container-header">
-											<button type="roll" name="roll_strength" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{strength-mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength-mod}@{jack_attr}[STR]]]}} @{charname_output}">Strength</button>
-										</div>
+											<button type="roll" name="roll_strength" value="@{wtype}&{template:simple} {{rname=Strength}} {{mod=@{strength-mod}@{jack_bonus}+@{halflevel}}} {{r1=[[@{d20}+@{halflevel}+@{strength-mod}@{jack_attr}[STR]]]}} @{rtype}+@{strength-mod}@{jack_attr}+@{halflevel}[STR]]]}} @{charname_output}">Strength</button>										</div>
 										<div class="sheet-container-body">
 											<span name="attr_strength-mod" title="@{strength-mod}">0</span>
 										</div>
@@ -1033,7 +1032,7 @@
 									</div>
 									<div class="sheet-container-attribute">
 										<div class="sheet-container-header">
-											<button type="roll" name="roll_dexterity" value="@{wtype}&{template:simple} {{rname=Dexterity}} {{mod=@{dexterity-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{dexterity-mod}@{jack_attr}[DEX]]]}} @{rtype}+@{dexterity-mod}@{jack_attr}[DEX]]]}} @{charname_output}">Dexterity</button>
+											<button type="roll" name="roll_dexterity" value="@{wtype}&{template:simple} {{rname=Dexterity}} {{mod=@{dexterity-mod}@{jack_bonus}+@{halflevel}}} {{r1=[[@{d20}+@{halflevel}+@{dexterity-mod}@{jack_attr}[DEX]]]}} @{rtype}+@{halflevel}+@{dexterity-mod}@{jack_attr}[DEX]]]}} @{charname_output}">Dexterity</button>
 										</div>
 										<div class="sheet-container-body">
 											<span name="attr_dexterity-mod" title="@{dexterity-mod}">0</span>
@@ -1047,7 +1046,7 @@
 									</div>
 									<div class="sheet-container-attribute">
 										<div class="sheet-container-header">
-											<button type="roll" name="roll_constitution" value="@{wtype}&{template:simple} {{rname=Constitution}} {{mod=@{constitution-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{constitution-mod}@{jack_attr}[CON]]]}} @{rtype}+@{constitution-mod}@{jack_attr}[CON]]]}} @{charname_output}">Constitution</button>
+											<button type="roll" name="roll_constitution" value="@{wtype}&{template:simple} {{rname=Constitution}} {{mod=@{constitution-mod}@{jack_bonus}+@{halflevel}}} {{r1=[[@{d20}+@{halflevel}+@{constitution-mod}@{jack_attr}[CON]]]}} @{rtype}+@{halflevel}+@{constitution-mod}@{jack_attr}[CON]]]}} @{charname_output}">Constitution</button>
 										</div>
 										<div class="sheet-container-body">
 											<span name="attr_constitution-mod" title="@{constitution-mod}">0</span>
@@ -1061,7 +1060,7 @@
 									</div>
 									<div class="sheet-container-attribute">
 										<div class="sheet-container-header">
-											<button type="roll" name="roll_intelligence" value="@{wtype}&{template:simple} {{rname=Intelligence}} {{mod=@{intelligence-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{intelligence-mod}@{jack_attr}[INT]]]}} @{rtype}+@{intelligence-mod}@{jack_attr}[INT]]]}} @{charname_output}">Intelligence</button>
+											<button type="roll" name="roll_intelligence" value="@{wtype}&{template:simple} {{rname=Intelligence}} {{mod=@{intelligence-mod}@{jack_bonus}+@{halflevel}}} {{r1=[[@{d20}+@{halflevel}+@{intelligence-mod}@{jack_attr}[INT]]]}} @{rtype}+@{halflevel}+@{intelligence-mod}@{jack_attr}[INT]]]}} @{charname_output}">Intelligence</button>
 										</div>
 										<div class="sheet-container-body">
 											<span name="attr_intelligence-mod" title="@{intelligence-mod}">0</span>
@@ -1075,7 +1074,7 @@
 									</div>
 									<div class="sheet-container-attribute">
 										<div class="sheet-container-header">
-											<button type="roll" name="roll_wisdom" value="@{wtype}&{template:simple} {{rname=Wisdom}} {{mod=@{wisdom-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{wisdom-mod}@{jack_attr}[WIS]]]}} @{rtype}+@{wisdom-mod}@{jack_attr}[WIS]]]}} @{charname_output}">Wisdom</button>
+											<button type="roll" name="roll_wisdom" value="@{wtype}&{template:simple} {{rname=Wisdom}} {{mod=@{wisdom-mod}@{jack_bonus}+@{halflevel}}} {{r1=[[@{d20}+@{halflevel}+@{wisdom-mod}@{jack_attr}[WIS]]]}} @{rtype}+@{halflevel}+@{wisdom-mod}@{jack_attr}[WIS]]]}} @{charname_output}">Wisdom</button>
 										</div>
 										<div class="sheet-container-body">
 											<span name="attr_wisdom-mod" title="@{wisdom-mod}">0</span>
@@ -1089,7 +1088,7 @@
 									</div>
 									<div class="sheet-container-attribute">
 										<div class="sheet-container-header">
-											<button type="roll" name="roll_charisma" value="@{wtype}&{template:simple} {{rname=Charisma}} {{mod=@{charisma-mod}@{jack_bonus}}} {{r1=[[@{d20}+@{charisma-mod}@{jack_attr}[CHA]]]}} @{rtype}+@{charisma-mod}@{jack_attr}[CHA]]]}} @{charname_output}">Charisma</button>
+											<button type="roll" name="roll_charisma" value="@{wtype}&{template:simple} {{rname=Charisma}} {{mod=@{charisma-mod}@{jack_bonus}+@{halflevel}}} {{r1=[[@{d20}+@{halflevel}+@{charisma-mod}@{jack_attr}[CHA]]]}} @{rtype}+@{halflevel}+@{charisma-mod}@{jack_attr}[CHA]]]}} @{charname_output}">Charisma</button>
 										</div>
 										<div class="sheet-container-body">
 											<span name="attr_charisma-mod" title="@{charisma-mod}">0</span>
@@ -4167,6 +4166,10 @@
 									<div class="sheet-container-body">
 										<div class="sheet-form sheet-form-borderless">
 											<div class="sheet-form-body">
+												<div class="sheet-form-group">
+													<label>Half Level</label>
+														<span name="attr_halflevel" title="@{halflevel}">0</span>
+												</div>
 												<div class="sheet-form-group">
 													<label>Strength Modifier:</label>
 													<input type="text" name="attr_strength_bonus" placeholder="0" title="@{strength_bonus}">

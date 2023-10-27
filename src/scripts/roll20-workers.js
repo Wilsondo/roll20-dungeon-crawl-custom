@@ -152,6 +152,7 @@ on("change:test", function() {
 	});
 });
 
+
 ['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
 	on(`change:${attr}_save_prof change:${attr}_save_mod`, function(eventinfo) {
 		if(eventinfo.sourceType === "sheetworker") {return;};
@@ -4890,6 +4891,15 @@ var filterBlobs = function(blobs, filters) {
 };
 
 // //New Functions
+
+on("change:level", function() {
+	getAttrs(["level"], function(v) {
+		let halfLevel = Math.floor(parseInt(v["level"], 10)/2)
+		let update = {}
+		update["halflevel"] = halfLevel;
+		setAttrs(update);
+	});
+});
 on("change:fort-misc change:level", function() {
 	update_fortitude()
 });
