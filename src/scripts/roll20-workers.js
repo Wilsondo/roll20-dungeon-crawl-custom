@@ -101,13 +101,16 @@ on("change:test", function() {
 });
 
 ['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
-	on(`change:${attr}`, function() {
+	on(`change:${attr} change:level`, function() {
 		update_mod(`${attr}`);
+		update_attr_mod_level(`${attr}`);
+
 
 		const cap = attr.charAt(0).toUpperCase() + attr.slice(1);
 		check_customac(cap);
 
 		(attr === "strength") ? update_weight() : false;
+		(attr === "constitution") ? update_weight() : false;
 		(attr === "dexterity") ? update_initiative() : false;
 		(attr === "intelligence") ? update_initiative() : false;
 
@@ -3370,7 +3373,7 @@ var update_weight = function() {
 	var update = {};
 	var wtotal = 0;
 	var stotal = 0; // ITEM SLOTS
-	var weight_attrs = ["cp", "sp", "ep", "gp", "pp", "currency_value", "encumberance_setting", "strength", "strength-mod", "size", "carrying_capacity_mod", "inventory_slots_mod", "use_inventory_slots", "itemweightfixed", "itemslotsfixed"];
+	var weight_attrs = ["cp", "sp", "ep", "gp", "pp", "currency_value", "encumberance_setting", "strength", "strength-mod", "constitution", "constitution-mod", "size", "carrying_capacity_mod", "inventory_slots_mod", "use_inventory_slots", "itemweightfixed", "itemslotsfixed"];
 	getSectionIDs("repeating_inventory", function(idarray) {
 		_.each(idarray, function(currentID, i) {
 			weight_attrs.push("repeating_inventory_" + currentID + "_itemweight");
@@ -3465,7 +3468,8 @@ var update_weight = function() {
 					}
 				}
 
-				size_slots += parseInt(v.strength-mod, 10);
+				//Change to allow player to sub constitution
+				size_slots += Math.max(parseInt(v["strength-mod"], 10), parseInt(v["constitution-mod"], 10));
 
 				if (v.inventory_slots_mod) {
 					var operator = v.inventory_slots_mod.substring(0, 1);
@@ -3492,7 +3496,7 @@ var update_weight = function() {
 
 			} else {
 
-				var str_base = parseInt(v.strength, 10);
+				var str_base = Math.max(parseInt(v.strength, 10), parseInt(v.constitution, 10) ) ;
 				var size_multiplier = 1;
 				if (v["size"] && v["size"] != "") {
 					if (v["size"].toLowerCase().trim() == "tiny") {
@@ -4938,6 +4942,16 @@ var update_will = function(){
 		will = will + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["will-misc"], 10);
 		let update = {};
 		update["will"] = will;
+		setAttrs(update);
+	});
+};
+
+var update_attr_mod_level = function (attr) {
+	getAttrs([attr, "halflevel"], function(v) {
+		var finalattr = v[attr] && isNaN(v[attr]) === false ? Math.floor((parseInt(v[attr], 10) - 10) / 2) : 0;
+		finalattr = finalattr + parseInt(v["halflevel"], 10);
+		var update = {};
+		update[attr + "-mod-level"] = finalattr;
 		setAttrs(update);
 	});
 };
