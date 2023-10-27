@@ -159,7 +159,7 @@ on("change:test", function() {
 	});
 });
 
-on("change:initiative_misc", function(eventinfo){
+on("change:initiative-misc", function(eventinfo){
 	if(eventinfo.sourceType === "sheetworker") {return;};
 	update_initiative();
 });
@@ -615,10 +615,10 @@ on("change:cancel", function(eventinfo) {
 	setAttrs(update, {silent: true});
 });
 
-on("change:passiveperceptionmod change:passive_perception_misc", function(eventinfo) {
+on("change:passiveperceptionmod change:passive_perception-misc", function(eventinfo) {
 	update_passive_perception();
 });
-on("change:passiveinsightmod change:passive_insight_misc", function(eventinfo) {
+on("change:passiveinsightmod change:passive_insight-misc", function(eventinfo) {
 	update_passive_insight();
 });
 
@@ -3555,7 +3555,7 @@ var update_ac = function() {
 		}
 		else {
 			var update = {};
-			var ac_attrs = ["simpleinventory","custom_ac_base","custom_ac_part1","custom_ac_part2","strength-mod","dexterity-mod","constitution-mod","intelligence-mod","wisdom-mod","charisma-mod", "custom_ac_shield", "ac_misc"];
+			var ac_attrs = ["simpleinventory","custom_ac_base","custom_ac_part1","custom_ac_part2","strength-mod","dexterity-mod","constitution-mod","intelligence-mod","wisdom-mod","charisma-mod", "custom_ac_shield", "ac-misc"];
 			getSectionIDs("repeating_acmod", function(acidarray) {
 				_.each(acidarray, function(currentID, i) {
 					ac_attrs.push("repeating_acmod_" + currentID + "_global_ac_val");
@@ -3572,10 +3572,10 @@ var update_ac = function() {
 							var base = isNaN(parseInt(b.custom_ac_base, 10)) === false ? parseInt(b.custom_ac_base, 10) : 10;
 							var part1attr = b.custom_ac_part1.toLowerCase();
 							var part2attr = b.custom_ac_part2.toLowerCase();
-							var part3attr = b.ac_misc.toLowerCase();
+							var part3attr = b.ac-misc.toLowerCase();
 							var part1 = part1attr === "none" ? 0 : parseInt(b[part1attr + "_mod"], 10);
 							var part2 = part2attr === "none" ? 0 : parseInt(b[part2attr + "_mod"], 10);
-							var part3 = part3attr === "none" ? 0 : parseInt(b["ac_misc"], 10);
+							var part3 = part3attr === "none" ? 0 : parseInt(b["ac-misc"], 10);
 							custom_total = base + part1 + part2 + part3;
 						}
 						var globalacmod = 0;
@@ -3676,7 +3676,7 @@ var check_customac = function(attr) {
 };
 
 var update_initiative = function() {
-	var attrs_to_get = ["dexterity","dexterity-mod","intelligence-mod","initmod","jack_of_all_trades","jack","init_tiebreaker","pb_type","use_intelligent_initiative","initiative_misc","level"];
+	var attrs_to_get = ["dexterity","dexterity-mod","intelligence-mod","initmod","jack_of_all_trades","jack","init_tiebreaker","pb_type","use_intelligent_initiative","initiative-misc","level"];
 	getSectionIDs("repeating_inventory", function(idarray){
 		_.each(idarray, function(currentID, i) {
 			attrs_to_get.push("repeating_inventory_" + currentID + "_equipped");
@@ -3726,7 +3726,7 @@ var update_initiative = function() {
 			final_init = final_init + Math.floor(parseInt(v["level"], 10)/2);
 			//Player custom edit on core page
 			console.log("Changing Init " + final_init);
-			final_init = final_init + parseInt(v["initiative_misc"], 10);
+			final_init = final_init + parseInt(v["initiative-misc"], 10);
 			console.log("Changing Init " + final_init);
 
 			if(final_init % 1 != 0) {
@@ -4186,11 +4186,11 @@ var update_spell_info = function(attr) {
 };
 
 var update_passive_perception = function() {
-	getAttrs(["pb_type","passiveperceptionmod","perception_modifier","passive_perception_misc" ], function(v) {
+	getAttrs(["pb_type","passiveperceptionmod","perception_modifier","passive_perception-misc" ], function(v) {
 		var passive_perception = 10;
 		var mod = !isNaN(parseInt(v["passiveperceptionmod"],10)) ? parseInt(v["passiveperceptionmod"],10) : 0;
 		var bonus = !isNaN(parseInt(v["perception_modifier"],10)) ? parseInt(v["perception_modifier"],10) : 0;
-		var misc = !isNaN(parseInt(v["passive_perception_misc"],10)) ? parseInt(v["passive_perception_misc"],10) : 0;
+		var misc = !isNaN(parseInt(v["passive_perception-misc"],10)) ? parseInt(v["passive_perception-misc"],10) : 0;
 		var update = {};
 		if(v["pb_type"] && v["pb_type"] === "die" && v["perception_modifier"] && isNaN(v["perception_modifier"]) && v["perception_modifier"].indexOf("+") > -1) {
 			var pieces = v["perception_modifier"].split(/\+|d/);
@@ -4207,11 +4207,11 @@ var update_passive_perception = function() {
 };
 
 var update_passive_insight = function() {
-	getAttrs(["pb_type","passiveinsightmod","insight_modifier","passive_insight_misc" ], function(v) {
+	getAttrs(["pb_type","passiveinsightmod","insight_modifier","passive_insight-misc" ], function(v) {
 		var passive_insight = 10;
 		var mod = !isNaN(parseInt(v["passiveinsightmod"],10)) ? parseInt(v["passiveinsightmod"],10) : 0;
 		var bonus = !isNaN(parseInt(v["insight_modifier"],10)) ? parseInt(v["insight_modifier"],10) : 0;
-		var misc = !isNaN(parseInt(v["passive_insight_misc"],10)) ? parseInt(v["passive_insight_misc"],10) : 0;
+		var misc = !isNaN(parseInt(v["passive_insight-misc"],10)) ? parseInt(v["passive_insight-misc"],10) : 0;
 		var update = {};
 		if(v["pb_type"] && v["pb_type"] === "die" && v["insight_modifier"] && isNaN(v["insight_modifier"]) && v["insight_modifier"].indexOf("+") > -1) {
 			var pieces = v["insight_modifier"].split(/\+|d/);
@@ -4890,42 +4890,42 @@ var filterBlobs = function(blobs, filters) {
 };
 
 // //New Functions
-on("change:fort_misc change:level", function() {
+on("change:fort-misc change:level", function() {
 	update_fortitude()
 });
 
 var update_fortitude = function(){
-	getAttrs(["strength-mod","constitution-mod","level", "fort_misc"], function(v) {
+	getAttrs(["strength-mod","constitution-mod","level", "fort-misc"], function(v) {
 		var fort = Math.max(parseInt(v["strength-mod"], 10 ), parseInt(v["constitution-mod"], 10 ) );
-		fort = fort + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["fort_misc"], 10);
+		fort = fort + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["fort-misc"], 10);
 		let update = {};
 		update["fort"] = fort;
 		setAttrs(update);
 	});
 };
 
-on("change:ref_misc change:level", function(){
+on("change:ref-misc change:level", function(){
 	update_reflex();
 });
 
 var update_reflex = function(){
-	getAttrs(["dexterity-mod","intelligence-mod","level","ref_misc"], function(v) {
+	getAttrs(["dexterity-mod","intelligence-mod","level","ref-misc"], function(v) {
 		var ref = Math.max(parseInt(v["dexterity-mod"], 10 ), parseInt(v["intelligence-mod"], 10 ) );
-		ref = ref + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["ref_misc"], 10);
+		ref = ref + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["ref-misc"], 10);
 		let update = {};
 		update["ref"] = ref;
 		setAttrs(update);
 	});
 };
 
-on("change:will_misc change:level", function(){
+on("change:will-misc change:level", function(){
 	update_will();
 });
 
 var update_will = function(){
-	getAttrs(["wisdom-mod","charisma-mod","level","will_misc"], function(v) {
+	getAttrs(["wisdom-mod","charisma-mod","level","will-misc"], function(v) {
 		var will = Math.max(parseInt(v["wisdom-mod"], 10 ), parseInt(v["charisma-mod"], 10 ) );
-		will = will + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["will_misc"], 10);
+		will = will + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["will-misc"], 10);
 		let update = {};
 		update["will"] = will;
 		setAttrs(update);
