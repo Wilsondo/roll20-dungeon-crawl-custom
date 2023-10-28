@@ -5080,10 +5080,10 @@ on("change:repeating_wounds remove:repeating_wounds", function (eventinfo) {
 });
 
 // CHANGE STRESS
-on("change:intelligence change:level", function (eventinfo) {
-	getAttrs(["intelligence","level"], function(v) {
-		let stress_top = (parseInt(v["intelligence"], 10)*4) + parseInt(v["level"], 10) + 20;
-		let update = {}''
+on("change:intelligence-mod change:level", function (eventinfo) {
+	getAttrs(["intelligence-mod","level"], function(v) {
+		let stress_top = (parseInt(v["intelligence-mod"], 10)*4) + parseInt(v["level"], 10) + 20;
+		let update = {};
 		update["stress_state_A"] = Math.ceil(stress_top/2) + ": Affliction";
 		update["stress_state_B"] = Math.ceil(stress_top*(3/4)) + ": Affliction";
 		update["stress_state_C"] = Math.ceil(stress_top*(7/8)) + ": Affliction";
@@ -5094,9 +5094,9 @@ on("change:intelligence change:level", function (eventinfo) {
 
 
 on("change:stress", function (eventinfo) {
-	getAttrs(["intelligence","level","stress"], function(v) {
+	getAttrs(["intelligence-mod","level","stress"], function(v) {
 
-		let stress_top = (parseInt(v["intelligence"], 10)*4) + parseInt(v["level"], 10) + 20
+		let stress_top = (parseInt(v["intelligence-mod"], 10)*4) + parseInt(v["level"], 10) + 20
 		let stress = parseInt(v["stress"], 10)
 		let update = {};
 
