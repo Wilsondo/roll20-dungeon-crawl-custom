@@ -170,7 +170,7 @@ on("change:death_save_mod", function(eventinfo) {
 });
 
 ["athletics", "acrobatics", "thievery", "stealth", "arcana", "history", "nature", "religion", "dungeoneering", "insight", "heal", "perception", "streetwise", "bluff", "intimidate", "endurance", "diplomacy"].forEach(attr => {
-	on(`change:${attr}-trained change:${attr}_type change:${attr}-misc change:${attr}_attribute`, function(eventinfo) {
+	on(`change:${attr}-trained change:${attr}_type change:${attr}-misc change:${attr}-pen change:${attr}_attribute`, function(eventinfo) {
 		if(eventinfo.sourceType === "sheetworker") {return;};
 		update_skills([`${attr}`]);
 	});
@@ -822,6 +822,7 @@ var update_skills = function (skills_array) {
 		attrs_to_get.push(s + "-trained");
 		attrs_to_get.push(s + "_type");
 		attrs_to_get.push(s + "-misc");
+		attrs_to_get.push(s + "-pen");
 		attrs_to_get.push("level");
 	});
 
@@ -844,6 +845,7 @@ var update_skills = function (skills_array) {
 				//If they are trained, they get a flat +5 to the skill
 				var prof = v[s + "-trained"] != 0 ? 5 : 0;
 				var flat = v[s + "-misc"] && !isNaN(parseInt(v[s + "-misc"], 10)) ? parseInt(v[s + "-misc"], 10) : 0;
+				var pen = v[s + "-pen"] && !isNaN(parseInt(v[s + "-pen"], 10)) ? parseInt(v[s + "-pen"], 10) : 0;
 				var type = v[s + "_type"] && !isNaN(parseInt(v[s + "_type"], 10)) ? parseInt(v[s + "_type"], 10) : 1;
 				var jack = v["jack_of_all_trades"] && v["jack_of_all_trades"] != 0 && v["jack"] ? v["jack"] : 0;
 				var halfLevel = Math.floor(parseInt(v["level"], 10)/2);
@@ -873,7 +875,7 @@ var update_skills = function (skills_array) {
 					};
 				});
 
-				var total = attr_mod + flat + item_bonus + prof + halfLevel;
+				var total = attr_mod + flat + item_bonus + prof + halfLevel - pen;
 				// console.log("Total value:" + total)
 
 				// if(v["pb_type"] && v["pb_type"] === "die") {
