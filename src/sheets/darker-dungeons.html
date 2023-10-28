@@ -4212,14 +4212,14 @@
 														<span>Add Dex Tiebreaker to Initiative</span>
 													</label>
 												</div>
-												<div class="sheet-form-group">
+												<!-- <div class="sheet-form-group">
 													<label>Armor Class Tracking:</label>
 													<select name="attr_custom_ac_flag" title="@{custom_ac_flag}">
 														<option value="0">Automatic</option>
-														<option value="1" selected="selected">Custom</option>
-														<option value="2">Off</option>
+														<option value="1" >Custom</option>
+														<option value="2" selected="selected">Off</option>
 													</select>
-												</div>
+												</div> -->
 												<input type="hidden" name="attr_custom_ac_flag" class="sheet-field-toggle">
 												<div class="sheet-form-fieldset sheet-form-fieldset-custom-ac">
 													<div class="sheet-form-fieldset-header">CUSTOM AC</div>
@@ -4593,6 +4593,121 @@
 												<div class="sheet-form-group">
 													<label>Passive Insight Modifier:</label>
 													<input type="text" name="attr_passiveinsightmod" placeholder="0" title="@{passiveinsightmod}">
+												</div>
+												<div class="sheet-form-group">
+													<label><strong>DEFENSES BELOW</strong></label>
+												</div>
+												<div class="sheet-form-group">
+													<label>AC:</label>
+													<span name="attr_ac" title="ac">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Ability:</label>
+													<input type="text" name="attr_ac-ability" placeholder="0" title="@{ac-ability}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Armor:</label>
+													<input type="text" name="attr_ac-armor" placeholder="0" title="@{ac-armor}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Class:</label>
+													<input type="text" name="attr_ac-class" placeholder="0" title="@{ac-class}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Feat:</label>
+													<input type="text" name="attr_ac-feat" placeholder="0" title="@{ac-feat}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Enhancement:</label>
+													<input type="text" name="attr_ac-enh" placeholder="0" title="@{ac-enh}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Misc 2:</label>
+													<input type="text" name="attr_ac-misc2" placeholder="0" title="@{ac-misc2}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Fort:</label>
+													<span name="attr_fort" title="fort">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Ability:</label>
+													<span name="attr_fort-ability" title="fort-ability">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Armor:</label>
+													<input type="text" name="attr_fort-armor" plforteholder="0" title="@{fort-armor}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Class:</label>
+													<input type="text" name="attr_fort-class" plforteholder="0" title="@{fort-class}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Feat:</label>
+													<input type="text" name="attr_fort-feat" plforteholder="0" title="@{fort-feat}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Enhancement:</label>
+													<input type="text" name="attr_fort-enh" plforteholder="0" title="@{fort-enh}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Misc 2:</label>
+													<input type="text" name="attr_fort-misc2" plforteholder="0" title="@{fort-misc2}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Reflex:</label>
+													<span name="attr_ref" title="ref">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Ability:</label>
+													<span name="attr_ref-ability" title="ref-ability">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Armor:</label>
+													<input type="text" name="attr_ref-armor" plrefeholder="0" title="@{ref-armor}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Class:</label>
+													<input type="text" name="attr_ref-class" plrefeholder="0" title="@{ref-class}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Feat:</label>
+													<input type="text" name="attr_ref-feat" plrefeholder="0" title="@{ref-feat}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Enhancement:</label>
+													<input type="text" name="attr_ref-enh" plrefeholder="0" title="@{ref-enh}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Misc 2:</label>
+													<input type="text" name="attr_ref-misc2" plrefeholder="0" title="@{ref-misc2}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Will:</label>
+													<span name="attr_will" title="will">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Armor:</label>
+													<input type="text" name="attr_will-armor" plwilleholder="0" title="@{will-armor}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Ability:</label>
+													<span name="attr_will-ability" title="will-ability">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Class:</label>
+													<input type="text" name="attr_will-class" plwilleholder="0" title="@{will-class}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Feat:</label>
+													<input type="text" name="attr_will-feat" plwilleholder="0" title="@{will-feat}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Enhancement:</label>
+													<input type="text" name="attr_will-enh" plwilleholder="0" title="@{will-enh}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Misc 2:</label>
+													<input type="text" name="attr_will-misc2" plwilleholder="0" title="@{will-misc2}">
 												</div>
 											</div>
 										</div>

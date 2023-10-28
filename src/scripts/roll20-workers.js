@@ -98,7 +98,7 @@ on("sheet:compendium-drop", function() {
 
 
 		const cap = attr.charAt(0).toUpperCase() + attr.slice(1);
-		check_customac(cap);
+		// check_customac(cap);
 
 		(attr === "strength") ? update_weight() : false;
 		(attr === "constitution") ? update_weight() : false;
@@ -106,9 +106,9 @@ on("sheet:compendium-drop", function() {
 		(attr === "intelligence") ? update_initiative() : false;
 
 
-		(attr === "strength" || attr == "constitution") ? update_fortitude() : false;
-		(attr === "dexterity"|| attr === "intelligence") ? update_reflex() : false;
-		(attr === "wisdom"|| attr === "charisma") ? update_will() : false;
+		(attr === "strength" || attr == "constitution") ? update_fortitude_ability() : false;
+		(attr === "dexterity"|| attr === "intelligence") ? update_reflex_ability() : false;
+		(attr === "wisdom"|| attr === "charisma") ? update_will_ability() : false;
 
 
 	});
@@ -127,7 +127,7 @@ on("sheet:compendium-drop", function() {
 				break;
 			case "dexterity":
 				update_skills(["acrobatics", "thievery", "stealth"]);
-				update_ac();
+				// update_ac();
 				update_initiative();
 				break;
 			case "intelligence":
@@ -361,12 +361,12 @@ on("change:repeating_inventory:itemmodifiers change:repeating_inventory:equipped
 	});
 });
 
-on("change:custom_ac_flag change:custom_ac_base change:custom_ac_part1 change:custom_ac_part2 change:custom_ac_shield", function(eventinfo) {
-	if(eventinfo.sourceType && eventinfo.sourceType === "sheetworker") {
-		return;
-	}
-	update_ac();
-});
+// on("change:custom_ac_flag change:custom_ac_base change:custom_ac_part1 change:custom_ac_part2 change:custom_ac_shield", function(eventinfo) {
+// 	if(eventinfo.sourceType && eventinfo.sourceType === "sheetworker") {
+// 		return;
+// 	}
+// 	update_ac();
+// });
 
 ['spell-cantrip','spell-1','spell-2','spell-3','spell-4','spell-5','spell-6','spell-7','spell-8','spell-9'].forEach(attr => {
 	on(`change:repeating_${attr}:includedesc change:repeating_${attr}:innate change:repeating_${attr}:spell_ability change:repeating_${attr}:spell_updateflag change:repeating_${attr}:spellathigherlevels change:repeating_${attr}:spellattack change:repeating_${attr}:spelldamage change:repeating_${attr}:spelldamage2 change:repeating_${attr}:spelldamagetype change:repeating_${attr}:spelldamagetype2 change:repeating_${attr}:spelldescription change:repeating_${attr}:spelldmgmod change:repeating_${attr}:spellhealing change:repeating_${attr}:spellhlbonus change:repeating_${attr}:spellhldie change:repeating_${attr}:spellhldietype change:repeating_${attr}:spellname change:repeating_${attr}:spellprepared change:repeating_${attr}:spellrange change:repeating_${attr}:spellsave change:repeating_${attr}:spellsavesuccess change:repeating_${attr}:spelltarget change:repeating_${attr}:spell_damage_progression`, (eventinfo) => {
@@ -587,9 +587,9 @@ on("change:repeating_tohitmod remove:repeating_tohitmod", function(eventinfo) {
 	update_globalattack();
 });
 
-on("change:repeating_acmod remove:repeating_acmod", function(eventinfo) {
-	update_ac();
-});
+// on("change:repeating_acmod remove:repeating_acmod", function(eventinfo) {
+// 	update_ac();
+// });
 
 on("change:confirm", function(eventinfo) {
 	setAttrs({monster_confirm_flag: ""});
@@ -1188,12 +1188,12 @@ var processDrop = function(page, currentData, repeating, looped) {
 			if(page.content) {update["repeating_inventory_" + id + "_itemcontent"] = page.content};
 			if(!page.data["Item Type"] || page.data["Item Type"] == "") {page.data["Item Type"] = category};
 			var mods = "Item Type: " + page.data["Item Type"];
-			if(page.data["AC"] && page.data["AC"] != "") {
-				mods += ", AC: " + page.data["AC"];
-				if(!looped) {
-					callbacks.push( function() {update_ac();} )
-				}
-			};
+			// if(page.data["AC"] && page.data["AC"] != "") {
+			// 	mods += ", AC: " + page.data["AC"];
+			// 	if(!looped) {
+			// 		callbacks.push( function() {update_ac();} )
+			// 	}
+			// };
 			if(page.data["Damage"] && page.data["Damage"] != "") {mods += ", Damage: " + page.data["Damage"]};
 			if(page.data["Damage Type"] && page.data["Damage Type"] != "") {mods += ", Damage Type: " + page.data["Damage Type"]};
 			if(page.data["Secondary Damage"] && page.data["Secondary Damage"] != "") {mods += ", Secondary Damage: " + page.data["Secondary Damage"]};
@@ -2205,17 +2205,17 @@ var processDrop = function(page, currentData, repeating, looped) {
 				update[section + "_max"] = value["Max"] ? numUses(value["Max"]) : numUses(value["Uses"]);
 			});
 		};
-		if(blob["Custom AC"]) {
-			var customac = jsonparse(blob["Custom AC"]);
-			update["custom_ac_flag"] = "1";
-			update["custom_ac_base"] = customac.Base;
-			update["custom_ac_part1"] = customac["Attribute 1"];
-			update["custom_ac_part2"] = customac["Attribute 2"] ? customac["Attribute 2"] : "";
-			update["custom_ac_shield"] = customac.Shields;
-			if(!looped) {
-				callbacks.push( function() {update_ac();} )
-			}
-		};
+		// if(blob["Custom AC"]) {
+		// 	var customac = jsonparse(blob["Custom AC"]);
+		// 	update["custom_ac_flag"] = "1";
+		// 	update["custom_ac_base"] = customac.Base;
+		// 	update["custom_ac_part1"] = customac["Attribute 1"];
+		// 	update["custom_ac_part2"] = customac["Attribute 2"] ? customac["Attribute 2"] : "";
+		// 	update["custom_ac_shield"] = customac.Shields;
+		// 	if(!looped) {
+		// 		callbacks.push( function() {update_ac();} )
+		// 	}
+		// };
 		if(blob["Hit Points Per Level"]) {
 			var id = generateRowID();
 			update["repeating_hpmod_" + id + "_mod"] = blob["Hit Points Per Level"];
@@ -2385,7 +2385,7 @@ var check_itemmodifiers = function(modifiers, previousValue) {
 		mods = _.union(mods, prevmods);
 	};
 	_.each(mods, function(mod) {
-		if(mod.indexOf("ac:") > -1 || mod.indexOf("ac +") > -1 || mod.indexOf("ac -") > -1) {update_ac();};
+		// if(mod.indexOf("ac:") > -1 || mod.indexOf("ac +") > -1 || mod.indexOf("ac -") > -1) {update_ac();};
 		if(mod.indexOf("spell") > -1) {update_spell_info();};
 		if(mod.indexOf("saving throws") > -1) {update_all_saves();};
 		if(mod.indexOf("strength save") > -1) {update_save("strength");} else if(mod.indexOf("strength") > -1) {update_attr("strength");};
@@ -3545,132 +3545,132 @@ var update_weight = function() {
 	});
 };
 
-var update_ac = function() {
-	getAttrs(["custom_ac_flag"], function(v) {
-		if(v.custom_ac_flag === "2") {
-			return;
-		}
-		else {
-			var update = {};
-			var ac_attrs = ["simpleinventory","custom_ac_base","custom_ac_part1","custom_ac_part2","strength-mod","dexterity-mod","constitution-mod","intelligence-mod","wisdom-mod","charisma-mod", "custom_ac_shield", "ac-misc"];
-			getSectionIDs("repeating_acmod", function(acidarray) {
-				_.each(acidarray, function(currentID, i) {
-					ac_attrs.push("repeating_acmod_" + currentID + "_global_ac_val");
-					ac_attrs.push("repeating_acmod_" + currentID + "_global_ac_active_flag");
-				});
-				getSectionIDs("repeating_inventory", function(idarray) {
-					_.each(idarray, function(currentID, i) {
-						ac_attrs.push("repeating_inventory_" + currentID + "_equipped");
-						ac_attrs.push("repeating_inventory_" + currentID + "_itemmodifiers");
-					});
-					getAttrs(ac_attrs, function(b) {
-						var custom_total = 0;
-						if(v.custom_ac_flag === "1") {
-							var base = isNaN(parseInt(b.custom_ac_base, 10)) === false ? parseInt(b.custom_ac_base, 10) : 10;
-							var part1attr = b.custom_ac_part1.toLowerCase();
-							var part2attr = b.custom_ac_part2.toLowerCase();
-							var part3attr = b["ac-misc"].toLowerCase();
-							var part1 = part1attr === "none" ? 0 : parseInt(b[part1attr + "_mod"], 10);
-							var part2 = part2attr === "none" ? 0 : parseInt(b[part2attr + "_mod"], 10);
-							var part3 = part3attr === "none" ? 0 : parseInt(b["ac-misc"], 10);
-							custom_total = base + part1 + part2 + part3;
-						}
-						var globalacmod = 0;
-						_.each(acidarray, function(currentID, i) {
-							if(b["repeating_acmod_" + currentID + "_global_ac_active_flag"] == "1") {
-								globalacmod += parseInt(b["repeating_acmod_" + currentID + "_global_ac_val"], 10);
-							}
-						});
-						var dexmod = +b["dexterity-mod"];
-						var total = 10 + dexmod;
-						var armorcount = 0;
-						var shieldcount = 0;
-						var armoritems = [];
-						if(b.simpleinventory === "complex") {
-							_.each(idarray, function(currentID, i) {
-								if(b["repeating_inventory_" + currentID + "_equipped"] && b["repeating_inventory_" + currentID + "_equipped"] === "1" && b["repeating_inventory_" + currentID + "_itemmodifiers"] && b["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().indexOf("ac") > -1) {
-									var mods = b["repeating_inventory_" + currentID + "_itemmodifiers"].split(",");
-									var ac = 0;
-									var type = "mod";
-									_.each(mods, function(mod) {
-										if(mod.substring(0,10) === "Item Type:") {
-											type = mod.substring(11, mod.length).trim().toLowerCase();
-										}
-										if(mod.toLowerCase().indexOf("ac:") > -1 || mod.toLowerCase().indexOf("ac +") > -1 || mod.toLowerCase().indexOf("ac+") > -1) {
-											var regex = mod.replace(/[^0-9]/g, "");
-											var bonus = regex && regex.length > 0 && isNaN(parseInt(regex,10)) === false ? parseInt(regex,10) : 0;
-											ac = ac + bonus;
-										}
-										if(mod.toLowerCase().indexOf("ac -") > -1 || mod.toLowerCase().indexOf("ac-") > -1) {
-											var regex = mod.replace(/[^0-9]/g, "");
-											var bonus = regex && regex.length > 0 && isNaN(parseInt(regex,10)) === false ? parseInt(regex,10) : 0;
-											ac = ac - bonus;
-										}
-									});
-									armoritems.push({type: type, ac: ac});
-								}
-							});
-							armorcount = armoritems.filter(function(item){ return item["type"].indexOf("armor") > -1 }).length;
-							shieldcount = armoritems.filter(function(item){ return item["type"].indexOf("shield") > -1 }).length;
-							var base = dexmod;
-							var armorac = 10;
-							var shieldac = 0;
-							var modac = 0;
+// var update_ac = function() {
+// 	getAttrs(["custom_ac_flag"], function(v) {
+// 		if(v.custom_ac_flag === "2") {
+// 			return;
+// 		}
+// 		else {
+// 			var update = {};
+// 			var ac_attrs = ["simpleinventory","custom_ac_base","custom_ac_part1","custom_ac_part2","strength-mod","dexterity-mod","constitution-mod","intelligence-mod","wisdom-mod","charisma-mod", "custom_ac_shield", "ac-misc"];
+// 			getSectionIDs("repeating_acmod", function(acidarray) {
+// 				_.each(acidarray, function(currentID, i) {
+// 					ac_attrs.push("repeating_acmod_" + currentID + "_global_ac_val");
+// 					ac_attrs.push("repeating_acmod_" + currentID + "_global_ac_active_flag");
+// 				});
+// 				getSectionIDs("repeating_inventory", function(idarray) {
+// 					_.each(idarray, function(currentID, i) {
+// 						ac_attrs.push("repeating_inventory_" + currentID + "_equipped");
+// 						ac_attrs.push("repeating_inventory_" + currentID + "_itemmodifiers");
+// 					});
+// 					getAttrs(ac_attrs, function(b) {
+// 						var custom_total = 0;
+// 						if(v.custom_ac_flag === "1") {
+// 							var base = isNaN(parseInt(b.custom_ac_base, 10)) === false ? parseInt(b.custom_ac_base, 10) : 10;
+// 							var part1attr = b.custom_ac_part1.toLowerCase();
+// 							var part2attr = b.custom_ac_part2.toLowerCase();
+// 							var part3attr = b["ac-misc"].toLowerCase();
+// 							var part1 = part1attr === "none" ? 0 : parseInt(b[part1attr + "_mod"], 10);
+// 							var part2 = part2attr === "none" ? 0 : parseInt(b[part2attr + "_mod"], 10);
+// 							var part3 = part3attr === "none" ? 0 : parseInt(b["ac-misc"], 10);
+// 							custom_total = base + part1 + part2 + part3;
+// 						}
+// 						var globalacmod = 0;
+// 						_.each(acidarray, function(currentID, i) {
+// 							if(b["repeating_acmod_" + currentID + "_global_ac_active_flag"] == "1") {
+// 								globalacmod += parseInt(b["repeating_acmod_" + currentID + "_global_ac_val"], 10);
+// 							}
+// 						});
+// 						var dexmod = +b["dexterity-mod"];
+// 						var total = 10 + dexmod;
+// 						var armorcount = 0;
+// 						var shieldcount = 0;
+// 						var armoritems = [];
+// 						if(b.simpleinventory === "complex") {
+// 							_.each(idarray, function(currentID, i) {
+// 								if(b["repeating_inventory_" + currentID + "_equipped"] && b["repeating_inventory_" + currentID + "_equipped"] === "1" && b["repeating_inventory_" + currentID + "_itemmodifiers"] && b["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().indexOf("ac") > -1) {
+// 									var mods = b["repeating_inventory_" + currentID + "_itemmodifiers"].split(",");
+// 									var ac = 0;
+// 									var type = "mod";
+// 									_.each(mods, function(mod) {
+// 										if(mod.substring(0,10) === "Item Type:") {
+// 											type = mod.substring(11, mod.length).trim().toLowerCase();
+// 										}
+// 										if(mod.toLowerCase().indexOf("ac:") > -1 || mod.toLowerCase().indexOf("ac +") > -1 || mod.toLowerCase().indexOf("ac+") > -1) {
+// 											var regex = mod.replace(/[^0-9]/g, "");
+// 											var bonus = regex && regex.length > 0 && isNaN(parseInt(regex,10)) === false ? parseInt(regex,10) : 0;
+// 											ac = ac + bonus;
+// 										}
+// 										if(mod.toLowerCase().indexOf("ac -") > -1 || mod.toLowerCase().indexOf("ac-") > -1) {
+// 											var regex = mod.replace(/[^0-9]/g, "");
+// 											var bonus = regex && regex.length > 0 && isNaN(parseInt(regex,10)) === false ? parseInt(regex,10) : 0;
+// 											ac = ac - bonus;
+// 										}
+// 									});
+// 									armoritems.push({type: type, ac: ac});
+// 								}
+// 							});
+// 							armorcount = armoritems.filter(function(item){ return item["type"].indexOf("armor") > -1 }).length;
+// 							shieldcount = armoritems.filter(function(item){ return item["type"].indexOf("shield") > -1 }).length;
+// 							var base = dexmod;
+// 							var armorac = 10;
+// 							var shieldac = 0;
+// 							var modac = 0;
 
-							_.each(armoritems, function(item) {
-								if(item["type"].indexOf("light armor") > -1) {
-									armorac = item["ac"];
-									base = dexmod;
-								}
-								else if(item["type"].indexOf("medium armor") > -1) {
-									armorac = item["ac"];
-									base = Math.min(dexmod, 2);
-								}
-								else if(item["type"].indexOf("heavy armor") > -1) {
-									armorac = item["ac"];
-									base = 0;
-								}
-								else if(item["type"].indexOf("shield") > -1) {
-									shieldac = item["ac"];
-								}
-								else {
-									modac = modac + item["ac"]
-								}
-							});
+// 							_.each(armoritems, function(item) {
+// 								if(item["type"].indexOf("light armor") > -1) {
+// 									armorac = item["ac"];
+// 									base = dexmod;
+// 								}
+// 								else if(item["type"].indexOf("medium armor") > -1) {
+// 									armorac = item["ac"];
+// 									base = Math.min(dexmod, 2);
+// 								}
+// 								else if(item["type"].indexOf("heavy armor") > -1) {
+// 									armorac = item["ac"];
+// 									base = 0;
+// 								}
+// 								else if(item["type"].indexOf("shield") > -1) {
+// 									shieldac = item["ac"];
+// 								}
+// 								else {
+// 									modac = modac + item["ac"]
+// 								}
+// 							});
 
-							total = base + armorac + shieldac + modac;
+// 							total = base + armorac + shieldac + modac;
 
-						};
-						update["armorwarningflag"] = "hide";
-						update["customacwarningflag"] = "hide";
-						if(armorcount > 1 || shieldcount > 1) {
-							update["armorwarningflag"] = "show";
-						}
-						update["ac"] = total + globalacmod;
-						if(custom_total > 0) {
-							if(armorcount > 0 || (shieldcount > 0 && b.custom_ac_shield != "yes")) {
-								update["customacwarningflag"] = "show";
-							}
-							else {
-								update["ac"] = b.custom_ac_shield == "yes" ? custom_total + shieldac + globalacmod + modac : custom_total + globalacmod + modac;
-							}
-						}
-						// console.log("total: " + total);
-						setAttrs(update, {silent: true});
-					});
-				});
-			});
-		};
-	});
-};
+// 						};
+// 						update["armorwarningflag"] = "hide";
+// 						update["customacwarningflag"] = "hide";
+// 						if(armorcount > 1 || shieldcount > 1) {
+// 							update["armorwarningflag"] = "show";
+// 						}
+// 						update["ac"] = total + globalacmod;
+// 						if(custom_total > 0) {
+// 							if(armorcount > 0 || (shieldcount > 0 && b.custom_ac_shield != "yes")) {
+// 								update["customacwarningflag"] = "show";
+// 							}
+// 							else {
+// 								update["ac"] = b.custom_ac_shield == "yes" ? custom_total + shieldac + globalacmod + modac : custom_total + globalacmod + modac;
+// 							}
+// 						}
+// 						// console.log("total: " + total);
+// 						setAttrs(update, {silent: true});
+// 					});
+// 				});
+// 			});
+// 		};
+// 	});
+// };
 
-var check_customac = function(attr) {
-	getAttrs(["custom_ac_flag","custom_ac_part1","custom_ac_part2"], function(v) {
-		if(v["custom_ac_flag"] && v["custom_ac_flag"] === "1" && ((v["custom_ac_part1"] && v["custom_ac_part1"] === attr) || (v["custom_ac_part2"] && v["custom_ac_part2"] === attr))) {
-			update_ac();
-		}
-	});
-};
+// var check_customac = function(attr) {
+// 	getAttrs(["custom_ac_flag","custom_ac_part1","custom_ac_part2"], function(v) {
+// 		if(v["custom_ac_flag"] && v["custom_ac_flag"] === "1" && ((v["custom_ac_part1"] && v["custom_ac_part1"] === attr) || (v["custom_ac_part2"] && v["custom_ac_part2"] === attr))) {
+// 			update_ac();
+// 		}
+// 	});
+// };
 
 var update_initiative = function() {
 	var attrs_to_get = ["dexterity","dexterity-mod","intelligence-mod","initmod","jack_of_all_trades","jack","init_tiebreaker","pb_type","use_intelligent_initiative","initiative-misc","level"];
@@ -3719,12 +3719,12 @@ var update_initiative = function() {
 			});
 
 			//Add 4e half level
-			console.log("Changing Init " + final_init);
+			// console.log("Changing Init " + final_init);
 			final_init = final_init + Math.floor(parseInt(v["level"], 10)/2);
 			//Player custom edit on core page
-			console.log("Changing Init " + final_init);
+			// console.log("Changing Init " + final_init);
 			final_init = final_init + parseInt(v["initiative-misc"], 10);
-			console.log("Changing Init " + final_init);
+			// console.log("Changing Init " + final_init);
 
 			if(final_init % 1 != 0) {
 				final_init = parseFloat(final_init.toPrecision(12)); // ROUNDING ERROR BUGFIX
@@ -4896,47 +4896,100 @@ on("change:level", function() {
 		setAttrs(update);
 	});
 });
-on("change:fort-misc change:level", function() {
-	update_fortitude()
+
+
+['ac','fort','ref','will'].forEach(attr => {
+	on(`change:${attr}-armor change:${attr}-class change:${attr}-feat change:${attr}-enh change:${attr}-misc change:${attr}-misc2 change:${attr}-ability change:level`, function() {
+		var attr_fields = [attr + "-armor", attr + "-class", attr + "-feat", attr + "-enh", attr + "-misc", attr + "-misc2", attr + "-ability", "halflevel"];
+		var update = {};
+		getAttrs(attr_fields, function(v) {
+			var halfLevel = parseInt(v["halflevel"], 10);
+			var armor = v[attr + "-armor"] && !isNaN(parseInt(v[attr + "-armor"], 10)) ? parseInt(v[attr + "-armor"], 10) : 0;
+			var pc_class = v[attr + "-class"] && !isNaN(parseInt(v[attr + "-class"], 10)) ? parseInt(v[attr + "-class"], 10) : 0;
+			var feat = v[attr + "-feat"] && !isNaN(parseInt(v[attr + "-feat"], 10)) ? parseInt(v[attr + "-feat"], 10) : 0;
+			var enh = v[attr + "-enh"] && !isNaN(parseInt(v[attr + "-enh"], 10)) ? parseInt(v[attr + "-enh"], 10) : 0;
+			var misc = v[attr + "-misc"] && !isNaN(parseInt(v[attr + "-misc"], 10)) ? parseInt(v[attr + "-misc"], 10) : 0;
+			var misc2 = v[attr + "-misc2"] && !isNaN(parseInt(v[attr + "-misc2"], 10)) ? parseInt(v[attr + "-misc2"], 10) : 0;
+			var ability = v[attr + "-ability"] && !isNaN(parseInt(v[attr + "-ability"], 10)) ? parseInt(v[attr + "-ability"], 10) : 0;
+
+			console.log("class is : " + parseInt(v["ac-class"], 10))
+			var final_value = halfLevel + armor + pc_class + feat + enh + misc + misc2 + ability + 10;
+			update[attr] = final_value;
+			setAttrs(update);
+		});
+	});
 });
 
-var update_fortitude = function(){
-	getAttrs(["strength-mod","constitution-mod","level", "fort-misc"], function(v) {
+var update_fortitude_ability = function(){
+	getAttrs(["strength-mod","constitution-mod"], function(v) {
+		
 		var fort = Math.max(parseInt(v["strength-mod"], 10 ), parseInt(v["constitution-mod"], 10 ) );
-		fort = fort + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["fort-misc"], 10);
 		let update = {};
-		update["fort"] = fort;
+		update["fort-ability"] = fort;
 		setAttrs(update);
 	});
 };
 
-on("change:ref-misc change:level", function(){
-	update_reflex();
-});
-
-var update_reflex = function(){
-	getAttrs(["dexterity-mod","intelligence-mod","level","ref-misc"], function(v) {
+var update_reflex_ability = function(){
+	getAttrs(["dexterity-mod","intelligence-mod"], function(v) {
+		
 		var ref = Math.max(parseInt(v["dexterity-mod"], 10 ), parseInt(v["intelligence-mod"], 10 ) );
-		ref = ref + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["ref-misc"], 10);
 		let update = {};
-		update["ref"] = ref;
+		update["ref-ability"] = ref;
 		setAttrs(update);
 	});
 };
-
-on("change:will-misc change:level", function(){
-	update_will();
-});
-
-var update_will = function(){
-	getAttrs(["wisdom-mod","charisma-mod","level","will-misc"], function(v) {
+var update_will_ability = function(){
+	getAttrs(["wisdom-mod","charisma-mod"], function(v) {
+		
 		var will = Math.max(parseInt(v["wisdom-mod"], 10 ), parseInt(v["charisma-mod"], 10 ) );
-		will = will + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["will-misc"], 10);
 		let update = {};
-		update["will"] = will;
+		update["will-ability"] = will;
 		setAttrs(update);
 	});
 };
+// on("change:fort-misc change:level", function() {
+// 	update_fortitude()
+// });
+
+// var update_fortitude = function(){
+// 	getAttrs(["strength-mod","constitution-mod","level", "fort-misc", "fort-armor", "fort-feat", "fort-enh", "fort-misc2" ], function(v) {
+		
+// 		var fort = Math.max(parseInt(v["strength-mod"], 10 ), parseInt(v["constitution-mod"], 10 ) );
+// 		fort = fort + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["fort-misc"], 10);
+// 		let update = {};
+// 		update["fort"] = fort;
+// 		setAttrs(update);
+// 	});
+// };
+
+// on("change:ref-misc change:level", function(){
+// 	update_reflex();
+// });
+
+// var update_reflex = function(){
+// 	getAttrs(["dexterity-mod","intelligence-mod","level","ref-misc"], function(v) {
+// 		var ref = Math.max(parseInt(v["dexterity-mod"], 10 ), parseInt(v["intelligence-mod"], 10 ) );
+// 		ref = ref + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["ref-misc"], 10);
+// 		let update = {};
+// 		update["ref"] = ref;
+// 		setAttrs(update);
+// 	});
+// };
+
+// on("change:will-misc change:level", function(){
+// 	update_will();
+// });
+
+// var update_will = function(){
+// 	getAttrs(["wisdom-mod","charisma-mod","level","will-misc"], function(v) {
+// 		var will = Math.max(parseInt(v["wisdom-mod"], 10 ), parseInt(v["charisma-mod"], 10 ) );
+// 		will = will + 10 + Math.floor(parseInt(v["level"], 10)/2) + parseInt(v["will-misc"], 10);
+// 		let update = {};
+// 		update["will"] = will;
+// 		setAttrs(update);
+// 	});
+// };
 
 var update_attr_mod_level = function (attr) {
 	getAttrs([attr, "halflevel"], function(v) {
