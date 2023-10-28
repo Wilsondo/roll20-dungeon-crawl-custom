@@ -1474,10 +1474,10 @@
 										<span name="attr_initiative_bonus" title="@{initiative_bonus}"></span>
 									</div>
 									<div class="sheet-container-footer">
-										<input type="text" name="attr_initiative-misc" title="@{initiative-misc}" value="0">
-										<input type="hidden" name="attr_initiative-misc" value="0">
-										<input type="hidden" name="attr_initiative-misc_flag" value="0" class="sheet-field-toggle">
-										<span name="attr_initiative-misc"></span>
+										<input type="text" name="attr_init-misc" title="@{init-misc}" value="0">
+										<input type="hidden" name="attr_init-misc" value="0">
+										<input type="hidden" name="attr_init-misc_flag" value="0" class="sheet-field-toggle">
+										<span name="attr_init-misc"></span>
 									</div>
 								</div>
 								<div class="sheet-container-bar sheet-pc-fate">
@@ -4143,7 +4143,7 @@
 												</div>
 												<div class="sheet-form-group">
 													<label class="sheet-form-checkbox" title="@{use_intelligent_initiative}">
-														<input type="checkbox" name="attr_use_intelligent_initiative" value="0" checked="unchecked">
+														<input type="checkbox" name="attr_use_intelligent_initiative" value="1" checked="checked">
 														<span>Use Intelligence for Initiative</span>
 													</label>
 												</div>
@@ -4197,6 +4197,14 @@
 												<div class="sheet-form-group">
 													<label>Initiative Bonus:</label>
 													<input type="text" name="attr_initmod" placeholder="0" title="@{initmod}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Initiative Feat:</label>
+													<input type="text" name="attr_init-feat" placeholder="0" title="@{init-feat}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Initiative Item:</label>
+													<input type="text" name="attr_init-item" placeholder="0" title="@{init-item}">
 												</div>
 												<div class="sheet-form-group">
 													<label>Initiative Style:</label>

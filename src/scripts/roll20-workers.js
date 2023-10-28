@@ -154,8 +154,7 @@ on("sheet:compendium-drop", function() {
 	});
 });
 
-on("change:initiative-misc", function(eventinfo){
-	if(eventinfo.sourceType === "sheetworker") {return;};
+on("change:halflevel change:init-feat change:init-item change:init-misc", function(eventinfo){
 	update_initiative();
 });
 
@@ -3673,58 +3672,59 @@ var update_weight = function() {
 // };
 
 var update_initiative = function() {
-	var attrs_to_get = ["dexterity","dexterity-mod","intelligence-mod","initmod","jack_of_all_trades","jack","init_tiebreaker","pb_type","use_intelligent_initiative","initiative-misc","level"];
-	getSectionIDs("repeating_inventory", function(idarray){
-		_.each(idarray, function(currentID, i) {
-			attrs_to_get.push("repeating_inventory_" + currentID + "_equipped");
-			attrs_to_get.push("repeating_inventory_" + currentID + "_itemmodifiers");
-		});
+	var attrs_to_get = ["dexterity","dexterity-mod","intelligence-mod","initmod","jack_of_all_trades","jack","init_tiebreaker","pb_type","use_intelligent_initiative","halflevel", "halflevel", "init-item", "init-feat", "init-misc"];
+	// getSectionIDs("repeating_inventory", function(idarray){
+		// _.each(idarray, function(currentID, i) {
+		// 	attrs_to_get.push("repeating_inventory_" + currentID + "_equipped");
+		// 	attrs_to_get.push("repeating_inventory_" + currentID + "_itemmodifiers");
+		// });
 		getAttrs(attrs_to_get, function(v) {
 			var update = {};
 			var final_init = parseInt(v["dexterity-mod"], 10);
 			if(v["use_intelligent_initiative"] && v["use_intelligent_initiative"] != 0) {
 				final_init = parseInt(v["intelligence-mod"], 10);
 			}
+
 			if(v["initmod"] && !isNaN(parseInt(v["initmod"], 10))) {
 				final_init = final_init + parseInt(v["initmod"], 10);
 			}
+
 			if(v["init_tiebreaker"] && v["init_tiebreaker"] != 0) {
 				final_init = final_init + (parseInt(v["dexterity"], 10)/100);
 			}
-			if(v["jack_of_all_trades"] && v["jack_of_all_trades"] != 0) {
-				if(v["pb_type"] && v["pb_type"] === "die" && v["jack"]) {
-					// final_init = final_init + Math.floor(parseInt(v["jack"].substring(1),10)/2);
-					final_init = final_init + "+" + v["jack"];
-				}
-				else if(v["jack"] && !isNaN(parseInt(v["jack"], 10))) {
-					final_init = final_init + parseInt(v["jack"], 10);
-				}
-			}
-			_.each(idarray, function(currentID){
-				if(v["repeating_inventory_" + currentID + "_equipped"] && v["repeating_inventory_" + currentID + "_equipped"] === "1" && v["repeating_inventory_" + currentID + "_itemmodifiers"] && v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().indexOf("ability checks") > -1) {
-					var mods = v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().split(",");
-					_.each(mods, function(mod) {
-						if(mod.indexOf("ability checks") > -1) {
-							if(mod.indexOf("-") > -1) {
-								var new_mod = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
-								final_init = new_mod ? final_init - new_mod : final_init;
-							}
-							else {
-								var new_mod = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
-								final_init = new_mod ? final_init + new_mod : final_init;
-							}
-						}
-					});
-				}
-			});
 
-			//Add 4e half level
-			// console.log("Changing Init " + final_init);
-			final_init = final_init + Math.floor(parseInt(v["level"], 10)/2);
-			//Player custom edit on core page
-			// console.log("Changing Init " + final_init);
-			final_init = final_init + parseInt(v["initiative-misc"], 10);
-			// console.log("Changing Init " + final_init);
+			// if(v["jack_of_all_trades"] && v["jack_of_all_trades"] != 0) {
+			// 	if(v["pb_type"] && v["pb_type"] === "die" && v["jack"]) {
+			// 		// final_init = final_init + Math.floor(parseInt(v["jack"].substring(1),10)/2);
+			// 		final_init = final_init + "+" + v["jack"];
+			// 	}
+			// 	else if(v["jack"] && !isNaN(parseInt(v["jack"], 10))) {
+			// 		final_init = final_init + parseInt(v["jack"], 10);
+			// 	}
+			// }
+			// _.each(idarray, function(currentID){
+			// 	if(v["repeating_inventory_" + currentID + "_equipped"] && v["repeating_inventory_" + currentID + "_equipped"] === "1" && v["repeating_inventory_" + currentID + "_itemmodifiers"] && v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().indexOf("ability checks") > -1) {
+			// 		var mods = v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().split(",");
+			// 		_.each(mods, function(mod) {
+			// 			if(mod.indexOf("ability checks") > -1) {
+			// 				if(mod.indexOf("-") > -1) {
+			// 					var new_mod = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
+			// 					final_init = new_mod ? final_init - new_mod : final_init;
+			// 				}
+			// 				else {
+			// 					var new_mod = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
+			// 					final_init = new_mod ? final_init + new_mod : final_init;
+			// 				}
+			// 			}
+			// 		});
+			// 	}
+			// });
+			var halfLevel = v["halflevel"] && !isNaN(parseInt(v["halflevel"], 10)) ? parseInt(v["halflevel"], 10) : 0;
+			var misc = v["init-misc"] && !isNaN(parseInt(v["init-misc"], 10)) ? parseInt(v["init-misc"], 10) : 0;
+			var feat = v["init-feat"] && !isNaN(parseInt(v["init-feat"], 10)) ? parseInt(v["init-feat"], 10) : 0;
+			var item = v["init-item"] && !isNaN(parseInt(v["init-item"], 10)) ? parseInt(v["init-item"], 10) : 0;
+			final_init = final_init + halfLevel + misc + feat + item;
+
 
 			if(final_init % 1 != 0) {
 				final_init = parseFloat(final_init.toPrecision(12)); // ROUNDING ERROR BUGFIX
@@ -3733,7 +3733,6 @@ var update_initiative = function() {
 			update["initiative"] = final_init;
 			setAttrs(update, {silent: true});
 		});
-	});
 };
 
 var update_class = function() {
@@ -4912,7 +4911,7 @@ on("change:level", function() {
 			var misc2 = v[attr + "-misc2"] && !isNaN(parseInt(v[attr + "-misc2"], 10)) ? parseInt(v[attr + "-misc2"], 10) : 0;
 			var ability = v[attr + "-ability"] && !isNaN(parseInt(v[attr + "-ability"], 10)) ? parseInt(v[attr + "-ability"], 10) : 0;
 
-			console.log("class is : " + parseInt(v["ac-class"], 10))
+			// console.log("class is : " + parseInt(v["ac-class"], 10))
 			var final_value = halfLevel + armor + pc_class + feat + enh + misc + misc2 + ability + 10;
 			update[attr] = final_value;
 			setAttrs(update);
