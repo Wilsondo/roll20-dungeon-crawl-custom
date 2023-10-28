@@ -84,15 +84,6 @@ on("sheet:compendium-drop", function() {
 	});
 });
 
-on("change:test", function() {
-	console.log("TEST HAS CHANGED")
-	getAttrs(["test"], function(values) {
-	   setAttrs({
-		   testA: value.test + 1
-	   });
-	});
- });
- 
  ['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
 	on(`change:${attr}_base change:${attr}_bonus`, function() {
 		update_attr(`${attr}`);
@@ -846,7 +837,6 @@ var update_skills = function (skills_array) {
 				var attr_mod = 0;
 				if (v[s + "_attribute"]) {
 					var attribute = v[s + "_attribute"].toLowerCase() + "-mod";
-					console.log("Getting attr:" + attribute);
 					attr_mod = parseInt(v[attribute], 10);
 				}
 
@@ -858,12 +848,12 @@ var update_skills = function (skills_array) {
 				var jack = v["jack_of_all_trades"] && v["jack_of_all_trades"] != 0 && v["jack"] ? v["jack"] : 0;
 				var halfLevel = Math.floor(parseInt(v["level"], 10)/2);
 
-				console.log("half Level: " + halfLevel);
+				// console.log("half Level: " + halfLevel);
 
 				var item_bonus = 0;
 
-				console.log("prof is: " + prof);
-				console.log("Getting attr:" + attr_mod);
+				// console.log("prof is: " + prof);
+				// console.log("Getting attr:" + attr_mod);
 
 				_.each(idarray, function(currentID) {
 					if(v["repeating_inventory_" + currentID + "_equipped"] && v["repeating_inventory_" + currentID + "_equipped"] === "1" && v["repeating_inventory_" + currentID + "_itemmodifiers"] && (v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().replace(/ /g,"_").indexOf(s) > -1 || v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().indexOf("ability checks") > -1)) {
@@ -884,7 +874,7 @@ var update_skills = function (skills_array) {
 				});
 
 				var total = attr_mod + flat + item_bonus + prof + halfLevel;
-				console.log("Total value:" + total)
+				// console.log("Total value:" + total)
 
 				// if(v["pb_type"] && v["pb_type"] === "die") {
 				// 	if(v[s + "-trained"] != 0) {
@@ -3663,7 +3653,7 @@ var update_ac = function() {
 								update["ac"] = b.custom_ac_shield == "yes" ? custom_total + shieldac + globalacmod + modac : custom_total + globalacmod + modac;
 							}
 						}
-						console.log("total: " + total);
+						// console.log("total: " + total);
 						setAttrs(update, {silent: true});
 					});
 				});
@@ -5109,26 +5099,17 @@ on("change:stress", function (eventinfo) {
 		let stress_top = (parseInt(v["intelligence"], 10)*4) + parseInt(v["level"], 10) + 20
 		let stress = parseInt(v["stress"], 10)
 		let update = {};
-		// console.log(stress)
-		// console.log(Math.ceil(stress_top/2));
-		// console.log(Math.ceil(stress_top*(3/4)));
-		// console.log(Math.ceil(stress_top*(7/8)));
-		// console.log(stress_top);
 
 		if (stress >= Math.ceil(stress_top/2)){
-			console.log("A")
 			update["stress_state_check_A"] = 1;
 		}
 		if (stress >= Math.ceil(stress_top * (3/4))) {
-			console.log("B")
 			update["stress_state_check_B"] = 1;
 		}
 		if (stress >= Math.ceil(stress_top * (7/8))) {
-			console.log("C")
 			update["stress_state_check_C"] = 1;
 		}
 		if (stress >= stress_top) {
-			console.log("D")
 			update["stress_state_check_D"] = 1;
 		}
 		setAttrs(update);
