@@ -225,6 +225,7 @@
 		.sheet-container-effects{
 			display: flex;
 			flex-direction: column;
+			grid-area: effects;
 		}
 
 		.sheet-pc-resource-class {
@@ -510,7 +511,7 @@
 			grid-template-columns: repeat(7, 1fr);
 			grid-template-rows: 30px 30px;
 			grid-column-gap: 5px;
-			grid-row-gap: 5px;
+			grid-row-gap: 30px;
 			grid-template-areas:
 			"armor fortitude reflex will initiative fate fate"
 			"armor fortitude reflex will initiative death-saves death-saves";
@@ -562,7 +563,6 @@
 
 			.sheet-pc-death-saves-bar {
 				grid-area: death-saves;
-			}
 		}
 
 		.sheet-container-well-health {
@@ -578,7 +578,7 @@
 
 			.sheet-pc-hit-dice {
 				grid-area: hit-dice;
-				max-height: 65px;
+				min-height: 65px;
 
 				.sheet-container-body {
 					display: flex;
