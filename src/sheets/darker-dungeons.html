@@ -1537,7 +1537,7 @@
 									</div> -->
 									<div class="sheet-container-box sheet-pc-hit-dice">
 										<div class="sheet-container-header">
-											<button type="roll" name="roll_surge" value="@{wtype}&{template:simple} {{rname=Hit Dice}} {{mod=D@{hitdie_final}+[[@{constitution-mod}[CON]]]}} {{r1=[[1d@{hitdie_final}+[[@{constitution-mod}]][CON]]]}} {{normal=1}} @{charname_output}">Healing Surge</button>
+											<button type="roll" name="roll_surge" value="@{wtype}&{template:simple} {{rname=Healing Hitpoints}} {{r1=[[@{surge-value}]]}} {{normal=1}} @{charname_output}">Healing Surge</button>
 										</div>
 										<div class="sheet-container-body">
 											<input type="text" name="attr_surges" title="@{surges}">
