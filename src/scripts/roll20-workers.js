@@ -4948,11 +4948,11 @@ var update_attr_mod_level = function (attr) {
 
 
 //HP related stuff
-on("change:hp-max", function() {
-	getAttrs(["hp-max"], function(v) {
+on("change:hp_max", function() {
+	getAttrs(["hp_max"], function(v) {
 		let update = {};
-		let surgeValue = Math.floor(parseInt(v["hp-max"], 10)/4);
-		let bloodied= Math.floor(parseInt(v["hp-max"], 10)/2);
+		let surgeValue = Math.floor(parseInt(v["hp_max"], 10)/4);
+		let bloodied= Math.floor(parseInt(v["hp_max"], 10)/2);
 
 		update["surge-value"] = surgeValue;
 		update["hp-bloodied"] = bloodied;
@@ -4994,7 +4994,7 @@ on("change:exhaustion_base change:exhaustion_wounds change:exhaustion_conditions
 	let field4 = "show_survival_conditions";
 	let field5 = "surges"
 	let field6 = "healing_surge_lost";
-	let field7 = "surges-max";
+	let field7 = "surges_max";
 
 
 	getAttrs([field1, field2, field3, field4, field5, field6, field7], function (v) {
