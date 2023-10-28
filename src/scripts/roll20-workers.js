@@ -3577,7 +3577,7 @@ var update_ac = function() {
 							var base = isNaN(parseInt(b.custom_ac_base, 10)) === false ? parseInt(b.custom_ac_base, 10) : 10;
 							var part1attr = b.custom_ac_part1.toLowerCase();
 							var part2attr = b.custom_ac_part2.toLowerCase();
-							var part3attr = b.ac-misc.toLowerCase();
+							var part3attr = b["ac-misc"].toLowerCase();
 							var part1 = part1attr === "none" ? 0 : parseInt(b[part1attr + "_mod"], 10);
 							var part2 = part2attr === "none" ? 0 : parseInt(b[part2attr + "_mod"], 10);
 							var part3 = part3attr === "none" ? 0 : parseInt(b["ac-misc"], 10);

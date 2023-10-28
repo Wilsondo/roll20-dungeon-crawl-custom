@@ -4167,59 +4167,35 @@
 										<div class="sheet-form sheet-form-borderless">
 											<div class="sheet-form-body">
 												<div class="sheet-form-group">
-													<label>Strength Mod Level</label>
-														<span name="attr_strength-mod-level" title="@{strength-mod-level}">0</span>
-												</div>
-												<div class="sheet-form-group">
-													<label>Dexterity Mod Level</label>
-														<span name="attr_Dexterity-mod-level" title="@{Dexterity-mod-level}">0</span>
-												</div>
-												<div class="sheet-form-group">
-													<label>Constitution Mod Level</label>
-														<span name="attr_constitution-mod-level" title="@{constitution-mod-level}">0</span>
-												</div>
-												<div class="sheet-form-group">
-													<label>Intelligence Mod Level</label>
-														<span name="attr_intelligence-mod-level" title="@{intelligence-mod-level}">0</span>
-												</div>
-												<div class="sheet-form-group">
-													<label>Wisdom Mod Level</label>
-														<span name="attr_wisdom-mod-level" title="@{wisdom-mod-level}">0</span>
-												</div>
-												<div class="sheet-form-group">
-													<label>Charisma Mod Level</label>
-														<span name="attr_Charisma-mod-level" title="@{Charisma-mod-level}">0</span>
-												</div>
-												<div class="sheet-form-group">
-													<label>Half Level</label>
+													<label>Half Level:</label>
 														<span name="attr_halflevel" title="@{halflevel}">0</span>
 												</div>
 												<div class="sheet-form-group">
-													<label>Strength Modifier:</label>
+													<label>Strength Bonus:</label>
 													<input type="text" name="attr_strength_bonus" placeholder="0" title="@{strength_bonus}">
 												</div>
 												<div class="sheet-form-group">
-													<label>Dexterity Modifier:</label>
+													<label>Dexterity Bonus:</label>
 													<input type="text" name="attr_dexterity_bonus" placeholder="0" title="@{dexterity_bonus}">
 												</div>
 												<div class="sheet-form-group">
-													<label>Constitution Modifier:</label>
+													<label>Constitution Bonus:</label>
 													<input type="text" name="attr_constitution_bonus" placeholder="0" title="@{constitution_bonus}">
 												</div>
 												<div class="sheet-form-group">
-													<label>Intelligence Modifier:</label>
+													<label>Intelligence Bonus:</label>
 													<input type="text" name="attr_intelligence_bonus" placeholder="0" title="@{intelligence_bonus}">
 												</div>
 												<div class="sheet-form-group">
-													<label>Wisdom Modifier:</label>
+													<label>Wisdom Bonus:</label>
 													<input type="text" name="attr_wisdom_bonus" placeholder="0" title="@{wisdom_bonus}">
 												</div>
 												<div class="sheet-form-group">
-													<label>Charisma Modifier:</label>
+													<label>Charisma Bonus:</label>
 													<input type="text" name="attr_charisma_bonus" placeholder="0" title="@{charisma_bonus}">
 												</div>
 												<div class="sheet-form-group">
-													<label>Initiative Modifier:</label>
+													<label>Initiative Bonus:</label>
 													<input type="text" name="attr_initmod" placeholder="0" title="@{initmod}">
 												</div>
 												<div class="sheet-form-group">
@@ -4239,8 +4215,8 @@
 												<div class="sheet-form-group">
 													<label>Armor Class Tracking:</label>
 													<select name="attr_custom_ac_flag" title="@{custom_ac_flag}">
-														<option value="0" selected="selected">Automatic</option>
-														<option value="1">Custom</option>
+														<option value="0">Automatic</option>
+														<option value="1" selected="selected">Custom</option>
 														<option value="2">Off</option>
 													</select>
 												</div>
@@ -4333,12 +4309,12 @@
 										</div>
 									</div>
 								</div>
-								<!-- <div class="sheet-container-panel sheet-pc-option-save">
+								<div class="sheet-container-panel sheet-pc-option-save">
 									<div class="sheet-container-header">Saving Throw Options</div>
 									<div class="sheet-container-body">
 										<div class="sheet-form sheet-form-borderless">
 											<div class="sheet-form-body">
-												<div class="sheet-form-group">
+												<!-- <div class="sheet-form-group">
 													<label>Strength Save Modifier:</label>
 													<input type="text" name="attr_strength_save_mod" placeholder="0" title="@{strength_save_mod}">
 												</div>
@@ -4369,11 +4345,83 @@
 												<div class="sheet-form-group">
 													<label>Global Saving Throw Modifier:</label>
 													<input type="text" name="attr_globalsavemod" placeholder="0" title="@{globalsavemod}">
+												</div> -->
+												<div class="sheet-form-group">
+													<label>Strength Score:</label>
+													<input type="text" name="attr_strength" placeholder="0" title="@{strength}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Strength Modifier:</label>
+													<span name="attr_strength-mod" title="@{strength-mod}">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Strength Mod Level:</label>
+														<span name="attr_strength-mod-level" title="@{strength-mod-level}">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Dexterity Score:</label>
+													<input type="text" name="attr_dexterity" placeholder="0" title="@{dexterity}">
+												</div>						
+												<div class="sheet-form-group">
+													<label>Dexterity Modifier:</label>
+													<span name="attr_dexterity-mod" title="@{dexterity-mod}">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Dexterity Mod Level:</label>
+														<span name="attr_dexterity-mod-level" title="@{dexterity-mod-level}">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Constitution Score:</label>
+													<input type="text" name="attr_constitution" placeholder="0" title="@{constitution}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Constitution Modifier:</label>
+													<span name="attr_constitution-mod" title="@{constitution-mod}">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Constitution Mod Level:</label>
+														<span name="attr_constitution-mod-level" title="@{constitution-mod-level}">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Intelligence Score:</label>
+													<input type="text" name="attr_intelligence" placeholder="0" title="@{intelligence}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Intelligence Modifier:</label>
+													<span name="attr_intelligence-mod" title="@{intelligence-mod}">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Intelligence Mod Level:</label>
+														<span name="attr_intelligence-mod-level" title="@{intelligence-mod-level}">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Wisdom Score:</label>
+													<input type="text" name="attr_wisdom" placeholder="0" title="@{wisdom}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Wisdom Modifier:</label>
+													<span name="attr_wisdom-mod" title="@{wisdom-mod}">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Wisdom Mod Level:</label>
+														<span name="attr_wisdom-mod-level" title="@{wisdom-mod-level}">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Charisma Score:</label>
+													<input type="text" name="attr_charisma" placeholder="0" title="@{charisma}">
+												</div>
+												<div class="sheet-form-group">
+													<label>Charisma Modifier:</label>
+													<span name="attr_charisma-mod" title="@{charisma-mod}">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Charisma Mod Level:</label>
+														<span name="attr_charisma-mod-level" title="@{charisma-mod-level}">0</span>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div> -->
+								</div>
 								<div class="sheet-container-panel sheet-pc-option-skill">
 									<div class="sheet-container-header">Skill Options</div>
 									<div class="sheet-container-body">
