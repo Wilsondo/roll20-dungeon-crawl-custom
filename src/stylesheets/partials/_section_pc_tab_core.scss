@@ -15,20 +15,32 @@
 		}
 
 		.sheet-container-well-attributes {
+// 			grid-area: attributes;
+// 			display: grid;
+// 			grid-template-columns:  0.75fr 1fr;
+// 			grid-template-rows: 525px 85px 70px auto auto;
+// 			grid-template-areas:
+// 				"attributes-stats skills"
+// 				"passive-perception passive-insight"
+// 				"resourceA resourceB"
+// 				"movement movement"
+// 				"senses senses";
+// ;
+// 			grid-column-gap: 5px;
+// 			grid-row-gap: 5px;
 			grid-area: attributes;
 			display: grid;
-			grid-template-columns:  0.75fr 1fr;
-			grid-template-rows: 525px 85px 70px auto auto;
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 360px 85px 70px auto auto;
 			grid-template-areas:
-				"attributes-stats skills"
+				"skills skills"
 				"passive-perception passive-insight"
 				"resourceA resourceB"
 				"movement movement"
 				"senses senses";
-;
 			grid-column-gap: 5px;
 			grid-row-gap: 5px;
-
+			
 			.sheet-pc-attributes-stats {
 				grid-area: attributes-stats;
 				display: flex;
@@ -36,6 +48,10 @@
 				justify-content: space-between;
 			}
 
+			// .sheet-container-attribute {
+			// 	height: 100px;
+			// 	width: 120px;
+			// }
 			.sheet-pc-proficiency-bonus {
 				grid-area: proficiency-bonus;
 
@@ -50,10 +66,14 @@
 
 			.sheet-pc-passive-perception {
 				grid-area: passive-perception;
+				height: 80px;
+				width: 100px;
 			}
 
 			.sheet-pc-passive-insight{
 				grid-area: passive-insight;
+				height: 80px;
+				width: 100px;
 			}
 
 			.sheet-pc-saving-throw,
