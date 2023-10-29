@@ -130,6 +130,10 @@ on("sheet:compendium-drop", function() {
 				// update_ac();
 				update_initiative();
 				break;
+			case "constitution":
+				update_skills(["endurance"]);
+				update_initiative();
+				break;
 			case "intelligence":
 				update_skills(["arcana", "history", "religion"]);
 				update_initiative();
@@ -849,6 +853,7 @@ var update_skills = function (skills_array) {
 				var jack = v["jack_of_all_trades"] && v["jack_of_all_trades"] != 0 && v["jack"] ? v["jack"] : 0;
 				var halfLevel = Math.floor(parseInt(v["level"], 10)/2);
 
+
 				// console.log("half Level: " + halfLevel);
 
 				var item_bonus = 0;
@@ -856,26 +861,26 @@ var update_skills = function (skills_array) {
 				// console.log("prof is: " + prof);
 				// console.log("Getting attr:" + attr_mod);
 
-				_.each(idarray, function(currentID) {
-					if(v["repeating_inventory_" + currentID + "_equipped"] && v["repeating_inventory_" + currentID + "_equipped"] === "1" && v["repeating_inventory_" + currentID + "_itemmodifiers"] && (v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().replace(/ /g,"_").indexOf(s) > -1 || v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().indexOf("ability checks") > -1)) {
-						var mods = v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().split(",");
-						_.each(mods, function(mod) {
-							if(mod.replace(/ /g,"_").indexOf(s) > -1 || mod.indexOf("ability checks") > -1) {
-								if(mod.indexOf("-") > -1) {
-									var new_mod = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
-									item_bonus = new_mod ? item_bonus - new_mod : item_bonus;
-								}
-								else {
-									var new_mod = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
-									item_bonus = new_mod ? item_bonus + new_mod : item_bonus;
-								}
-							};
-						});
-					};
-				});
+				// _.each(idarray, function(currentID) {
+				// 	if(v["repeating_inventory_" + currentID + "_equipped"] && v["repeating_inventory_" + currentID + "_equipped"] === "1" && v["repeating_inventory_" + currentID + "_itemmodifiers"] && (v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().replace(/ /g,"_").indexOf(s) > -1 || v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().indexOf("ability checks") > -1)) {
+				// 		var mods = v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().split(",");
+				// 		_.each(mods, function(mod) {
+				// 			if(mod.replace(/ /g,"_").indexOf(s) > -1 || mod.indexOf("ability checks") > -1) {
+				// 				if(mod.indexOf("-") > -1) {
+				// 					var new_mod = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
+				// 					item_bonus = new_mod ? item_bonus - new_mod : item_bonus;
+				// 				}
+				// 				else {
+				// 					var new_mod = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
+				// 					item_bonus = new_mod ? item_bonus + new_mod : item_bonus;
+				// 				}
+				// 			};
+				// 		});
+				// 	};
+				// });
+
 
 				var total = attr_mod + flat + item_bonus + prof + halfLevel - pen;
-				// console.log("Total value:" + total)
 
 				// if(v["pb_type"] && v["pb_type"] === "die") {
 				// 	if(v[s + "-trained"] != 0) {
