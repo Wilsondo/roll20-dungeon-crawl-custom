@@ -85,7 +85,7 @@ on("sheet:compendium-drop", function() {
 });
 
  ['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
-	on(`change:${attr} change:${attr}_bonus`, function() {
+	on(`change:${attr}`, function() {
 		update_attr(`${attr}`);
 
 	});
@@ -705,7 +705,8 @@ var update_attr = function(attr) {
 	// 	});
 		getAttrs(attr_fields, function(v) {
 			var base = v[attr] && !isNaN(parseInt(v[attr], 10)) ? parseInt(v[attr], 10) : 10;
-			var bonus = v[attr + "_bonus"] && !isNaN(parseInt(v[attr + "_bonus"], 10)) ? parseInt(v[attr + "_bonus"], 10) : 0;
+			// var bonus = v[attr + "_bonus"] && !isNaN(parseInt(v[attr + "_bonus"], 10)) ? parseInt(v[attr + "_bonus"], 10) : 0;
+			var bonus = 0;
 			var item_base = 0;
 			var item_bonus = 0;
 			// _.each(idarray, function(currentID) {
