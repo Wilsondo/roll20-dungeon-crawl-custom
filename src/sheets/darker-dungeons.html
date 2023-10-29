@@ -1276,7 +1276,7 @@
 									</div>
 								</div>
 								<!-- Change template to show perception -->
-								<div class="sheet-container-attribute sheet-pc-passive-perception">
+								<!-- <div class="sheet-container-attribute sheet-pc-passive-perception">
 									<div class="sheet-container-header">
 										<button type="roll" name="roll_passive_perception" value="@{wtype}&{template:simple} {{rname=Passive Perception}}  {{r1=[[@{passive-perception}]]}} @{rtype}+@{passive-perception}]]}} @{charname_output}">Passive Perception</button>
 									</div>
@@ -1304,7 +1304,7 @@
 										<input type="hidden" name="attr_passive_insight-misc_flag" value="0" class="sheet-field-toggle">
 										<span name="attr_passive_insight-misc"></span>
 									</div>
-								</div>
+								</div> -->
 								<div class="sheet-container-box sheet-pc-resource-other resourceA">
 									<div class="sheet-container-header">
 										<input type="text" name="attr_other_resource_nameA" title="@{other_resource_nameA}" class="sheet-input-overlay">
@@ -4167,6 +4167,7 @@
 												<div class="sheet-form-group">
 													<label>Half Level:</label>
 														<span name="attr_halflevel" title="@{halflevel}">0</span>
+														<input type="text" name="attr_halflevel" placeholder="0" title="@{halflevel}" visibility: hidden>
 												</div>
 												<div class="sheet-form-group">
 													<label>Strength Bonus:</label>
@@ -4354,7 +4355,7 @@
 												</div> -->
 												<div class="sheet-form-group">
 													<label>Strength Score:</label>
-													<input type="text" name="attr_strength" placeholder="0" title="@{strength}">
+													<input type="text" name="attr_strength" placeholder="10" title="@{strength}">
 												</div>
 												<div class="sheet-form-group">
 													<label>Strength Modifier:</label>
@@ -4366,7 +4367,7 @@
 												</div>
 												<div class="sheet-form-group">
 													<label>Dexterity Score:</label>
-													<input type="text" name="attr_dexterity" placeholder="0" title="@{dexterity}">
+													<input type="text" name="attr_dexterity" placeholder="10" title="@{dexterity}">
 												</div>						
 												<div class="sheet-form-group">
 													<label>Dexterity Modifier:</label>
@@ -4378,7 +4379,7 @@
 												</div>
 												<div class="sheet-form-group">
 													<label>Constitution Score:</label>
-													<input type="text" name="attr_constitution" placeholder="0" title="@{constitution}">
+													<input type="text" name="attr_constitution" placeholder="10" title="@{constitution}">
 												</div>
 												<div class="sheet-form-group">
 													<label>Constitution Modifier:</label>
@@ -4390,7 +4391,7 @@
 												</div>
 												<div class="sheet-form-group">
 													<label>Intelligence Score:</label>
-													<input type="text" name="attr_intelligence" placeholder="0" title="@{intelligence}">
+													<input type="text" name="attr_intelligence" placeholder="10" title="@{intelligence}">
 												</div>
 												<div class="sheet-form-group">
 													<label>Intelligence Modifier:</label>
@@ -4402,7 +4403,7 @@
 												</div>
 												<div class="sheet-form-group">
 													<label>Wisdom Score:</label>
-													<input type="text" name="attr_wisdom" placeholder="0" title="@{wisdom}">
+													<input type="text" name="attr_wisdom" placeholder="10" title="@{wisdom}">
 												</div>
 												<div class="sheet-form-group">
 													<label>Wisdom Modifier:</label>
@@ -4414,7 +4415,7 @@
 												</div>
 												<div class="sheet-form-group">
 													<label>Charisma Score:</label>
-													<input type="text" name="attr_charisma" placeholder="0" title="@{charisma}">
+													<input type="text" name="attr_charisma" placeholder="10" title="@{charisma}">
 												</div>
 												<div class="sheet-form-group">
 													<label>Charisma Modifier:</label>

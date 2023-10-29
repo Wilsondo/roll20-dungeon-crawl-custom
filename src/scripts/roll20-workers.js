@@ -85,7 +85,7 @@ on("sheet:compendium-drop", function() {
 });
 
  ['strength','dexterity','constitution','intelligence','wisdom','charisma'].forEach(attr => {
-	on(`change:${attr}_base change:${attr}_bonus`, function() {
+	on(`change:${attr} change:${attr}_bonus`, function() {
 		update_attr(`${attr}`);
 
 	});
@@ -97,8 +97,8 @@ on("sheet:compendium-drop", function() {
 		update_attr_mod_level(`${attr}`);
 
 
-		const cap = attr.charAt(0).toUpperCase() + attr.slice(1);
-		// check_customac(cap);
+		// const cap = attr.charAt(0).toUpperCase() + attr.slice(1);
+		// // check_customac(cap);
 
 		(attr === "strength") ? update_weight() : false;
 		(attr === "constitution") ? update_weight() : false;
@@ -697,46 +697,47 @@ on("change:experience", function(eventinfo) {
 
 var update_attr = function(attr) {
 	var update = {};
-	var attr_fields = [attr + "_base",attr + "_bonus"];
-	getSectionIDs("repeating_inventory", function(idarray) {
-		_.each(idarray, function(currentID, i) {
-			attr_fields.push("repeating_inventory_" + currentID + "_equipped");
-			attr_fields.push("repeating_inventory_" + currentID + "_itemmodifiers");
-		});
+	var attr_fields = [attr,attr + "_bonus"];
+	// getSectionIDs("repeating_inventory", function(idarray) {
+	// 	_.each(idarray, function(currentID, i) {
+	// 		attr_fields.push("repeating_inventory_" + currentID + "_equipped");
+	// 		attr_fields.push("repeating_inventory_" + currentID + "_itemmodifiers");
+	// 	});
 		getAttrs(attr_fields, function(v) {
-			var base = v[attr + "_base"] && !isNaN(parseInt(v[attr + "_base"], 10)) ? parseInt(v[attr + "_base"], 10) : 10;
+			var base = v[attr] && !isNaN(parseInt(v[attr], 10)) ? parseInt(v[attr], 10) : 10;
 			var bonus = v[attr + "_bonus"] && !isNaN(parseInt(v[attr + "_bonus"], 10)) ? parseInt(v[attr + "_bonus"], 10) : 0;
 			var item_base = 0;
 			var item_bonus = 0;
-			_.each(idarray, function(currentID) {
-				if((!v["repeating_inventory_" + currentID + "_equipped"] || v["repeating_inventory_" + currentID + "_equipped"] === "1") && v["repeating_inventory_" + currentID + "_itemmodifiers"] && v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().indexOf(attr > -1)) {
-					var mods = v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().split(",");
-					_.each(mods, function(mod) {
-						if(mod.indexOf(attr) > -1 && mod.indexOf("save") === -1) {
-							if(mod.indexOf(":") > -1) {
-								var new_base = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
-								item_base = new_base && new_base > item_base ? new_base : item_base;
-							}
-							else if(mod.indexOf("-") > -1) {
-								var new_mod = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
-								item_bonus = new_mod ? item_bonus - new_mod : item_bonus;
-							}
-							else {
-								var new_mod = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
-								item_bonus = new_mod ? item_bonus + new_mod : item_bonus;
-							}
-						};
-					});
-				}
-			});
+			// _.each(idarray, function(currentID) {
+			// 	if((!v["repeating_inventory_" + currentID + "_equipped"] || v["repeating_inventory_" + currentID + "_equipped"] === "1") && v["repeating_inventory_" + currentID + "_itemmodifiers"] && v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().indexOf(attr > -1)) {
+			// 		var mods = v["repeating_inventory_" + currentID + "_itemmodifiers"].toLowerCase().split(",");
+			// 		_.each(mods, function(mod) {
+			// 			if(mod.indexOf(attr) > -1 && mod.indexOf("save") === -1) {
+			// 				if(mod.indexOf(":") > -1) {
+			// 					var new_base = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
+			// 					item_base = new_base && new_base > item_base ? new_base : item_base;
+			// 				}
+			// 				else if(mod.indexOf("-") > -1) {
+			// 					var new_mod = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
+			// 					item_bonus = new_mod ? item_bonus - new_mod : item_bonus;
+			// 				}
+			// 				else {
+			// 					var new_mod = !isNaN(parseInt(mod.replace(/[^0-9]/g, ""), 10)) ? parseInt(mod.replace(/[^0-9]/g, ""), 10) : false;
+			// 					item_bonus = new_mod ? item_bonus + new_mod : item_bonus;
+			// 				}
+			// 			};
+			// 		});
+			// 	}
+			// });
 
 			update[attr + "_flag"] = bonus != 0 || item_bonus > 0 || item_base > base ? 1 : 0;
 			base = base > item_base ? base : item_base;
 			update[attr] = base + bonus + item_bonus;
 			setAttrs(update);
 		});
-	});
-};
+	}
+// 	});
+// };
 
 var update_mod = function (attr) {
 	getAttrs([attr], function(v) {
@@ -3677,7 +3678,7 @@ var update_weight = function() {
 // };
 
 var update_initiative = function() {
-	var attrs_to_get = ["dexterity","dexterity-mod","intelligence-mod","initmod","jack_of_all_trades","jack","init_tiebreaker","pb_type","use_intelligent_initiative","halflevel", "halflevel", "init-item", "init-feat", "init-misc"];
+	var attrs_to_get = ["dexterity","dexterity-mod","intelligence-mod","initmod","jack_of_all_trades","jack","init_tiebreaker","pb_type","use_intelligent_initiative", "halflevel", "init-item", "init-feat", "init-misc"];
 	// getSectionIDs("repeating_inventory", function(idarray){
 		// _.each(idarray, function(currentID, i) {
 		// 	attrs_to_get.push("repeating_inventory_" + currentID + "_equipped");
@@ -4904,6 +4905,7 @@ on("change:level", function() {
 
 ['ac','fort','ref','will'].forEach(attr => {
 	on(`change:${attr}-armor change:${attr}-class change:${attr}-feat change:${attr}-enh change:${attr}-misc change:${attr}-misc2 change:${attr}-ability change:level`, function() {
+		console.log("Defense " + attr + " update");
 		var attr_fields = [attr + "-armor", attr + "-class", attr + "-feat", attr + "-enh", attr + "-misc", attr + "-misc2", attr + "-ability", "halflevel"];
 		var update = {};
 		getAttrs(attr_fields, function(v) {
