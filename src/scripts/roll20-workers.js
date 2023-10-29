@@ -5172,48 +5172,48 @@ on("change:stress", function (eventinfo) {
 
 // CHANGE HIT POINTS
 
-// on("change:hit_dice change:hit_dice_max change:hp change:hp_max", function () {
-// 	let field1 = "hp";
-// 	let field2 = "hp_max";
-// 	let field3 = "hit_dice_max";
-// 	let field4 = "hit_dice";
+on("change:surges change:surges_max change:hp change:hp_max", function () {
+	let field1 = "hp";
+	let field2 = "hp_max";
+	let field3 = "surges_max";
+	let field4 = "surges";
 
-// 	getAttrs([field1, field2, field3, field4], function (v) {
-// 		let conditionHealth = "";
-// 		let hp = toInt(v[field1]);
-// 		let hpMax = toInt(v[field2]);
-// 		let hpPercentage = clamp(hp / hpMax, 0, 1) || 0;
-// 		let hitDiceTotal = toInt(v[field3]);
-// 		let hitDiceSpent = clamp(hitDiceTotal - toInt(v[field4]), 0, hitDiceTotal);
-// 		let hitDicePercentage = clamp((hitDiceTotal - hitDiceSpent) / hitDiceTotal, 0, 1) || 0;
+	getAttrs([field1, field2, field3, field4], function (v) {
+		let conditionHealth = "";
+		let hp = toInt(v[field1]);
+		let hpMax = toInt(v[field2]);
+		let hpPercentage = clamp(hp / hpMax, 0, 1) || 0;
+		let hitDiceTotal = toInt(v[field3]);
+		let hitDiceSpent = clamp(hitDiceTotal - toInt(v[field4]), 0, hitDiceTotal);
+		let hitDicePercentage = clamp((hitDiceTotal - hitDiceSpent) / hitDiceTotal, 0, 1) || 0;
 
-// 		if (hp >= hpMax) {
-// 			if (hitDicePercentage == 1) {
-// 				conditionHealth = 0;
-// 			} else if (hitDicePercentage >= 0.5) {
-// 				conditionHealth = 1;
-// 			} else {
-// 				conditionHealth = 2;
-// 			}
-// 		} else {
-// 			if (hpPercentage > 0.5) {
-// 				conditionHealth = 3;
-// 			} else if (hp == 1) {
-// 				 conditionHealth = 6;
-// 			} else if (hpPercentage >= 0.25) {
-// 				conditionHealth = 4;
-// 			} else if (hpPercentage >= 0.1) {
-// 				conditionHealth = 5;
-// 			} else {
-// 				conditionHealth = 6;
-// 			}
-// 		}
+		if (hp >= hpMax) {
+			if (hitDicePercentage == 1) {
+				conditionHealth = 0;
+			} else if (hitDicePercentage >= 0.5) {
+				conditionHealth = 1;
+			} else {
+				conditionHealth = 2;
+			}
+		} else {
+			if (hpPercentage > 0.5) {
+				conditionHealth = 3;
+			} else if (hp == 1) {
+				 conditionHealth = 6;
+			} else if (hpPercentage >= 0.25) {
+				conditionHealth = 4;
+			} else if (hpPercentage >= 0.1) {
+				conditionHealth = 5;
+			} else {
+				conditionHealth = 6;
+			}
+		}
 
-// 		let update = {};
-// 		update["condition_health"] = conditionHealth;
-// 		setAttrs(update);
-// 	});
-// });
+		let update = {};
+		update["condition_health"] = conditionHealth;
+		setAttrs(update);
+	});
+});
 
 let toInt = function (value) {
 	return (value && !isNaN(value)) ? parseInt(value) : 0;
