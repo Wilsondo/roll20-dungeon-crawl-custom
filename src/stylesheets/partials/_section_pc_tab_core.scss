@@ -382,6 +382,10 @@
 			flex-grow: 1;
 			grid-area: effects;
 
+			&::before {
+				border-width: 32px 51px;
+			}
+
 			.sheet-pc-exhaustion-details {
 				margin-bottom: 5px;
 
@@ -789,6 +793,10 @@
 			min-height: 85px;
 			margin-bottom: 5px;
 
+			&::before {
+				border-width: 32px 51px;
+			}
+
 			.sheet-pc-stress {
 				grid-area: pc-stress;
 			}
@@ -941,7 +949,7 @@
 		.sheet-pc-tool-modifier,
 		.sheet-pc-attack-modifier,
 		.sheet-pc-attack-damage-modifier,
-		.sheet-pc-ac-modifier, {
+		.sheet-pc-ac-modifier {
 			align-items: center;
 			display: flex;
 
