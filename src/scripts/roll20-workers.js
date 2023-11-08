@@ -4894,6 +4894,46 @@ var filterBlobs = function(blobs, filters) {
 
 // //New Functions
 
+//Attack function
+on("change:weapon-1-prof change:weapon-1-enh change:weapon-1-attack-class change:weapon-1-attack-feat change:weapon-1-attack-misc", function() {
+	getAttrs(["weapon-1-prof", "weapon-1-enh", "weapon-1-attack-class", "weapon-1-attack-feat", "weapon-1-attack-misc"], function(v) {
+		let update = {}
+		let prof = parseInt(v["weapon-1-prof"], 10);
+		let enh = parseInt(v["weapon-1-enh"], 10);
+		let pc_class = parseInt(v["weapon-1-attack-class"], 10);
+		let feat = parseInt(v["weapon-1-attack-feat"], 10);
+		let misc = parseInt(v["weapon-1-attack-misc"], 10);
+		let attack = prof + enh + pc_class + feat + misc;
+		update["weapon-1-attack"] = attack;
+		console.log("Attack prof:" + prof)
+		console.log("Attack enh:" + enh)
+		console.log("Attack class:" + pc_class)
+		console.log("Attack feat:" + feat)
+		console.log("Attack misc:" + misc)
+
+		setAttrs(update);
+	});
+});
+
+//Damage function
+on("change:weapon-1-enh change:weapon-1-damage-class change:weapon-1-damage-feat change:weapon-1-damage-misc", function() {
+	getAttrs(["weapon-1-enh", "weapon-1-damage-class", "weapon-1-damage-feat", "weapon-1-damage-misc"], function(v){
+		let update = {}
+		let enh = parseInt(v["weapon-1-enh"], 10);
+		let pc_class = parseInt(v["weapon-1-damage-class"], 10);
+		let feat = parseInt(v["weapon-1-damage-feat"], 10);
+		let misc = parseInt(v["weapon-1-damage-misc"], 10);
+		let damage = enh + pc_class + feat + misc;
+		console.log("Damage enh:" + enh)
+		console.log("Damage class:" + pc_class)
+		console.log("Damage feat:" + feat)
+		console.log("Damage misc:" + misc)
+		update["weapon-1-damage"] = damage;
+		setAttrs(update);
+	});
+});
+
+
 on("change:level", function() {
 	getAttrs(["level"], function(v) {
 		let halfLevel = Math.floor(parseInt(v["level"], 10)/2)
@@ -5014,7 +5054,7 @@ on("change:hp_max", function() {
 	getAttrs(["hp_max"], function(v) {
 		let update = {};
 		let surgeValue = Math.floor(parseInt(v["hp_max"], 10)/4);
-		let bloodied= Math.floor(parseInt(v["hp_max"], 10)/2);
+		let bloodied = Math.floor(parseInt(v["hp_max"], 10)/2);
 
 		update["surge-value"] = surgeValue;
 		update["hp-bloodied"] = bloodied;
