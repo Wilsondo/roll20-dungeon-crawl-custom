@@ -4893,6 +4893,40 @@ var filterBlobs = function(blobs, filters) {
 };
 
 // //New Functions
+on("clicked:encounter", function() {
+	getSectionIDs("encounters", function(idarray) {
+		var ids = []
+		for(var i=0; i < idarray.length; i++) {
+			let powerId = idarray[i];
+			let powerNameId = "repeating_encounters_" + powerId + "_encounter_name";
+
+			getAttrs([powerNameId, "character_name"], function(v) {
+				var powerName = v[powerNameId];
+				console.log(powerName);
+				console.log("repeating_encounters_" + powerId + "_used");
+				});
+			};
+
+	});
+});
+
+on("clicked:daily", function() {
+	getSectionIDs("dailies", function(idarray) {
+		var ids = []
+		for(var i=0; i < idarray.length; i++) {
+			let powerId = idarray[i];
+			let powerNameId = "repeating_dailies_" + powerId + "_daily_name";
+
+			getAttrs([powerNameId], function(v) {
+				var powerName = v[powerNameId];
+				console.log(powerName);
+				console.log("repeating_dailies_" + powerId + "_used");
+			});
+		};
+
+	});
+});
+
 
 //Attack function
 on("change:weapon-1-prof change:weapon-1-enh change:weapon-1-attack-class change:weapon-1-attack-feat change:weapon-1-attack-misc", function() {
