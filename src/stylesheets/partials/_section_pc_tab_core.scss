@@ -321,6 +321,34 @@
 
 		.sheet-pc-encounter,
 		.sheet-pc-daily {
+			button {
+				flex-grow: 1;
+				text-align: left;
+				border: 0;
+				background: none;
+				box-shadow: none;
+				height: 18px;
+				font-size: 11px;
+				margin: 0;
+				padding: 0;
+				vertical-align: baseline;
+				color: inherit;
+	
+				span {
+					font-weight: normal;
+					font-size: inherit;
+					width: auto;
+					opacity: .5;
+					color: black;
+				}
+	
+				&:hover {
+					background: $hover-bg;
+					margin-left: -3px;
+					padding-left: 3px;
+					color: #b61037;
+				}
+			}
 			.sheet-pc-effect {
 				.sheet-checkbox-image {
 					height: 10px;
@@ -342,33 +370,7 @@
 					padding: 3px 0;
 				}
 
-				button {
-					flex-grow: 1;
-					text-align: left;
-					border: 0;
-					background: none;
-					box-shadow: none;
-					height: 18px;
-					font-size: 11px;
-					margin: 0;
-					padding: 0;
-					vertical-align: baseline;
-					color: inherit;
 		
-					span {
-						font-weight: normal;
-						font-size: inherit;
-						width: auto;
-						opacity: .5;
-					}
-		
-					&:hover {
-						background: $hover-bg;
-						margin-left: -3px;
-						padding-left: 3px;
-						color: #b61037;
-					}
-				}		
 			}
 		}
 

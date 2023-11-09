@@ -1538,17 +1538,21 @@
 										</div>
 										<div class="sheet-container-body">
 											<input type="text" name="attr_surges" title="@{surges}">
-											<span>/&nbsp;&nbsp;</span>
+											<span>/&nbsp;</span>
 											<span name="attr_healing_surge_lost" title="@{surges_lost}" class="sheet-pc-surge-lost-value"><strong>0</strong></span>
 											<!-- <input type="text" name="attr_healing_surge_lost" title="@{healing_surge_lost}"> -->
-											<span>&nbsp;&nbsp;/</span>
+											<span>&nbsp;/</span>
 											<!-- <span name="attr_healing_surge_max" title="@{healing_surge_max}"></span> -->
 											<input type="text" name="attr_surges_max">
+											<span>&nbsp;|&nbsp;</span>
+											<span name="attr_surge-value" title="@{surge-value}" class="sheet-pc-surge-lost-value"><strong>0</strong></span>
+											<span>&nbsp;&nbsp;</span>
 										</div>
 										<div class="sheet-container-footer">
 											<span>Remaining</span>
-											<span>Lost</span>
+											<span>&nbsp;&nbsp;&nbsp;Lost</span>
 											<span>Maximum</span>
+											<span>&nbsp;&nbsp;Value</span>
 										</div>
 									</div>
 									<div class="sheet-container-box sheet-pc-speed">
@@ -2023,7 +2027,7 @@
 								<!-- Powers from repeating sections have a special way to be refrenced via macro, can't use power-1,2,3 etc -->
 								<!-- The button can use javascript for a better experience https://wiki.roll20.net/Button -->
 								<div class="sheet-container-panel sheet-pc-encounter">
-									<div class="sheet-container-header">Encounter Powers</div>
+									<div class="sheet-container-header"><button type="action" name="attr_encounter_ids"><span>Encounter Powers</span></button></div>
 									<div class="sheet-container-body">
 										<div class="sheet-container-body-header">
 											<span></span>
@@ -2065,7 +2069,7 @@
 									</div>
 								</div>
 								<div class="sheet-container-panel sheet-pc-daily">
-									<div class="sheet-container-header">Daily Powers</div>
+									<div class="sheet-container-header"><button type="action" name="attr_daily_ids"><span>Daily Powers</span></button></div>
 									<div class="sheet-container-body">
 										<div class="sheet-container-body-header">
 											<span></span>
