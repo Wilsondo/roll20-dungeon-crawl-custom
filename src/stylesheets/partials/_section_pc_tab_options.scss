@@ -13,11 +13,11 @@
 			grid-column-gap: 5px;
 			grid-row-gap: 5px;
 			grid-template-areas:
-			"class multiclass custom"
-			"class spell custom"
+			"class save custom"
+			"class save custom"
 			"general attribute skill"
-			"general save skill"
-			"darker save skill";
+			"general multiclass skill"
+			"darker spell skill";
 			grid-template-columns: repeat(3, 1fr);
 			grid-template-rows: auto auto auto auto 1fr;
 		}

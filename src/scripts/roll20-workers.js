@@ -4920,44 +4920,72 @@ on("clicked:daily", function() {
 });
 
 
-//Attack function
-on("change:weapon-1-prof change:weapon-1-enh change:weapon-1-attack-class change:weapon-1-attack-feat change:weapon-1-attack-misc", function() {
-	getAttrs(["weapon-1-prof", "weapon-1-enh", "weapon-1-attack-class", "weapon-1-attack-feat", "weapon-1-attack-misc"], function(v) {
-		let update = {}
-		let prof = parseInt(v["weapon-1-prof"], 10);
-		let enh = parseInt(v["weapon-1-enh"], 10);
-		let pc_class = parseInt(v["weapon-1-attack-class"], 10);
-		let feat = parseInt(v["weapon-1-attack-feat"], 10);
-		let misc = parseInt(v["weapon-1-attack-misc"], 10);
-		let attack = prof + enh + pc_class + feat + misc;
-		update["weapon-1-attack"] = attack;
-		console.log("Attack prof:" + prof)
-		console.log("Attack enh:" + enh)
-		console.log("Attack class:" + pc_class)
-		console.log("Attack feat:" + feat)
-		console.log("Attack misc:" + misc)
+['weapon-1', 'weapon-2', 'weapon-3', 'weapon-4', 'weapon-5', 'weapon-6'].forEach(attr => {
+	on(`change:${attr}-prof  change:${attr}-enh change:${attr}-attack-class change:${attr}-attack-feat change:${attr}-attack-misc change:${attr}-damage-class change:${attr}-damage-feat change:${attr}-damage-misc`, function() {
+		console.log(attr + " update");
+		var attr_fields = [attr + "-prof", attr + "-enh", attr + "-attack-class", attr + "-attack-feat", attr + "-attack-misc", attr + "-damage-class", attr + "-damage-feat", attr + "-damage-misc" ];
+		var update = {};
+	
+		getAttrs(attr_fields, function(v) {
+			var prof = v[attr + "-prof"] && !isNaN(parseInt(v[attr + "-prof"], 10)) ? parseInt(v[attr + "-prof"], 10) : 0;
+			var enh = v[attr + "-enh"] && !isNaN(parseInt(v[attr + "-enh"], 10)) ? parseInt(v[attr + "-enh"], 10) : 0;
+			var classAttack = v[attr + "-attack-class"] && !isNaN(parseInt(v[attr + "-attack-class"], 10)) ? parseInt(v[attr + "-attack-class"], 10) : 0;
+			var featAttack = v[attr + "-attack-feat"] && !isNaN(parseInt(v[attr + "-attack-feat"], 10)) ? parseInt(v[attr + "-attack-feat"], 10) : 0;
+			var miscAttack = v[attr + "-attack-misc"] && !isNaN(parseInt(v[attr + "-attack-misc"], 10)) ? parseInt(v[attr + "-attack-misc"], 10) : 0;
 
-		setAttrs(update);
+			var finalAttack = prof + enh + classAttack + featAttack + miscAttack;
+			update[attr + "-attack"] = finalAttack;
+
+			var classDamage = v[attr + "-damage-class"] && !isNaN(parseInt(v[attr + "-damage-class"], 10)) ? parseInt(v[attr + "-damage-class"], 10) : 0;
+			var featDamage = v[attr + "-damage-feat"] && !isNaN(parseInt(v[attr + "-damage-feat"], 10)) ? parseInt(v[attr + "-damage-feat"], 10) : 0;
+			var miscDamage = v[attr + "-damage-misc"] && !isNaN(parseInt(v[attr + "-damage-misc"], 10)) ? parseInt(v[attr + "-damage-misc"], 10) : 0;
+			
+			var finalDamage =  enh + classDamage + featDamage + miscDamage;
+			update[attr + "-damage"] = finalDamage;
+
+			setAttrs(update);
+		});
 	});
 });
 
-//Damage function
-on("change:weapon-1-enh change:weapon-1-damage-class change:weapon-1-damage-feat change:weapon-1-damage-misc", function() {
-	getAttrs(["weapon-1-enh", "weapon-1-damage-class", "weapon-1-damage-feat", "weapon-1-damage-misc"], function(v){
-		let update = {}
-		let enh = parseInt(v["weapon-1-enh"], 10);
-		let pc_class = parseInt(v["weapon-1-damage-class"], 10);
-		let feat = parseInt(v["weapon-1-damage-feat"], 10);
-		let misc = parseInt(v["weapon-1-damage-misc"], 10);
-		let damage = enh + pc_class + feat + misc;
-		console.log("Damage enh:" + enh)
-		console.log("Damage class:" + pc_class)
-		console.log("Damage feat:" + feat)
-		console.log("Damage misc:" + misc)
-		update["weapon-1-damage"] = damage;
-		setAttrs(update);
-	});
-});
+// //Attack function
+// on("change:weapon-1-prof change:weapon-1-enh change:weapon-1-attack-class change:weapon-1-attack-feat change:weapon-1-attack-misc", function() {
+// 	getAttrs(["weapon-1-prof", "weapon-1-enh", "weapon-1-attack-class", "weapon-1-attack-feat", "weapon-1-attack-misc"], function(v) {
+// 		let update = {}
+// 		let prof = parseInt(v["weapon-1-prof"], 10);
+// 		let enh = parseInt(v["weapon-1-enh"], 10);
+// 		let pc_class = parseInt(v["weapon-1-attack-class"], 10);
+// 		let feat = parseInt(v["weapon-1-attack-feat"], 10);
+// 		let misc = parseInt(v["weapon-1-attack-misc"], 10);
+// 		let attack = prof + enh + pc_class + feat + misc;
+// 		update["weapon-1-attack"] = attack;
+// 		console.log("Attack prof:" + prof)
+// 		console.log("Attack enh:" + enh)
+// 		console.log("Attack class:" + pc_class)
+// 		console.log("Attack feat:" + feat)
+// 		console.log("Attack misc:" + misc)
+
+// 		setAttrs(update);
+// 	});
+// });
+
+// //Damage function
+// on("change:weapon-1-enh change:weapon-1-damage-class change:weapon-1-damage-feat change:weapon-1-damage-misc", function() {
+// 	getAttrs(["weapon-1-enh", "weapon-1-damage-class", "weapon-1-damage-feat", "weapon-1-damage-misc"], function(v){
+// 		let update = {}
+// 		let enh = parseInt(v["weapon-1-enh"], 10);
+// 		let pc_class = parseInt(v["weapon-1-damage-class"], 10);
+// 		let feat = parseInt(v["weapon-1-damage-feat"], 10);
+// 		let misc = parseInt(v["weapon-1-damage-misc"], 10);
+// 		let damage = enh + pc_class + feat + misc;
+// 		console.log("Damage enh:" + enh)
+// 		console.log("Damage class:" + pc_class)
+// 		console.log("Damage feat:" + feat)
+// 		console.log("Damage misc:" + misc)
+// 		update["weapon-1-damage"] = damage;
+// 		setAttrs(update);
+// 	});
+// });
 
 
 on("change:level", function() {
