@@ -4896,34 +4896,26 @@ var filterBlobs = function(blobs, filters) {
 on("clicked:encounter", function() {
 	getSectionIDs("encounters", function(idarray) {
 		var ids = []
+		let update = {}
 		for(var i=0; i < idarray.length; i++) {
 			let powerId = idarray[i];
-			let powerNameId = "repeating_encounters_" + powerId + "_encounter_name";
-
-			getAttrs([powerNameId, "character_name"], function(v) {
-				var powerName = v[powerNameId];
-				console.log(powerName);
-				console.log("repeating_encounters_" + powerId + "_used");
-				});
+			let macroId = "repeating_encounters_" + powerId + "_encounter_macroId";
+			update[macroId] = "repeating_encounters_" + powerId + "_used";
 			};
-
+			setAttrs(update);
 	});
 });
 
 on("clicked:daily", function() {
 	getSectionIDs("dailies", function(idarray) {
 		var ids = []
+		let update = {}
 		for(var i=0; i < idarray.length; i++) {
 			let powerId = idarray[i];
-			let powerNameId = "repeating_dailies_" + powerId + "_daily_name";
-
-			getAttrs([powerNameId], function(v) {
-				var powerName = v[powerNameId];
-				console.log(powerName);
-				console.log("repeating_dailies_" + powerId + "_used");
-			});
+			let macroId = "repeating_dailies_" + powerId + "_daily_macroId";
+			update[macroId] = "repeating_dailies_" + powerId + "_used";
 		};
-
+		setAttrs(update);
 	});
 });
 
