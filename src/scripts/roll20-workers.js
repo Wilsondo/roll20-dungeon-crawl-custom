@@ -297,7 +297,6 @@ on(`change:repeating_inventory:hasattack`, function(eventinfo) {
 
 on(`change:repeating_inventory:useasresource`, function(eventinfo) {
 	if(eventinfo.sourceType && eventinfo.sourceType === "sheetworker") {return;};
-
 	const itemid = eventinfo.sourceAttribute.substring(20, 40);
 	getAttrs([`repeating_inventory_${itemid}_itemresourceid`], function(v) {
 		const useasresource = eventinfo.newValue, itemresourceid = v[`repeating_inventory_${itemid}_itemresourceid`];
@@ -2547,18 +2546,21 @@ var create_resource_from_item = function(itemid) {
 		if(!x.other_resource_name || x.other_resource_name == "") {
 			update["repeating_inventory_" + itemid + "_itemresourceid"] = "other_resource";
 			setAttrs(update, {}, update_resource_from_item(itemid, "other_resource", true));
+			console.log("A")
 		}
 		else {
 			getSectionIDs("repeating_resource", function(idarray) {
 				if(idarray.length == 0) {
 					update["repeating_inventory_" + itemid + "_itemresourceid"] = newrowid + "_resource_left";
 					setAttrs(update, {}, update_resource_from_item(itemid, newrowid + "_resource_left", true));
+					console.log("B")
 				}
 				else {
 					var resource_names = [];
 					_.each(idarray, function(currentID, i) {
 						resource_names.push("repeating_resource_" + currentID + "_resource_left_name");
 						resource_names.push("repeating_resource_" + currentID + "_resource_right_name");
+						console.log("C")
 					});
 
 					getAttrs(resource_names, function(y) {
@@ -2568,16 +2570,19 @@ var create_resource_from_item = function(itemid) {
 								update["repeating_inventory_" + itemid + "_itemresourceid"] = currentID + "_resource_left";
 								setAttrs(update, {}, update_resource_from_item(itemid, currentID + "_resource_left", true));
 								existing = true;
+								console.log("D")
 							}
 							else if((!y["repeating_resource_" + currentID + "_resource_right_name"] || y["repeating_resource_" + currentID + "_resource_right_name"] === "") && existing == false) {
 								update["repeating_inventory_" + itemid + "_itemresourceid"] = currentID + "_resource_right";
 								setAttrs(update, {}, update_resource_from_item(itemid, currentID + "_resource_right", true));
 								existing = true;
+								console.log("E")
 							};
 						});
 						if(!existing) {
 							update["repeating_inventory_" + itemid + "_itemresourceid"] = newrowid + "_resource_left";
 							setAttrs(update, {}, update_resource_from_item(itemid, newrowid + "_resource_left", true));
+							console.log("F")
 						}
 					});
 
@@ -5240,10 +5245,10 @@ on("change:intelligence-mod change:level", function (eventinfo) {
 	getAttrs(["intelligence-mod","level"], function(v) {
 		let stress_top = (parseInt(v["intelligence-mod"], 10)*4) + parseInt(v["level"], 10) + 20;
 		let update = {};
-		update["stress_state_A"] = Math.ceil(stress_top/2) + ": Affliction";
-		update["stress_state_B"] = Math.ceil(stress_top*(3/4)) + ": Affliction";
-		update["stress_state_C"] = Math.ceil(stress_top*(7/8)) + ": Affliction";
-		update["stress_state_D"] = stress_top + ": Breakpoint";
+		update["stress_state_A"] = Math.ceil(stress_top/2) + ": Afflict";
+		update["stress_state_B"] = Math.ceil(stress_top*(3/4)) + ": Afflict";
+		update["stress_state_C"] = Math.ceil(stress_top*(7/8)) + ": Afflict";
+		update["stress_state_D"] = stress_top + ": Break";
 		setAttrs(update);
 	});
 });

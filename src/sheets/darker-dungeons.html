@@ -1581,13 +1581,13 @@
 												<li>
 													<label class="sheet-checkbox">
 														<input type="checkbox" name="attr_stress_state_check_B" value="1" title="@{stress_state_check_B}">
-														<span name="attr_stress_state_B" title="@{stress_state_B}"><strong>30:</strong> Affliction</span>
+														<span name="attr_stress_state_B" title="@{stress_state_B}"></span>
 													</label>
 												</li>
 												<li>
 													<label class="sheet-checkbox">
 														<input type="checkbox" name="attr_stress_state_check_C" value="1" title="@{stress_state_check_C}">
-														<span name="attr_stress_state_C" title="@{stress_state_C}"><strong>35:</strong> Affliction</span>
+														<span name="attr_stress_state_C" title="@{stress_state_C}"></span>
 													</label>
 												</li>
 												<li>
@@ -1878,7 +1878,7 @@
 												<li>
 													<label class="sheet-radio">
 														<input type="radio" name="attr_condition_fatigue" value="6" title="@{condition_fatigue}">
-														<span title="@{condition_fatigue}">Barely awake</span>
+														<span title="@{condition_fatigue}">Exhausted</span>
 													</label>
 												</li>
 											</ul>
@@ -3431,12 +3431,6 @@
 																			<span>Use as a Resource</span>
 																		</label>
 																	</div>
-																	<!-- <div class="sheet-form-group">
-																		<label class="sheet-form-checkbox">
-																			<input type="checkbox" name="attr_hasattack" value="1">
-																			<span>Has an Attack</span>
-																		</label>
-																	</div> -->
 																	<div class="sheet-form-group">
 																		<label class="sheet-form-checkbox">
 																			<input type="checkbox" name="attr_isquick" value="1">
@@ -3524,15 +3518,12 @@
 						<div class="sheet-tab-content">
 							<div class="sheet-container-well sheet-pc-options">
 								<div class="sheet-container-panel sheet-pc-option-class">
-									<div class="sheet-container-header">Class Options (<span name="attr_class"></span>)</div>
+									<div class="sheet-container-header">Defenses</div>
 									<div class="sheet-container-body">
 										<div class="sheet-form sheet-form-borderless">
 											<div class="sheet-form-body">
 												<div class="sheet-form-group">
-													<label><strong>DEFENSES BELOW</strong></label>
-												</div>
-												<div class="sheet-form-group">
-													<label>AC:</label>
+													<label><strong>AC:</strong></label>
 													<span name="attr_ac" title="ac">0</span>
 												</div>
 												<div class="sheet-form-group">
@@ -3560,7 +3551,7 @@
 													<input type="text" name="attr_ac-misc2" placeholder="0" title="@{ac-misc2}">
 												</div>
 												<div class="sheet-form-group">
-													<label>Fort:</label>
+													<label><strong>Fort:</strong></label>
 													<span name="attr_fort" title="fort">0</span>
 												</div>
 												<div class="sheet-form-group">
@@ -3588,7 +3579,7 @@
 													<input type="text" name="attr_fort-misc2" placeholder="0" title="@{fort-misc2}">
 												</div>
 												<div class="sheet-form-group">
-													<label>Reflex:</label>
+													<label><strong>Reflex:</strong></label>
 													<span name="attr_ref" title="ref">0</span>
 												</div>
 												<div class="sheet-form-group">
@@ -3616,16 +3607,16 @@
 													<input type="text" name="attr_ref-misc2" placeholder="0" title="@{ref-misc2}">
 												</div>
 												<div class="sheet-form-group">
-													<label>Will:</label>
+													<label><strong>Will:</strong></label>
 													<span name="attr_will" title="will">0</span>
-												</div>
-												<div class="sheet-form-group">
-													<label>Armor:</label>
-													<input type="text" name="attr_will-armor" placeholder="0" title="@{will-armor}">
 												</div>
 												<div class="sheet-form-group">
 													<label>Ability:</label>
 													<span name="attr_will-ability" title="will-ability">0</span>
+												</div>
+												<div class="sheet-form-group">
+													<label>Armor:</label>
+													<input type="text" name="attr_will-armor" placeholder="0" title="@{will-armor}">
 												</div>
 												<div class="sheet-form-group">
 													<label>Class:</label>
@@ -3829,7 +3820,7 @@
 										<div class="sheet-form sheet-form-borderless">
 											<div class="sheet-form-body">
 												<div class="sheet-form-group">
-													<label>Weapon 1 Attack:</label>
+													<label><strong>Weapon 1 Attack</strong>:</label>
 													<span name="attr_weapon-1-attack" title="weapon-1-attack">0</span>
 												</div>
 												<div class="sheet-form-group">
@@ -3854,7 +3845,7 @@
 												</div>
 
 												<div class="sheet-form-group">
-													<label>Weapon 1 Damage:</label>
+													<label><strong>Weapon 1 Damage:</strong></label>
 													<span name="attr_weapon-1-damage" title="weapon-1-damage">0</span>
 												</div>
 												<div class="sheet-form-group">
@@ -3888,7 +3879,7 @@
 													<span>--------------------------------------------------------------------------------------</span>
 												</div>
 												<div class="sheet-form-group">
-													<label>Weapon 2 Attack:</label>
+													<label><strong>Weapon 2 Attack:</strong></label>
 													<span name="attr_weapon-2-attack" title="weapon-2-attack">0</span>
 												</div>
 												<div class="sheet-form-group">
@@ -3913,7 +3904,7 @@
 												</div>
 
 												<div class="sheet-form-group">
-													<label>Weapon 2 Damage:</label>
+													<label><strong>Weapon 2 Damage:</strong></label>
 													<span name="attr_weapon-2-damage" title="weapon-2-damage">0</span>
 												</div>
 												<div class="sheet-form-group">
