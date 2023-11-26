@@ -1112,6 +1112,8 @@
 											<span name="attr_acrobatics" title="@{acrobatics}">0</span>
 											<button type="roll" name="roll_acrobatics" value="@{wtype}&{template:simple} {{rname=@{acrobatics_attribute} (Acrobatics)}} {{mod=@{acrobatics}}} {{r1=[[@{d20}+@{acrobatics}@{pbd_safe}]]}} @{rtype}+@{acrobatics}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}">Acrobatics</button>
 											<input type="hidden" name="attr_acrobatics_attribute" value="Dexterity">
+											<label>Dex</label>
+
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1121,6 +1123,7 @@
 											<span name='attr_arcana' title='@{arcana}'>0</span>
 											<button type='roll' name='roll_arcana' value='@{wtype}&{template:simple} {{rname=@{arcana_attribute} (Arcana)}} {{mod=@{arcana}}} {{r1=[[@{d20}+@{arcana}@{pbd_safe}]]}} @{rtype}+@{arcana}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Arcana</button>
 											<input type="hidden" name="attr_arcana_attribute" value="Intelligence">
+											<label>Int</label>
 
 										</div>
 										<div class="sheet-pc-skill">
@@ -1131,6 +1134,7 @@
 											<span name='attr_athletics' title='@{athletics}'>0</span>
 											<button type='roll' name='roll_athletics' value='@{wtype}&{template:simple} {{rname=@{athletics_attribute} (Athletics)}} {{mod=@{athletics}}} {{r1=[[@{d20}+@{athletics}@{pbd_safe}]]}} @{rtype}+@{athletics}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Athletics</button>
 											<input type="hidden" name="attr_athletics_attribute" value="Strength">
+											<label>Str</label>
 
 										</div>
 										<div class="sheet-pc-skill">
@@ -1141,6 +1145,7 @@
 											<span name='attr_bluff' title='@{bluff}'>0</span>
 											<button type='roll' name='roll-bluff' value='@{wtype}&{template:simple} {{rname=@{bluff_attribute} (bluff)}} {{mod=@{bluff}}} {{r1=[[@{d20}+@{bluff}@{pbd_safe}]]}} @{rtype}+@{bluff}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Bluff</button>
 											<input type="hidden" name="attr_bluff_attribute" value="Charisma">
+											<label>Cha</label>
 
 										</div>
 										<div class="sheet-pc-skill">
@@ -1151,6 +1156,7 @@
 											<span name='attr_diplomacy' title='@{diplomacy}'>0</span>
 											<button type='roll' name='roll_diplomacy' value='@{wtype}&{template:simple} {{rname=@{diplomacy_attribute} (Diplomacy)}} {{mod=@{diplomacy}}} {{r1=[[@{d20}+@{diplomacy}@{pbd_safe}]]}} @{rtype}+@{diplomacy}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Diplomacy</button>
 											<input type="hidden" name="attr_diplomacy_attribute" value="Charisma">
+											<label>Cha</label>
 
 										</div>
 										<div class="sheet-pc-skill">
@@ -1161,6 +1167,7 @@
 											<span name='attr_dungeoneering' title='@{dungeoneering}'>0</span>
 											<button type='roll' name='roll_dungeoneering' value='@{wtype}&{template:simple} {{rname=@{dungeoneering_attribute} (Dungeoneering)}} {{mod=@{dungeoneering}}} {{r1=[[@{d20}+@{dungeoneering}@{pbd_safe}]]}} @{rtype}+@{dungeoneering}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Dungeoneering</button>
 											<input type="hidden" name="attr_dungeoneering_attribute" value="Wisdom">
+											<label>Wis</label>
 
 										</div>
 										<div class="sheet-pc-skill">
@@ -1171,6 +1178,7 @@
 											<span name='attr_endurance' title='@{endurance}'>0</span>
 											<button type='roll' name='roll_endurance' value='@{wtype}&{template:simple} {{rname=@{endurance_attribute} (Endurance)}} {{mod=@{endurance}}} {{r1=[[@{d20}+@{endurance}@{pbd_safe}]]}} @{rtype}+@{endurance}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Endurance</button>
 											<input type="hidden" name="attr_endurance_attribute" value="Constitution">
+											<label>Con</label>
 
 										</div>
 										<div class="sheet-pc-skill">
@@ -1181,6 +1189,7 @@
 											<span name='attr_heal' title='@{heal}'>0</span>
 											<button type='roll' name='roll_heal' value='@{wtype}&{template:simple} {{rname=@{heal_attribute} (Heal)}} {{mod=@{heal}}} {{r1=[[@{d20}+@{heal}@{pbd_safe}]]}} @{rtype}+@{heal}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Heal</button>
 											<input type="hidden" name="attr_heal_attribute" value="Wisdom">
+											<label>Wis</label>
 
 										</div>
 										<div class="sheet-pc-skill">
@@ -1191,6 +1200,7 @@
 											<span name='attr_history' title='@{history}'>0</span>
 											<button type='roll' name='roll_history' value='@{wtype}&{template:simple} {{rname=@{history_attribute} (History)}} {{mod=@{history}}} {{r1=[[@{d20}+@{history}@{pbd_safe}]]}} @{rtype}+@{history}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>History</button>
 											<input type="hidden" name="attr_history_attribute" value="Intelligence">
+											<label>Int</label>
 
 										</div>
 										<div class="sheet-pc-skill">
@@ -1201,6 +1211,7 @@
 											<span name='attr_insight' title='@{insight}'>0</span>
 											<button type='roll' name='roll_insight' value='@{wtype}&{template:simple} {{rname=@{insight_attribute} (Insight)}} {{mod=@{insight}}} {{r1=[[@{d20}+@{insight}@{pbd_safe}]]}} @{rtype}+@{insight}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Insight</button>
 											<input type="hidden" name="attr_insight_attribute" value="Wisdom">
+											<label>Wis</label>
 
 										</div>
 										<div class="sheet-pc-skill">
@@ -1211,7 +1222,8 @@
 											<span name='attr_intimidate' title='@{intimidate}'>0</span>
 											<button type='roll' name='roll_intimidate' value='@{wtype}&{template:simple} {{rname=@{intimidate_attribute} (Intimidate)}} {{mod=@{intimidate}}} {{r1=[[@{d20}+@{intimidate}@{pbd_safe}]]}} @{rtype}+@{intimidate}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Intimidate</button>
 											<input type="hidden" name="attr_intimidate_attribute" value="Charisma">
-											
+											<label>Cha</label>
+
 										</div>
 										<div class="sheet-pc-skill">
 											<div class="sheet-checkbox-image">
@@ -1221,6 +1233,7 @@
 											<span name='attr_nature' title='@{nature}'>0</span>
 											<button type='roll' name='roll_nature' value='@{wtype}&{template:simple} {{rname=@{nature_attribute} (Nature)}} {{mod=@{nature}}} {{r1=[[@{d20}+@{nature}@{pbd_safe}]]}} @{rtype}+@{nature}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Nature</button>
 											<input type="hidden" name="attr_nature_attribute" value="Wisdom">
+											<label>Wis</label>
 
 										</div>
 										<div class="sheet-pc-skill">
@@ -1231,6 +1244,7 @@
 											<span name='attr_perception' title='@{perception}'>0</span>
 											<button type='roll' name='roll_perception' value='@{wtype}&{template:simple} {{rname=@{perception_attribute} (Perception)}} {{mod=@{perception}}} {{r1=[[@{d20}+@{perception}@{pbd_safe}]]}} @{rtype}+@{perception}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Perception</button>
 											<input type="hidden" name="attr_perception_attribute" value="Wisdom">
+											<label>Wis</label>
 
 										</div>
 										<div class="sheet-pc-skill">
@@ -1241,6 +1255,7 @@
 											<span name='attr_religion' title='@{religion}'>0</span>
 											<button type='roll' name='roll_religion' value='@{wtype}&{template:simple} {{rname=@{religion_attribute} (Religion)}} {{mod=@{religion}}} {{r1=[[@{d20}+@{religion}@{pbd_safe}]]}} @{rtype}+@{religion}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Religion</button>
 											<input type="hidden" name="attr_religion_attribute" value="Intelligence">
+											<label>Int</label>
 
 										</div>
 										<div class="sheet-pc-skill">
@@ -1251,6 +1266,7 @@
 											<span name='attr_stealth' title='@{stealth}'>0</span>
 											<button type='roll' name='roll_stealth' value='@{wtype}&{template:simple} {{rname=@{stealth_attribute} (Stealth)}} {{mod=@{stealth}}} {{r1=[[@{d20}+@{stealth}@{pbd_safe}]]}} @{rtype}+@{stealth}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Stealth</button>
 											<input type="hidden" name="attr_stealth_attribute" value="Dexterity">
+											<label>Dex</label>
 
 										</div>
 										<div class="sheet-pc-skill">
@@ -1261,6 +1277,7 @@
 											<span name='attr_streetwise' title='@{streetwise}'>0</span>
 											<button type='roll' name='roll_streetwise' value='@{wtype}&{template:simple} {{rname=@{streetwise_attribute} (Streetwise)}} {{mod=@{streetwise}}} {{r1=[[@{d20}+@{streetwise}@{pbd_safe}]]}} @{rtype}+@{streetwise}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Streetwise</button>
 											<input type="hidden" name="attr_streetwise_attribute" value="Charisma">
+											<label>Cha</label>
 
 										</div>
 										<div class="sheet-pc-skill sheet-pc-skill-sleight-of-hand">
@@ -1271,6 +1288,7 @@
 											<span name='attr_thievery' title='@{thievery}'>0</span>
 											<button type='roll' name='roll_thievery' value='@{wtype}&{template:simple} {{rname=@{thievery_attribute} (Thievery)}} {{mod=@{thievery}}} {{r1=[[@{d20}+@{thievery}@{pbd_safe}]]}} @{rtype}+@{thievery}@{pbd_safe}]]}} {{global=@{global_skill_mod}}} @{charname_output}'>Thievery</button>
 											<input type="hidden" name="attr_thievery_attribute" value="Dexterity">
+											<label>Dex</label>
 
 										</div>
 									</div>

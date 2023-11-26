@@ -100,6 +100,13 @@
 					margin: 0;
 				}
 
+				label { 		
+					flex-grow: 0;
+					width: 20px;
+					text-align: center;
+					font-weight: bold;
+					font-size: 11px;}
+
 				span {
 					flex-grow: 0;
 					width: 20px;
@@ -162,6 +169,17 @@
 					border: none;
 					flex-grow: 1;
 					color: #b3b3b3;
+				}
+				label {
+					margin: 0;
+					padding: 0;
+					height: 18px;
+					font-size: 11px;
+					width: 5rem;
+					border: none;
+					flex-grow: 1;
+					color: #b3b3b3;
+					text-align: right;
 				}
 
 				&.sheet-pc-skill-animal-handling button {
