@@ -95,6 +95,7 @@ on("sheet:compendium-drop", function() {
 	on(`change:${attr} change:level`, function() {
 		update_mod(`${attr}`);
 		update_attr_mod_level(`${attr}`);
+		update_initiative();
 
 
 		// const cap = attr.charAt(0).toUpperCase() + attr.slice(1);
@@ -102,8 +103,7 @@ on("sheet:compendium-drop", function() {
 
 		(attr === "strength") ? update_weight() : false;
 		(attr === "constitution") ? update_weight() : false;
-		(attr === "dexterity") ? update_initiative() : false;
-		(attr === "intelligence") ? update_initiative() : false;
+
 
 
 		(attr === "strength" || attr == "constitution") ? update_fortitude_ability() : false;
@@ -498,7 +498,7 @@ on("change:jack_of_all_trades", function(eventinfo) {
 	update_all_ability_checks();
 });
 
-on("change:initmod change:init_tiebreaker change:use_intelligent_initiative", function(eventinfo) {
+on("change:initmod change:init_tiebreaker change:initiative_attribute", function(eventinfo) {
 	if(eventinfo.sourceType && eventinfo.sourceType === "sheetworker") {
 		return;
 	}
@@ -3678,7 +3678,7 @@ var update_weight = function() {
 // };
 
 var update_initiative = function() {
-	var attrs_to_get = ["dexterity","dexterity-mod","intelligence-mod","initmod","jack_of_all_trades","jack","init_tiebreaker","pb_type","use_intelligent_initiative", "halflevel", "init-item", "init-feat", "init-misc"];
+	var attrs_to_get = ["dexterity","dexterity-mod","intelligence-mod","strength-mod","constitution-mod","wisdom-mod","charisma-mod","initmod","jack_of_all_trades","jack","init_tiebreaker","pb_type","initiative_attribute", "halflevel", "init-item", "init-feat", "init-misc"];
 	// getSectionIDs("repeating_inventory", function(idarray){
 		// _.each(idarray, function(currentID, i) {
 		// 	attrs_to_get.push("repeating_inventory_" + currentID + "_equipped");
@@ -3686,10 +3686,23 @@ var update_initiative = function() {
 		// });
 		getAttrs(attrs_to_get, function(v) {
 			var update = {};
-			var final_init = parseInt(v["dexterity-mod"], 10);
-			if(v["use_intelligent_initiative"] && v["use_intelligent_initiative"] != 0) {
-				final_init = parseInt(v["intelligence-mod"], 10);
+			var initiative_attribute = v["initiative_attribute"];
+			if(initiative_attribute == "no"){
+				update["initiative_bonus"] = 0;
+				update["initiative"] = 0;
+				setAttrs(update, {silent: true});
+				return;
 			}
+			var initiative_attribute = v["initiative_attribute"] + "-mod";
+
+			// var final_init = parseInt(v["dexterity-mod"], 10);
+			var final_init = parseInt(v[initiative_attribute], 10);
+
+
+
+			// if(v["use_intelligent_initiative"] && v["use_intelligent_initiative"] != 0) {
+			// 	final_init = parseInt(v["intelligence-mod"], 10);
+			// }
 
 			if(v["initmod"] && !isNaN(parseInt(v["initmod"], 10))) {
 				final_init = final_init + parseInt(v["initmod"], 10);

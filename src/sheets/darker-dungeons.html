@@ -4199,11 +4199,23 @@
 														<span>Show Survival Conditions</span>
 													</label>
 												</div>
-												<div class="sheet-form-group">
+												<!-- <div class="sheet-form-group">
 													<label class="sheet-form-checkbox" title="@{use_intelligent_initiative}">
 														<input type="checkbox" name="attr_use_intelligent_initiative" value="1" checked="checked">
 														<span>Use Intelligence for Initiative</span>
 													</label>
+												</div> -->
+												<div class="sheet-form-group">
+													<label>Attribute for Initiative</label>
+													<select name="attr_initiative_attribute" title="@{initiative_attribute}">
+														<option value="strength">Strength</option>
+														<option value="dexterity" selected="selected">Dexterity</option>
+														<option value="constitution">Constitution</option>
+														<option value="wisdom">Wisdom</option>
+														<option value="intelligence">Intelligence</option>
+														<option value="charisma">Charisma</option>
+														<option value="no">Do Not Track</option>
+													</select>
 												</div>
 												<div class="sheet-form-group">
 													<label class="sheet-form-checkbox" title="@{use_inventory_slots}">
