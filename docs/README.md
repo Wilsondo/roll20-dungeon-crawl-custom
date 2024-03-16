@@ -11,7 +11,7 @@ The original sheet was created by the talented Giffyglyph, and can be found at [
 * Powers are found on the core page, clicking them gives you a link to the power in the 4e encylopedia. To use your power, you must click on your token and use a token macro. This will also update the checkmark on the core page to tell you if you still have that power available.
 * As all powers are used through macros, prior setup on level up is required, and is generally done by the DM.
 
-![Roll20 Character](./img/example-character.jpg)
+![Roll 20 Character](img/example-character.PNG)
 
 ## Getting Started
 
