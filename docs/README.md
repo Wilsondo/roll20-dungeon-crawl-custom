@@ -1,34 +1,25 @@
-![Roll20 Social Banner](./img/roll20-banner.jpg)
-
 # Foundry Quick Quest
+The original sheet was created by the talented Giffyglyph, and can be found at [Giffyglyph's Darker Dungeons](https://github.com/giffyglyph/giffyglyphs-darker-dungeons). This character sheet has been modified to support a homebrew version of Dungeons and Dragons 4e with elements from Torchbearer.
 
-[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
-[![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dgiffyglyph%26type%3Dpatrons&style=flat-square)](https://patreon.com/giffyglyph)
-[![Twitter](https://img.shields.io/twitter/follow/giffyglyph?color=%231DA1F2&style=flat-square)](http://twitter.com/giffyglyph)
-[![Twitch](https://img.shields.io/twitch/status/giffyglyph?color=%23a45ee5&style=flat-square)](http://twitch.tv/giffyglyph)
+## Differences Between This Sheet and Giffyglyph's
 
-Want to play [Giffyglyph's Darker Dungeons](https://github.com/giffyglyph/giffyglyphs-darker-dungeons) in [Roll 20](https://roll20.net/)? No worries—**Giffyglyph's Roll20 Darker Dungeons** has you covered with a new, fully-featured character sheet!
+* The character sheet is designed to work with PC's only, NPC's use simple character tokens and macros.
+* The game is run using the Dungeons and Dragons 4e game engine, not 5e.
+* Wounds, survival conditions, and stress remain, but instead of exhaustion, you lose maximum healing surges.
+* The features page now includes space for a goal, belief, creed, flaws and instinct, these have impact on how you play your character mechanically.
+* Notes has been folded into features, and spells have been removed because of how 4e handles powers.
+* Powers are found on the core page, clicking them gives you a link to the power in the 4e encylopedia. To use your power, you must click on your token and use a token macro. This will also update the checkmark on the core page to tell you if you still have that power available.
+* As all powers are used through macros, prior setup on level up is required, and is generally done by the DM.
 
-* [Read the Changelog](https://github.com/giffyglyph/roll20-5e-darker-dungeons/blob/master/docs/CHANGELOG.md) 
-
-## Features
-
-* A new character sheet and NPC sheet.
-* 6 carefully laid-out tabs, panels, and options.
-* Full compatibility with any D&D 5e game.
-* Wounds, survival conditions, and stress.
-* Easy equipment tracking using either weight or inventory slots.
-* Options to toggle individual DARKER DUNGEONS modules on and off.
-* Full drag-and-drop compendium support.
-* NPC support.
-* And more.
-
-![Roll20 Character](./img/roll20-character.jpg)
+![Roll20 Character](./img/example-character.jpg)
 
 ## Getting Started
 
-To use this character sheet in your Roll20 D&D 5e game, search for **D&D 5e (Darker Dungeons)** in the roll20 sheet list.
+Roll20 requires a pro subscription to use custome character sheets, be sure to have one if you want to try this sheet out. 
+
+To use this character sheet in your Roll20 D&D 4e game, you must download darker-dungeons.html, darker-dungeons.css and translations.json files from releases.
+
+Then go to Roll20 and make a new game. When the game asks for what character sheet you want to use, select custom and upload the 3 files.
 
 ## Code Contributions
 
@@ -45,26 +36,6 @@ This project contains source code and build scripts to generate both development
 2. Run "gulp" to build the dev/live sheets from source and automatically watch for any file changes.
 3. To test locally: open _dist/dev/darker-dungeons.html_.
 4. To upload to Roll20: copy _dist/live/darker-dungeon.css_ and _dist/live/darker-dungeon.html_ to Roll20.
-
-## Roadmap
-
-To see what's being worked on right now—and what may be planned for the future—check out the **[projects board](https://github.com/giffyglyph/roll20-5e-darker-dungeons/projects)**.
-
-## Bugs and Feature Suggestions
-
-If you notice a bug or have a feature suggestion, visit the **[issue board](https://github.com/giffyglyph/roll20-5e-darker-dungeons/issues)** and open a ticket. Please make sure to be as thorough as possible in your report and attach screenshots where appropriate, as low-effort tickets may be closed out-of-hand.
-
-## Support
-
-[![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dgiffyglyph%26type%3Dpatrons&style=flat-square)](https://patreon.com/giffyglyph)
-[![Twitter](https://img.shields.io/twitter/follow/giffyglyph?color=%231DA1F2&style=flat-square)](http://twitter.com/giffyglyph)
-[![Twitch](https://img.shields.io/twitch/status/giffyglyph?color=%23a45ee5&style=flat-square)](http://twitch.tv/giffyglyph)
-
-If you'd like to see more from this module in future, please consider [becoming a patron](https://www.patreon.com/giffyglyph). You can also find more of my work at:
-
-* [giffyglyph.com](https://giffyglyph.com)
-* [twitter](https://twitter.com/giffyglyph)
-* [twitch.tv/giffyglyph](https://twitch.tv/giffyglyph)
 
 ## Licensing
 
